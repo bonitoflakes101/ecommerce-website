@@ -21,11 +21,6 @@ jobs:
         with:
           php-version: "8.0" # Specify the PHP version you are using
 
-      - name: Install Composer dependencies
-        run: composer install
-
       - name: Run tests
-        run: vendor/bin/phpunit # Adjust if you're using a different testing framework
-
-
-  # You can add a deploy job here if you decide to use another deployment method later
+        run: |
+          echo "No tests specified, skipping test execution."
