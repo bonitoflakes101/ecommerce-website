@@ -27,15 +27,5 @@ jobs:
       - name: Run tests
         run: vendor/bin/phpunit # Adjust if you're using a different testing framework
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main' # Only deploy on pushes to main branch
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server
-        run: |
-          ssh user@yourserver.com 'cd /path/to/your/project && git pull origin main'
+  # You can add a deploy job here if you decide to use another deployment method later
