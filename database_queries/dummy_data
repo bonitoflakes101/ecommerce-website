@@ -1,0 +1,46 @@
+-- Customer Table
+INSERT INTO Customer (FirstName, LastName, Email, Username, Password) VALUES
+('John', 'Doe', 'john.doe@example.com', 'johndoe', 'password123'),
+('Jane', 'Smith', 'jane.smith@example.com', 'janesmith', 'password456'),
+('Alice', 'Johnson', 'alice.johnson@example.com', 'alicej', 'password789'),
+('Bob', 'Brown', 'bob.brown@example.com', 'bobb', 'password101');
+
+-- Product Table
+INSERT INTO Product (ProductName, Description, Price, Stock, Category) VALUES
+('Laptop', 'High-performance laptop', 1200.00, 10, 'Electronics'),
+('Smartphone', 'Latest model smartphone', 800.00, 25, 'Electronics'),
+('Headphones', 'Noise-cancelling headphones', 200.00, 30, 'Accessories'),
+('Monitor', '27-inch 4K monitor', 600.00, 15, 'Electronics');
+
+
+-- Admin Table
+INSERT INTO Admin (Username, Password) VALUES
+('admin', 'admin123'),
+('manager', 'manager123');
+
+-- Order Table
+INSERT INTO `Order` (OrderDate, Status, EstimatedDeliveryDate, CustomerID, AdminID) VALUES
+(NOW(), 'Pending', DATE_ADD(NOW(), INTERVAL 3 DAY), 1, 1),
+(NOW(), 'Confirmed', DATE_ADD(NOW(), INTERVAL 5 DAY), 2, 1),
+(NOW(), 'Cancelled', DATE_ADD(NOW(), INTERVAL 2 DAY), 3, 2);
+
+-- OrderItem Table
+INSERT INTO OrderItem (OrderID, ProductID, Quantity, Price) VALUES
+(1, 1, 1, 1200.00),  -- Order for 1 Laptop
+(1, 3, 2, 200.00),  -- Order for 2 Headphones
+(2, 2, 1, 800.00),  -- Order for 1 Smartphone
+(2, 4, 1, 600.00),  -- Order for 1 Monitor
+(3, 1, 1, 1200.00);  -- Order for 1 Laptop (Cancelled)
+
+-- Cart Table
+INSERT INTO Cart (CustomerID) VALUES
+(1),  -- Cart for John Doe
+(2),  -- Cart for Jane Smith
+(3);  -- Cart for Alice Johnson
+
+-- CartItem Table
+INSERT INTO CartItem (CartID, ProductID, Quantity) VALUES
+(1, 2, 1),  -- John Doe has 1 Smartphone in his cart
+(1, 4, 1),  -- John Doe has 1 Monitor in his cart
+(2, 1, 2),  -- Jane Smith has 2 Laptops in her cart
+(3, 3, 3);  -- Alice Johnson has 3 Headphones in her cart
