@@ -73,37 +73,23 @@
 
         <h2>Featured Products</h2>
         <div class="product-list">
-            <div class="product-item">
-                <h3>Product 1</h3>
-                <p>Description of Product 1</p>
-                <p>Price: $19.99</p>
-                <p>Stock: Available</p>
-                <a href="products.html?id=1" class="btn">View Product</a>
-            </div>
+            <?php
+            require 'includes/db_config.php';
 
-            <div class="product-item">
-                <h3>Product 2</h3>
-                <p>Description of Product 2</p>
-                <p>Price: $29.99</p>
-                <p>Stock: Available</p>
-                <a href="products.html?id=2" class="btn">View Product</a>
-            </div>
+            $sql = "SELECT * FROM Product";
+            $stmt = $pdo->query($sql);
 
-            <div class="product-item">
-                <h3>Product 3</h3>
-                <p>Description of Product 3</p>
-                <p>Price: $39.99</p>
-                <p>Stock: Out of Stock</p>
-                <a href="products.html?id=3" class="btn">View Product</a>
-            </div>
 
-            <div class="product-item">
-                <h3>Product 4</h3>
-                <p>Description of Product 4</p>
-                <p>Price: $49.99</p>
-                <p>Stock: Available</p>
-                <a href="products.html?id=4" class="btn">View Product</a>
-            </div>
+            while ($row = $stmt->fetch()) {
+                echo '<div class="product-item">';
+                echo '<h3>' . htmlspecialchars($row['ProductName']) . '</h3>';
+                echo '<p>' . htmlspecialchars($row['Description']) . '</p>';
+                echo '<p>Price: $' . htmlspecialchars($row['Price']) . '</p>';
+                echo '<p>Stock: ' . htmlspecialchars($row['Stock']) . '</p>';
+                echo '<a href="products.html?id=' . htmlspecialchars($row['ProductID']) . '" class="btn">View Product</a>';
+                echo '</div>';
+            }
+            ?>
         </div>
     </main>
 
