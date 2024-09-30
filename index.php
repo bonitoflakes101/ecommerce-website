@@ -25,6 +25,25 @@
             color: #333;
         }
 
+        .auth-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
         .product-list {
             display: flex;
             flex-wrap: wrap;
@@ -41,18 +60,6 @@
             text-align: center;
         }
 
-        .btn {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .btn:hover {
-            background-color: #218838;
-        }
-
         footer {
             text-align: center;
             padding: 10px 0;
@@ -66,7 +73,10 @@
 <body>
     <header>
         <h1>Welcome to Our eCommerce Store</h1>
-        <a href="pages/register.php" class="btn">Register Now</a>
+        <div class="auth-buttons">
+            <a href="pages/login.php" class="btn">Login</a>
+            <a href="pages/register.php" class="btn">Register Now</a>
+        </div>
     </header>
 
     <main>
@@ -80,14 +90,13 @@
             $sql = "SELECT * FROM Product";
             $stmt = $pdo->query($sql);
 
-
             while ($row = $stmt->fetch()) {
                 echo '<div class="product-item">';
                 echo '<h3>' . htmlspecialchars($row['ProductName']) . '</h3>';
                 echo '<p>' . htmlspecialchars($row['Description']) . '</p>';
                 echo '<p>Price: $' . htmlspecialchars($row['Price']) . '</p>';
                 echo '<p>Stock: ' . htmlspecialchars($row['Stock']) . '</p>';
-                echo '<a href="products.html?id=' . htmlspecialchars($row['ProductID']) . '" class="btn">View Product</a>';
+                echo '<a href="pages/login.php?redirect=products.html&id=' . htmlspecialchars($row['ProductID']) . '" class="btn">View Product</a>';
                 echo '</div>';
             }
             ?>
