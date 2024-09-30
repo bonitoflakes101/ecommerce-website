@@ -78,9 +78,12 @@ session_start();
     <header>
         <h1>Welcome to Our eCommerce Store</h1>
 
+        <!-- checks if naka log-in  na -->
         <?php if (isset($_SESSION['Username'])): ?>
             <p>Hello, <?php echo htmlspecialchars($_SESSION['Username']); ?>!</p>
             <a href="pages/logout.php" class="btn">Logout</a>
+
+            <!-- if walang naka log-in, continue as guest -->
         <?php else: ?>
             <div class="auth-buttons">
                 <a href="pages/login.php" class="btn">Login</a>
@@ -89,6 +92,7 @@ session_start();
         <?php endif; ?>
     </header>
 
+    <!-- mema products, soon to be implemented -->
     <main>
         <h2>Find the best products at the best prices!</h2>
 
