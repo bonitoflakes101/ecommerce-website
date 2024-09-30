@@ -66,6 +66,7 @@
 <body>
     <header>
         <h1>Welcome to Our eCommerce Store</h1>
+        <a href="pages/register.php" class="btn">Register Now</a>
     </header>
 
     <main>
