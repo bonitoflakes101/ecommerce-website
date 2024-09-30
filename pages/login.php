@@ -141,8 +141,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="login-container">
         <h2>Login to Your Account</h2>
 
-        <?php if (!empty($error)) : ?>
-            <p class="error-message"><?php echo $error; ?></p>
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <p style="color: green;"><?php echo htmlspecialchars($_SESSION['success_message']); ?></p>
+            <?php unset($_SESSION['success_message']); // Clear the message after displaying 
+            ?>
+        <?php endif; ?>
+
+        <?php if (isset($error) && !empty($error)): ?>
+            <p style="color: red;"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>
 
         <form action="" method="POST">
@@ -152,8 +158,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class='btn'>Login</button>
         </form>
+
+
+
 
         <div class="register-link">
             <p>Don't have an account? <a href="register.php">Register here</a>.</p>

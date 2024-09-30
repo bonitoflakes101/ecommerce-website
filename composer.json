@@ -1,0 +1,17 @@
+{
+    "name": "xiang/ecommerce-website",
+    "autoload": {
+        "psr-4": {
+            "Xiang\\EcommerceWebsite\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "bonitoflakes101",
+            "email": "xgrendonila2020@plm.edu.ph"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
