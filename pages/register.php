@@ -1,5 +1,12 @@
 <?php
+session_start();
 require '../includes/db_config.php';
+require '../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
 
 $errors = [];
 
@@ -10,12 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    // check if all fields are filled
+
     if (empty($firstName) || empty($lastName) || empty($email) || empty($username) || empty($password)) {
         $errors[] = "All fields are required.";
     }
 
-    // validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email format.";
     }
@@ -24,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = "Password must be at least 8 characters long.";
     }
 
-    // Check for duplicate username
+
     if (empty($errors)) {
         $checkUsername = $pdo->prepare("SELECT * FROM Customer WHERE Username = :username");
         $checkUsername->execute([':username' => $username]);
@@ -34,24 +40,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+
+    if (empty($errors)) {
+        $checkEmail = $pdo->prepare("SELECT * FROM Customer WHERE Email = :email");
+        $checkEmail->execute([':email' => $email]);
+
+        if ($checkEmail->rowCount() > 0) {
+            $errors[] = "Email already registered. Please choose another.";
+        }
+    }
+
     // If no error, then insert into db
     if (empty($errors)) {
-        // random id
-        $newCustomerID = mt_rand(1000, 9999); // Adjust the range as needed
+        $newCustomerID = mt_rand(1000, 9999);
 
-        // checks if may dupe
-        $checkID = $pdo->prepare("SELECT * FROM Customer WHERE CustomerID = :customer_id");
-        $checkID->execute([':customer_id' => $newCustomerID]);
-
-        while ($checkID->rowCount() > 0) {
-            $newCustomerID = mt_rand(1000, 9999); // regenerate if may dupe
-            $checkID->execute([':customer_id' => $newCustomerID]);
-        }
-
+        // insert the user into the database
         $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password) 
-                VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
+VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
         $stmt = $pdo->prepare($sql);
-
         $result = $stmt->execute([
             ':customer_id' => $newCustomerID,
             ':first_name' => $firstName,
@@ -62,13 +68,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         if ($result) {
-            echo "Registration successful! You can now log-in!";
-        } else {
-            $errors[] = "An error occurred during registration. Please try again.";
+            // random otp
+            $otp = random_int(100000, 999999);
+
+            // Store the OTP and its expiry time (5 minutes) (FIX THE EXPIRY TIME!!)
+            $expiryTime = date('Y-m-d H:i:s', strtotime('+5 minutes'));
+            $updateSQL = "UPDATE Customer SET OTP = :otp, OTP_Expiry = :otp_expiry WHERE CustomerID = :customer_id";
+            $updateStmt = $pdo->prepare($updateSQL);
+            $updateStmt->execute([
+                ':otp' => $otp,
+                ':otp_expiry' => $expiryTime,
+                ':customer_id' => $newCustomerID
+            ]);
+
+            // prepare email for sending
+            try {
+
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'xiangendonila@gmail.com';            // your email
+                $mail->Password = 'ylwiokagsdabaqye';                    // app password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+                $mail->SMTPDebug = 0;
+
+                // Recipients
+                $mail->setFrom('xiangendonilax@gmail.com', 'Mailer');    // sender
+                $mail->addAddress($email, 'User');                        // recipient
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Your OTP for Account Verification';
+                $mail->Body = "Your OTP is: $otp. It will expire in 5 minutes.";
+
+                $mail->send();
+
+                // stores email value para magamit ng verify_otp
+                $_SESSION['email'] = $email;
+                header("Location: verify_otp.php");
+                exit;
+            } catch (Exception $e) {
+                $errors[] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
         }
     }
 }
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
