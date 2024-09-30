@@ -5,8 +5,12 @@ CREATE TABLE Customer (
     LastName VARCHAR(100) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
     Username VARCHAR(100) NOT NULL UNIQUE,
-    Password VARCHAR(255) NOT NULL
+    Password VARCHAR(255) NOT NULL,
+    verification_token VARCHAR(255) NULL,
+    IsConfirmed TINYINT(1) DEFAULT 0
 );
+
+
 
 -- Product Table
 CREATE TABLE Product (
