@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,10 +77,16 @@
 <body>
     <header>
         <h1>Welcome to Our eCommerce Store</h1>
-        <div class="auth-buttons">
-            <a href="pages/login.php" class="btn">Login</a>
-            <a href="pages/register.php" class="btn">Register Now</a>
-        </div>
+
+        <?php if (isset($_SESSION['Username'])): ?>
+            <p>Hello, <?php echo htmlspecialchars($_SESSION['Username']); ?>!</p>
+            <a href="pages/logout.php" class="btn">Logout</a>
+        <?php else: ?>
+            <div class="auth-buttons">
+                <a href="pages/login.php" class="btn">Login</a>
+                <a href="pages/register.php" class="btn">Register Now</a>
+            </div>
+        <?php endif; ?>
     </header>
 
     <main>
