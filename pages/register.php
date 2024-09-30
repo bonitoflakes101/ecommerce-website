@@ -10,22 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    //  checks if all fields are filled
+    // check if all fields are filled
     if (empty($firstName) || empty($lastName) || empty($email) || empty($username) || empty($password)) {
         $errors[] = "All fields are required.";
     }
 
-    // dapat valid email format
+    // validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email format.";
     }
 
-    // pw is valid email format
     if (strlen($password) < 8) {
         $errors[] = "Password must be at least 8 characters long.";
     }
 
-    // checks if may duplicate
+    // Check for duplicate username
     if (empty($errors)) {
         $checkUsername = $pdo->prepare("SELECT * FROM Customer WHERE Username = :username");
         $checkUsername->execute([':username' => $username]);
@@ -35,11 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // if no error then insert into db
+    // If no error, then insert into db
     if (empty($errors)) {
-        $getMaxID = $pdo->query("SELECT MAX(CustomerID) AS max_id FROM Customer");
-        $row = $getMaxID->fetch(PDO::FETCH_ASSOC);
-        $newCustomerID = $row['max_id'] ? $row['max_id'] + 1 : 5;
+        // random id
+        $newCustomerID = mt_rand(1000, 9999); // Adjust the range as needed
+
+        // checks if may dupe
+        $checkID = $pdo->prepare("SELECT * FROM Customer WHERE CustomerID = :customer_id");
+        $checkID->execute([':customer_id' => $newCustomerID]);
+
+        while ($checkID->rowCount() > 0) {
+            $newCustomerID = mt_rand(1000, 9999); // regenerate if may dupe
+            $checkID->execute([':customer_id' => $newCustomerID]);
+        }
 
         $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password) 
                 VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
