@@ -1,5 +1,7 @@
 {
     "name": "xiang/ecommerce-website",
+    "description": "A PHP eCommerce website that uses PHPMailer for email functionality.",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "Xiang\\EcommerceWebsite\\": "src/"
