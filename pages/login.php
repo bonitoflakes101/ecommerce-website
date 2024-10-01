@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit;
             }
 
-            // 3.) if both wala, then show error message
+            // 3.) if both wala, thenshow error message
             $error = "Invalid username or password.";
         } else {
             $error = "Password must be provided.";
