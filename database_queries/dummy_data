@@ -15,7 +15,7 @@ INSERT INTO Product (ProductName, Description, Price, Stock, Category) VALUES
 
 -- Admin Table
 INSERT INTO Admin (Username, Password) VALUES
-('admin', 'admin123'),
+('admin', 'admin'),
 ('manager', 'manager123');
 
 -- Order Table

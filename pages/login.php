@@ -17,35 +17,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute(['username' => $username]);
         $customer = $stmt->fetch();
 
-        if ($customer) {
+        if ($password) { // check if may pw
 
-            if ($password === $customer['Password']) {
+            // 1.) check if admin
+            $sql_admin = "SELECT AdminID, Username, Password FROM Admin WHERE Username = :username";
+            $stmt_admin = $pdo->prepare($sql_admin);
+            $stmt_admin->execute(['username' => $username]);
+            $admin = $stmt_admin->fetch();
 
-                $_SESSION['CustomerID'] = $customer['CustomerID']; // stores user info
+            // check if tama
+            if ($admin && $password === $admin['Password']) {
+                $_SESSION['AdminID'] = $admin['AdminID'];
+                $_SESSION['AdminUsername'] = $admin['Username'];
+
+                header("Location: admin.php"); // to admin page
+                exit;
+            }
+
+            // 2.) If admin not found, check for Customer credentials
+            $sql_customer = "SELECT CustomerID, Username, Password FROM Customer WHERE Username = :username";
+            $stmt_customer = $pdo->prepare($sql_customer);
+            $stmt_customer->execute(['username' => $username]);
+            $customer = $stmt_customer->fetch();
+
+            // check if tama
+            if ($customer && $password === $customer['Password']) {
+                $_SESSION['CustomerID'] = $customer['CustomerID'];
                 $_SESSION['Username'] = $customer['Username'];
 
-                header("Location: ../index.php"); // to  homepage, dapat mawala 
+                header("Location: ../index.php"); // to homepage
                 exit;
-            } else {
-                $sql_admin = "SELECT AdminID, Username, Password FROM Admin WHERE Username = :username";
-                $stmt_admin = $pdo->prepare($sql_admin);
-                $stmt_admin->execute(['username' => $username]);
-                $admin = $stmt_admin->fetch();
-
-                if ($admin && $password === $admin['Password']) {
-
-                    $_SESSION['AdminID'] = $admin['AdminID'];
-                    $_SESSION['AdminUsername'] = $admin['Username'];
-
-
-                    header("Location: admin.php"); // to admin page
-                    exit;
-                } else {
-                    $error = "Invalid username or password.";
-                }
             }
-        } else {
+
+            // 3.) if both wala, then show error message
             $error = "Invalid username or password.";
+        } else {
+            $error = "Password must be provided.";
         }
     }
 }
@@ -143,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <?php if (isset($_SESSION['success_message'])): ?>
             <p style="color: green;"><?php echo htmlspecialchars($_SESSION['success_message']); ?></p>
-            <?php unset($_SESSION['success_message']); // Clear the message after displaying 
+            <?php unset($_SESSION['success_message']); //clears
             ?>
         <?php endif; ?>
 
