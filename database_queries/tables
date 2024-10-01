@@ -21,7 +21,10 @@ CREATE TABLE Product (
     Description TEXT,
     Price DECIMAL(10, 2) NOT NULL,
     Stock INT NOT NULL,
-    Category VARCHAR(100)
+    Category VARCHAR(100),
+    ProductImages VARCHAR(255),  
+    Sales INT DEFAULT 0,          
+    DateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
 );
 
 -- Admin Table
