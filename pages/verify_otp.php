@@ -2,6 +2,12 @@
 session_start();
 require '../includes/db_config.php';
 
+// para hindi ma-access by url
+if (!isset($_SESSION['email'])) {
+    header("Location: login.php");
+    exit;
+}
+
 $errors = [];
 $successMessage = '';
 
@@ -40,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify OTP</title>
     <script>
-        // Function to show an alert on successful verification
+        // function to show an alert on successful verification
         function showSuccessMessage() {
             alert("Your account has been successfully verified!");
         }
@@ -58,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php endif; ?>
 
     <?php if ($successMessage): ?>
-        <p><?php echo htmlspecialchars($successMessage); ?></p> <!-- Sanitize output -->
+        <p><?php echo htmlspecialchars($successMessage); ?></p> <!-- sanitize output -->
         <script>
-            // Call the function to show the success message
+            // call the function to show the success message
             showSuccessMessage();
         </script>
         <a href="login.php">Go to Login</a>

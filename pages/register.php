@@ -17,20 +17,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-
+    // Check for empty fields
     if (empty($firstName) || empty($lastName) || empty($email) || empty($username) || empty($password)) {
         $errors[] = "All fields are required.";
     }
 
+    // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email format.";
     }
 
+    // Validate password criteria
     if (strlen($password) < 8) {
         $errors[] = "Password must be at least 8 characters long.";
     }
+    if (!preg_match("/[A-Z]/", $password)) {
+        $errors[] = "Password must contain at least one uppercase letter.";
+    }
+    if (!preg_match("/[a-z]/", $password)) {
+        $errors[] = "Password must contain at least one lowercase letter.";
+    }
+    if (!preg_match("/[0-9]/", $password)) {
+        $errors[] = "Password must contain at least one number.";
+    }
+    if (!preg_match("/[\W_]/", $password)) {
+        $errors[] = "Password must contain at least one special character.";
+    }
 
-
+    // Check if username is taken
     if (empty($errors)) {
         $checkUsername = $pdo->prepare("SELECT * FROM Customer WHERE Username = :username");
         $checkUsername->execute([':username' => $username]);
@@ -40,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-
+    // Check if email is already registered
     if (empty($errors)) {
         $checkEmail = $pdo->prepare("SELECT * FROM Customer WHERE Email = :email");
         $checkEmail->execute([':email' => $email]);
@@ -50,11 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // If no error, then insert into db
+    // If no errors, then insert into the database
     if (empty($errors)) {
         $newCustomerID = mt_rand(1000, 9999);
 
-        // insert the user into the database
+        // Insert the user into the database without hashing the password
         $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password) 
 VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
         $stmt = $pdo->prepare($sql);
@@ -64,14 +78,14 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
             ':last_name' => $lastName,
             ':email' => $email,
             ':username' => $username,
-            ':password' => $password
+            ':password' => $password // Store the plain text password
         ]);
 
         if ($result) {
-            // random otp
+            // Generate a random OTP
             $otp = random_int(100000, 999999);
 
-            // Store the OTP and its expiry time (5 minutes) (FIX THE EXPIRY TIME!!)
+            // Store the OTP and its expiry time (5 minutes)
             $expiryTime = date('Y-m-d H:i:s', strtotime('+5 minutes'));
             $updateSQL = "UPDATE Customer SET OTP = :otp, OTP_Expiry = :otp_expiry WHERE CustomerID = :customer_id";
             $updateStmt = $pdo->prepare($updateSQL);
@@ -81,21 +95,21 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
                 ':customer_id' => $newCustomerID
             ]);
 
-            // prepare email for sending
+            // Prepare email for sending
             try {
-
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'xiangendonila@gmail.com';            // your email
-                $mail->Password = 'ylwiokagsdabaqye';                    // app password
+                $mail->Username = 'xiangendonila@gmail.com'; // your email
+                $mail->Password = 'ylwiokagsdabaqye';     // app password
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
                 $mail->SMTPDebug = 0;
 
                 // Recipients
-                $mail->setFrom('xiangendonilax@gmail.com', 'Mailer');    // sender
-                $mail->addAddress($email, 'User');                        // recipient
+                $mail->setFrom('xiangendonilax@gmail.com', 'Reset Password');
+                $mail->addAddress($email, 'User');
+
 
                 // Content
                 $mail->isHTML(true);
@@ -104,7 +118,7 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
 
                 $mail->send();
 
-                // stores email value para magamit ng verify_otp
+                // Store email value for use in verify_otp
                 $_SESSION['email'] = $email;
                 header("Location: verify_otp.php");
                 exit;
@@ -115,6 +129,7 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
     }
 }
 ?>
+
 
 
 
