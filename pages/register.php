@@ -33,11 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = "Email already registered.";
     }
 
-    // If no errors, then insert into the database
     if (empty($errors)) {
         $newCustomerID = mt_rand(1000, 9999);
 
-        // Insert the user into the database without hashing the password
         $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password) 
                 VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
         $stmt = $pdo->prepare($sql);
@@ -47,14 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':last_name' => $lastName,
             ':email' => $email,
             ':username' => $username,
-            ':password' => $password // Store the plain text password
+            ':password' => $password
         ]);
 
         if ($result) {
-            // Generate a random OTP
             $otp = random_int(100000, 999999);
 
-            // Store the OTP and its expiry time (5 minutes)
+            // FIX EXPIRY TIME, NOT WORKING LMAO
             $expiryTime = date('Y-m-d H:i:s', strtotime('+5 minutes'));
             $updateSQL = "UPDATE Customer SET OTP = :otp, OTP_Expiry = :otp_expiry WHERE CustomerID = :customer_id";
             $updateStmt = $pdo->prepare($updateSQL);
@@ -64,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ':customer_id' => $newCustomerID
             ]);
 
-            // Prepare email for sending
+            // prep email
             try {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
