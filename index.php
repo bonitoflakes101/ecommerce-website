@@ -34,16 +34,12 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
   <section id="main">
     <!-- Header -->
     <header>
-<<<<<<< Updated upstream
-        <h1>Welcome to Our eCommerce Store!</h1>
-=======
       <!-- Top Header / Logo Bar -->
       <div class="header-top">
         <!-- Logo -->
         <a href="#" class="logo">
           <img src="resources/images/logo-with-icon.png" alt="logo" />
         </a>
->>>>>>> Stashed changes
 
         <div class="full-search-bar">
           <!-- Search Bar -->

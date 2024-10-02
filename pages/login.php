@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Successful login for customer
                     $_SESSION['CustomerID'] = $customer['CustomerID'];
                     $_SESSION['Username'] = $customer['Username'];
-                    header("Location: ../home.php"); // Redirect to homepage
+                    header("Location: ../index.php"); // Redirect to index
                     exit;
                 } else {
                     $error = "Invalid username or password.";
@@ -56,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// if may error, redirect back to the homepage with the error message
+// if may error, redirect back to the index 
 if (!empty($error)) {
-    header("Location: ../home.php?error=" . urlencode($error));
+    header("Location: ../index.php?error=" . urlencode($error));
     exit;
 }
