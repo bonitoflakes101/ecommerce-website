@@ -4,7 +4,7 @@ require '../includes/db_config.php';
 
 // para hindi ma-access by url
 if (!isset($_SESSION['email'])) {
-    header("Location: login.php");
+    header("Location: ../index.php");
     exit;
 }
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['success_message'] = "Your account has been successfully verified!";
         unset($_SESSION['email']);
         // go to log-in
-        header("Location: login.php");
+        header("Location: ../index.php");
         exit();
     } else {
         $errors[] = "Invalid OTP or OTP has expired. Please try again.";

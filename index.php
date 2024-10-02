@@ -182,11 +182,13 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
       <img src="resources/images/logo.png" alt="black_icon" />
       <strong>Account</strong>
 
-      <?php if (isset($_GET['error'])): ?>
+      <!-- LOGIN ERROR -->
+      <?php if (isset($_GET['login_error'])): ?>
         <div class="error-message" style="color: red;">
-          <?php echo htmlspecialchars($_GET['error']); ?>
+          <?php echo htmlspecialchars($_GET['login_error']); ?>
         </div>
       <?php endif; ?>
+
 
       <!-- Forms to Fill-up -->
       <form action="pages/login.php" method="POST">
@@ -227,20 +229,29 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
       <strong>Create an Account</strong>
 
       <!-- Forms to Fill-up -->
-      <form>
-        <input type="text" placeholder="John Doe" name="fullname" required />
-        <input
-          type="email"
-          placeholder="example@gmail.com"
-          name="email"
-          required />
+      <form action="pages/register.php" method="POST">
+
+        <!-- REGISTER ERROR -->
+        <?php if (isset($_GET['register_error'])): ?>
+          <div class="error-message" style="color: red;">
+            <?php echo htmlspecialchars($_GET['register_error']); ?>
+          </div>
+        <?php endif; ?>
+
+        <input type="text" placeholder="John" name="first_name" required />
+        <input type="text" placeholder="Doe" name="last_name" required />
+        <input type="email" placeholder="example@gmail.com" name="email" required />
+        <input type="text" placeholder="Enter Username here" name="username" required />
         <input
           type="password"
           placeholder="Enter Password here"
           name="password"
-          required />
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          title="Password must be at least 8 characters long, contain at least one number, one uppercase letter, and one lowercase letter." />
         <input type="submit" value="Create Account" />
       </form>
+
 
       <!-- MiscButtons -->
       <div class="signup-form-buttons">
