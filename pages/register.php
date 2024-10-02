@@ -17,25 +17,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-
     // Check if username is taken
-    if (empty($errors)) {
-        $checkUsername = $pdo->prepare("SELECT * FROM Customer WHERE Username = :username");
-        $checkUsername->execute([':username' => $username]);
+    $checkUsername = $pdo->prepare("SELECT * FROM Customer WHERE Username = :username");
+    $checkUsername->execute([':username' => $username]);
 
-        if ($checkUsername->rowCount() > 0) {
-            $errors[] = "Username already taken. Please choose another.";
-        }
+    if ($checkUsername->rowCount() > 0) {
+        $errors[] = "Username already taken";
     }
 
     // Check if email is already registered
-    if (empty($errors)) {
-        $checkEmail = $pdo->prepare("SELECT * FROM Customer WHERE Email = :email");
-        $checkEmail->execute([':email' => $email]);
+    $checkEmail = $pdo->prepare("SELECT * FROM Customer WHERE Email = :email");
+    $checkEmail->execute([':email' => $email]);
 
-        if ($checkEmail->rowCount() > 0) {
-            $errors[] = "Email already registered. Please choose another.";
-        }
+    if ($checkEmail->rowCount() > 0) {
+        $errors[] = "Email already registered.";
     }
 
     // If no errors, then insert into the database
@@ -44,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Insert the user into the database without hashing the password
         $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password) 
-VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
+                VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
         $stmt = $pdo->prepare($sql);
         $result = $stmt->execute([
             ':customer_id' => $newCustomerID,
@@ -75,7 +70,7 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'xiangendonila@gmail.com'; // your email
-                $mail->Password = 'ylwiokagsdabaqye';     // app password
+                $mail->Password = 'ylwiokagsdabaqye';        // app password
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
                 $mail->SMTPDebug = 0;
@@ -83,7 +78,6 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
                 // Recipients
                 $mail->setFrom('xiangendonilax@gmail.com', 'Reset Password');
                 $mail->addAddress($email, 'User');
-
 
                 // Content
                 $mail->isHTML(true);
@@ -101,59 +95,11 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
             }
         }
     }
+
+    // If there are errors, redirect to index.php and display errors
+    if (!empty($errors)) {
+        $errorString = urlencode(implode(', ', $errors));
+        header("Location: ../index.php?register_error=" . $errorString);
+        exit;
+    }
 }
-
-if (!empty($error)) {
-    header("Location: ../index.php?error=" . urlencode($error));
-    exit;
-}
-?>
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
-
-<body>
-
-    <h2>Register</h2>
-
-    <?php if (!empty($errors)): ?>
-        <div style="color: red;">
-            <?php foreach ($errors as $error): ?>
-                <p><?php echo htmlspecialchars($error); ?></p>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-
-    <form method="POST" action="">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required><br><br>
-
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required><br><br>
-
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <button type="submit">Register</button>
-    </form>
-
-</body>
-
-</html>

@@ -58,6 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // if may error, redirect back to the index w/ error
 if (!empty($error)) {
-    header("Location: ../index.php?error=" . urlencode($error));
+    header("Location: ../index.php?login_error=" . urlencode($error));
     exit;
 }

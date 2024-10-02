@@ -29,11 +29,17 @@ document.addEventListener("DOMContentLoaded", function() {
         loginForm.style.opacity = "0"; 
     }
 
-    // Check for error parameter in the URL when the page loads
+    // CATCHES LOGIN ERROR
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('error')) {
-        console.log("Error detected:", urlParams.get('error'));
+    if (urlParams.has('login_error')) {
+        console.log("Error detected:", urlParams.get('login_error'));
         showLoginForm(); // Show the login form if there is an error
+    }
+
+    // CATCHES REGISTER ERROR
+    if (urlParams.has('register_error')) {
+        console.log("Error detected:", urlParams.get('register_error'));
+        showSignupForm(); // Show the register form if there is an error
     }
 
     // Show the login form when the nav user is clicked
