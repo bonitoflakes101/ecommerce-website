@@ -227,20 +227,21 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
       <strong>Create an Account</strong>
 
       <!-- Forms to Fill-up -->
-      <form>
-        <input type="text" placeholder="John Doe" name="fullname" required />
-        <input
-          type="email"
-          placeholder="example@gmail.com"
-          name="email"
-          required />
+      <form action="pages/register.php" method="POST">
+        <input type="text" placeholder="John" name="first_name" required />
+        <input type="text" placeholder="Doe" name="last_name" required />
+        <input type="email" placeholder="example@gmail.com" name="email" required />
+        <input type="text" placeholder="Enter Username here" name="username" required />
         <input
           type="password"
           placeholder="Enter Password here"
           name="password"
-          required />
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          title="Password must be at least 8 characters long, contain at least one number, one uppercase letter, and one lowercase letter." />
         <input type="submit" value="Create Account" />
       </form>
+
 
       <!-- MiscButtons -->
       <div class="signup-form-buttons">

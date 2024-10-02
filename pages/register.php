@@ -17,32 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    // Check for empty fields
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($username) || empty($password)) {
-        $errors[] = "All fields are required.";
-    }
-
-    // Validate email format
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
-    }
-
-    // Validate password criteria
-    if (strlen($password) < 8) {
-        $errors[] = "Password must be at least 8 characters long.";
-    }
-    if (!preg_match("/[A-Z]/", $password)) {
-        $errors[] = "Password must contain at least one uppercase letter.";
-    }
-    if (!preg_match("/[a-z]/", $password)) {
-        $errors[] = "Password must contain at least one lowercase letter.";
-    }
-    if (!preg_match("/[0-9]/", $password)) {
-        $errors[] = "Password must contain at least one number.";
-    }
-    if (!preg_match("/[\W_]/", $password)) {
-        $errors[] = "Password must contain at least one special character.";
-    }
 
     // Check if username is taken
     if (empty($errors)) {
@@ -127,6 +101,11 @@ VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
             }
         }
     }
+}
+
+if (!empty($error)) {
+    header("Location: ../index.php?error=" . urlencode($error));
+    exit;
 }
 ?>
 
