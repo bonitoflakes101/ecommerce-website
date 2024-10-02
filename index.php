@@ -76,7 +76,7 @@ session_start();
 
 <body>
     <header>
-        <h1>Welcome to Our eCommerce Store</h1>
+        <h1>Welcome to Our eCommerce Store!</h1>
 
         <!-- checks if naka log-in  na -->
         <?php if (isset($_SESSION['Username'])): ?>
