@@ -3,13 +3,12 @@ session_start();
 
 require '../includes/db_config.php';
 
-$error = ""; // Initialize an empty error variable
+$error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Check if fields are empty
     if (empty($username) || empty($password)) {
         $error = "Please enter both username and password.";
     } else {
@@ -22,13 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if admin credentials are valid
         if ($admin) {
             if ($password === $admin['Password']) {
-                // Successful login for admin
                 $_SESSION['AdminID'] = $admin['AdminID'];
                 $_SESSION['AdminUsername'] = $admin['Username'];
-                header("Location: admin.php"); // Redirect to admin page
+                header("Location: admin.php"); // redirect to admin page
                 exit;
             } else {
-                // Admin found but wrong password
                 $error = "Invalid username or password.";
             }
         } else {
