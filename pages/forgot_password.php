@@ -72,7 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
+    // if may error, redirect back to the index w/ error
+    if (!empty($errors)) {
+        $errorString = urlencode(implode(', ', $errors));
+        header("Location: ../index.php?forgot_pass_error=" . $errorString);
+        exit;
+    }
 }
+
+
 ?>
 
 <!DOCTYPE html>

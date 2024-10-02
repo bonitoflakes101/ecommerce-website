@@ -407,6 +407,94 @@ ul{
 
 
 
+.forgot-pass-form {
+    width: 420px; 
+    padding: 30px 10px;
+    background-color: #ffffff; 
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    position: absolute;
+    visibility: hidden;  
+    opacity: 0;  
+    transition: opacity 0.3s ease;  
+}
+
+.forgot-pass-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+}
+
+.forgot-pass-form img {
+    width: 50%;  
+}
+
+.forgot-pass-form strong {
+    color: #121212; 
+    font-size: 1.25rem;  
+    padding-bottom: 20px;  
+    margin: 2px 7px 7px 7px; 
+    text-transform: uppercase;  
+    letter-spacing: 0.5px;  
+    font-weight: 500; 
+}
+
+.forgot-pass-form input {
+    background-color: #e4e4e4; 
+    width: 90%;  
+    height: 45px;  
+    padding: 0px 20px; 
+    outline: none; 
+    border: none;  
+    border-radius: 15px;  
+    margin: 6px 0px;  
+}
+
+.forgot-pass-form input::placeholder {
+    color: #aeaeae; 
+}
+
+.forgot-pass-form input[type="submit"] {
+    background-color: var(--secondary-color);  
+    color: #121212;  
+    font-size: 1rem; 
+    font-weight: 500;  
+    border: none;  
+    outline: none;  
+    margin-top: 30px; 
+    border-radius: 15px;  
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);  
+    cursor: pointer;  
+}
+
+.forgot-pass-form .form-buttons {
+    width: 90%;  
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;  
+    margin-top: 20px;  
+}
+
+.forgot-pass-form .form-buttons a {
+    color: #212121;  
+    font-size: 1rem; 
+}
+
+.forgot-pass-form .form-buttons a:hover {
+    color: var(--secondary-color);  
+}
+
+.forgot-pass-cancel {
+    position: absolute; 
+    right: 20px;  
+    top: 10px;  
+}
 
 
 
