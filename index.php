@@ -341,7 +341,7 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
 
       <!-- MiscButtons -->
       <div class="form-buttons">
-        <a href="#" class="to-login-button">Back to Login</a>
+        <a href="#" class="to-login-button1">Back to Login</a>
       </div>
     </div>
 

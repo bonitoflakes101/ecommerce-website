@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const forgotPasscancel = document.querySelector('.forgot-pass-cancel'); 
     const toLoginButton = document.querySelector('.to-login-button');
+    const secondLoginButton = document.querySelector('.to-login-button1');
     const forgotPassButton = document.querySelector('.forget');
 
     const verifyPasscancel = document.querySelector('.verify-pass-cancel'); // Cancel button for verify pass OTP form
@@ -149,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
         showLoginForm(); 
     });
 
+    
     // Event for the Forgot Password button to show the forgot password form
     forgotPassButton.addEventListener('click', function() {
         showForgotPassForm(); 
@@ -169,4 +171,8 @@ document.addEventListener("DOMContentLoaded", function() {
         formContainer.style.visibility = "hidden"; 
         formContainer.style.opacity = "0"; 
     });
+    secondLoginButton.addEventListener('click', function() {
+        showLoginForm();
+    });
 });
+
