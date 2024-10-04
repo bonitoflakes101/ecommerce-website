@@ -2,7 +2,6 @@
 session_start();
 require '../includes/db_config.php';
 
-// Prevent direct access without reset email
 if (!isset($_SESSION['reset_email'])) {
     header("Location: ../index.php");
     exit;
@@ -14,7 +13,7 @@ $success = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $otp = trim($_POST['otp']);
     $newPassword = trim($_POST['new_password']);
-    $email = $_SESSION['reset_email']; // Get the email from the forgot_password file
+    $email = $_SESSION['reset_email']; // from the forgot_password file
     $repeat_password = $_POST['repeat_password'];
 
     // Check if passwords match

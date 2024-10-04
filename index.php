@@ -341,7 +341,7 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
           title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
         <input
           type="password"
-          placeholder="Repeat Password"
+          placeholder="Repeat New Password here"
           name="repeat_password"
           required
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
@@ -354,6 +354,10 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
         <a href="#" class="to-login-button1">Back to Login</a>
       </div>
     </div>
+
+    <!-- Notification -->
+    <div class="notification" id="otpNotification">OTP has been sent to your e-mail!</div>
+
 
 
   </div>

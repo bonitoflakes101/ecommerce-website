@@ -17,7 +17,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const forgotPassButton = document.querySelector('.forget');
 
     const verifyPasscancel = document.querySelector('.verify-pass-cancel'); // Cancel button for verify pass OTP form
-    
+
+    function showOtpNotification() {
+        const notification = document.getElementById('otpNotification');
+        notification.classList.add('show');
+  
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 5000); 
+    }
+
+
 
     // Function to show the login form
     function showLoginForm() {
@@ -107,10 +117,11 @@ document.addEventListener("DOMContentLoaded", function() {
         showLoginForm(); 
     }
 
-    // CATCHES RESET PASS 
+    // CATCHES RESET PASS / FORGOT PASSWORD
     if (urlParams.has('reset_pass')) {
         console.log("Password reset clicked. OTP SENT");
         showVerifyPassForm(); 
+        showOtpNotification();
     }
 
 
