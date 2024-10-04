@@ -15,32 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $otp = trim($_POST['otp']);
     $newPassword = trim($_POST['new_password']);
     $email = $_SESSION['reset_email']; // Get the email from the forgot_password file
+    $repeat_password = $_POST['repeat_password'];
 
-    // Check if all fields are filled
-    if (empty($otp) || empty($newPassword)) {
-        $errors[] = "All fields are required.";
+    // Check if passwords match
+    if ($new_password !== $repeat_password) {
+        header("Location: ../index.php?verify_pass_error=" . urlencode("Passwords do not match."));
+        exit;
     }
 
-    // Password validation
-    if (empty($newPassword)) {
-        $errors[] = "Password cannot be empty.";
-    } else {
-        if (strlen($newPassword) < 8) {
-            $errors[] = "Password must be at least 8 characters long";
-        }
-        if (!preg_match("/[A-Z]/", $newPassword)) {
-            $errors[] = "Password must contain at least one uppercase letter";
-        }
-        if (!preg_match("/[a-z]/", $newPassword)) {
-            $errors[] = "Password must contain at least one lowercase letter";
-        }
-        if (!preg_match("/[0-9]/", $newPassword)) {
-            $errors[] = "Password must contain at least one number";
-        }
-        if (!preg_match("/[\W_]/", $newPassword)) {
-            $errors[] = "Password must contain at least one special character.";
-        }
-    }
 
     // Validate OTP 
     if (empty($errors)) {

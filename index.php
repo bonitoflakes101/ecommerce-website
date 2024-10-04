@@ -334,9 +334,18 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
           required />
         <input
           type="password"
-          placeholder="Enter New Password"
+          placeholder="Enter New Password here"
           name="new_password"
-          required />
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          name="repeat_password"
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Passwords must match and meet the complexity requirements." />
         <input type="submit" value="Verify OTP" />
       </form>
 
