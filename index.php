@@ -260,9 +260,49 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
       </div>
     </div>
 
+    <!-- VERIFY EMAIL OTP-->
+    <div class="verify-email-form">
+
+      <a href="#" class="verify-pass-cancel">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          height="1em"
+          width="1em">
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+        </svg>
+      </a>
+      <img src="resources/images/logo.png" alt="black_icon" />
+      <strong>Verify Email</strong>
+
+      <!-- Forms to Fill-up -->
+      <form action="pages/verify_otp.php" method="POST">
+        <!-- VERIFY PASS ERROR -->
+        <?php if (isset($_GET['verify_pass_error'])): ?>
+          <div class="error-message" style="color: red;">
+            <?php echo htmlspecialchars($_GET['verify_pass_error']); ?>
+          </div>
+        <?php endif; ?>
+
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          name="otp"
+          required />
+        <input type="submit" value="Verify OTP" />
+      </form>
+
+      <!-- MiscButtons -->
+      <!-- <div class="form-buttons">
+        <a href="#" class="to-login-button1">Back to Login</a>
+      </div> -->
+    </div>
+
 
     <!-- FORGOT PASS-->
     <div class="forgot-pass-form">
+
       <a href="#" class="forgot-pass-cancel">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -303,8 +343,9 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
     </div>
 
 
-    <!-- VERIFY PASS OTP-->
+    <!-- VERIFY FORGOT PASS OTP-->
     <div class="verify-pass-form">
+
       <a href="#" class="verify-pass-cancel">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -355,7 +396,10 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
       </div>
     </div>
 
-    <!-- Notification -->
+
+
+
+    <!-- Notifications -->
     <div class="notification" id="otpNotification">OTP has been sent to your e-mail!</div>
 
 
