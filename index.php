@@ -247,8 +247,9 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
           placeholder="Enter Password here"
           name="password"
           required
-          pattern="(?=.*[!@#$%^&*()_+\-=\[\]{};':\\\|,.<>\/?])(?=.{6,})"
-          title="Password must be at least 8 characters long, contain at least one number, one uppercase letter, and one lowercase letter." />
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
+
         <input type="submit" value="Create Account" />
       </form>
 
