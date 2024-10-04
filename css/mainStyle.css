@@ -131,7 +131,7 @@ ul{
 
 .navigation{
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     max-width: 1200px;
     width: 90%;
