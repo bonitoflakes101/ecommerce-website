@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // Store email value for use in verify_otp
                 $_SESSION['email'] = $email;
-                header("Location: verify_otp.php");
+                header("Location: ../index.php?confirm_email=true");
                 exit;
             } catch (Exception $e) {
                 $errors[] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
