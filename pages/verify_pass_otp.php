@@ -14,10 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $otp = trim($_POST['otp']);
     $newPassword = trim($_POST['new_password']);
     $email = $_SESSION['reset_email']; // from the forgot_password file
-    $repeat_password = $_POST['repeat_password'];
+    $repeat_password = trim($_POST['repeat_password']);
 
+    echo $newPassword;
+    echo $repeat_password;
     // Check if passwords match
-    if ($new_password !== $repeat_password) {
+    if ($newPassword !== $repeat_password) {
         header("Location: ../index.php?verify_pass_error=" . urlencode("Passwords do not match."));
         exit;
     }

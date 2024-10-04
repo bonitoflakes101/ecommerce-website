@@ -274,14 +274,14 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
         </svg>
       </a>
       <img src="resources/images/logo.png" alt="black_icon" />
-      <strong>Verify Email</strong>
+      <strong>Verify Your Email</strong>
 
       <!-- Forms to Fill-up -->
       <form action="pages/verify_otp.php" method="POST">
         <!-- VERIFY PASS ERROR -->
-        <?php if (isset($_GET['verify_pass_error'])): ?>
+        <?php if (isset($_GET['verify_email_error'])): ?>
           <div class="error-message" style="color: red;">
-            <?php echo htmlspecialchars($_GET['verify_pass_error']); ?>
+            <?php echo htmlspecialchars($_GET['verify_email_error']); ?>
           </div>
         <?php endif; ?>
 
@@ -294,9 +294,9 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
       </form>
 
       <!-- MiscButtons -->
-      <!-- <div class="form-buttons">
-        <a href="#" class="to-login-button1">Back to Login</a>
-      </div> -->
+      <div class="form-buttons">
+        <a href="#" class="to-login-button2">Login with another account</a>
+      </div>
     </div>
 
 
@@ -401,6 +401,8 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
 
     <!-- Notifications -->
     <div class="notification" id="otpNotification">OTP has been sent to your e-mail!</div>
+    <div class="notification" id="emailNotification">Your email was successfully verified!</div>
+    <div class="notification" id="passNotification">Your password was successfully updated!</div>
 
 
 

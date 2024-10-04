@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const forgotPasscancel = document.querySelector('.forgot-pass-cancel'); 
     const toLoginButton = document.querySelector('.to-login-button');
     const secondLoginButton = document.querySelector('.to-login-button1');
+    const thirdLoginButton = document.querySelector('.to-login-button2');
     const forgotPassButton = document.querySelector('.forget');
 
     const verifyPasscancel = document.querySelector('.verify-pass-cancel'); // Cancel button for verify password OTP form
@@ -22,6 +23,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function showOtpNotification() {
         const notification = document.getElementById('otpNotification');
+        notification.classList.add('show');
+  
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 5000); 
+    }
+
+    // SHOW CHANGE PASS SUCCESSFUL
+    function showPassNotification() {
+        const notification = document.getElementById('passNotification');
+        notification.classList.add('show');
+  
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 5000); 
+    }
+
+    // SHOW VERIFY EMAIL SUCCESSFUL
+    function showEmailNotification() {
+        const notification = document.getElementById('emailNotification');
         notification.classList.add('show');
   
         setTimeout(() => {
@@ -131,7 +152,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // CATCHES VERIFY PASS ERROR
     if (urlParams.has('verify_pass_error')) {
         console.log("Error detected:", urlParams.get('verify_pass_error'));
-        showVerifyPassForm(); // Show verify pass form on error
+        showVerifyPassForm(); 
+    }
+
+    // CATCHES VERIFY EMAIL ERROR
+    if (urlParams.has('verify_email_error')) {
+        console.log("Error detected:", urlParams.get('verify_email_error'));
+        showVerifyEmailForm(); 
     }
 
     // RESET PASSWORD -> OTP CONFIRMATION
@@ -146,14 +173,24 @@ document.addEventListener("DOMContentLoaded", function() {
     if (urlParams.has('verify_pass_success')) {
         console.log("OTP Verified", urlParams.get('verify_pass_success'));
         showLoginForm(); 
+        showPassNotification();
+       
     }
 
-    // CATCHES EMAIL CONFIRMATION (VERIFY EMAIL FORM)
+    // 1.) CATCHES EMAIL CONFIRMATION (VERIFY EMAIL FORM)
     if (urlParams.has('confirm_email')) {
         console.log("Email confirmation clicked. OTP SENT");
         showVerifyEmailForm(); 
         showOtpNotification();
     }
+
+    // 2.) CATCHES VERIFY EMAIL SUCCESS
+    if (urlParams.has('verify_email_success')) {
+        console.log("OTP Verified", urlParams.get('verify_email_success'));
+        showLoginForm(); 
+        showEmailNotification();
+    }
+    
 
     // Show the login form when the nav user is clicked
     navUser.addEventListener('click', function() {
@@ -220,6 +257,10 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     secondLoginButton.addEventListener('click', function() {
+        showLoginForm();
+    });
+
+    thirdLoginButton.addEventListener('click', function() {
         showLoginForm();
     });
 });
