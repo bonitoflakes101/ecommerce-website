@@ -247,8 +247,9 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
           placeholder="Enter Password here"
           name="password"
           required
-          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-          title="Password must be at least 8 characters long, contain at least one number, one uppercase letter, and one lowercase letter." />
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
+
         <input type="submit" value="Create Account" />
       </form>
 
@@ -300,6 +301,60 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
         <a href="#" class="to-login-button">Back to Login</a>
       </div>
     </div>
+
+
+    <!-- VERIFY PASS OTP-->
+    <div class="verify-pass-form">
+      <a href="#" class="verify-pass-cancel">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          height="1em"
+          width="1em">
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+        </svg>
+      </a>
+      <img src="resources/images/logo.png" alt="black_icon" />
+      <strong>Change Password</strong>
+
+      <!-- Forms to Fill-up -->
+      <form action="pages/verify_pass_otp.php" method="POST">
+        <!-- VERIFY PASS ERROR -->
+        <?php if (isset($_GET['verify_pass_error'])): ?>
+          <div class="error-message" style="color: red;">
+            <?php echo htmlspecialchars($_GET['verify_pass_error']); ?>
+          </div>
+        <?php endif; ?>
+
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          name="otp"
+          required />
+        <input
+          type="password"
+          placeholder="Enter New Password here"
+          name="new_password"
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          name="repeat_password"
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Passwords must match and meet the complexity requirements." />
+        <input type="submit" value="Verify OTP" />
+      </form>
+
+      <!-- MiscButtons -->
+      <div class="form-buttons">
+        <a href="#" class="to-login-button1">Back to Login</a>
+      </div>
+    </div>
+
 
   </div>
 
@@ -355,6 +410,427 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
       <strong>Hardware</strong>
     </a>
   </section>
+
+  <!-- Popular / Highest sales Section -->
+  <section id="popular-tech">
+    <h2>Popular Tech of the Month</h2>
+    <!-- collection Container -->
+    <div class="popular-collection-container">
+      <!-- Product Box Container -->
+      <div class="product-container">
+        <!-- Product Box 1-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/pc1.png" alt="product-photo">
+            <span>BEST SELLER</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 2-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/pc1.png" alt="product-photo">
+            <span>BEST SELLER</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 3-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/pc1.png" alt="product-photo">
+            <span>BEST SELLER</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 4-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/pc1.png" alt="product-photo">
+            <span>BEST SELLER</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 5-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/pc1.png" alt="product-photo">
+            <span>BEST SELLER</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+
+
+  </section>
+
+  <!-- Shopping Banner Section -->
+  <section id="shopping-banner">
+    <div class="shopping-banner-container">
+      <div class="shopping-banner-text">
+        <strong>NVidia RTX 4090</strong>
+        <h3>Most Powerful Graphics Card in the World</h3>
+        <p>The GeForce RTX 4090 is an enthusiast-class graphics card by NVIDIA. Built on the 5 nm process, and based on the AD102 graphics processor, the card supports DirectX 12 Ultimate.</p>
+        <a href="#" class="check-out-button">Check out now</a>
+      </div>
+      <div class="shopping-banner-img">
+        <img src="resources/images/rtx4090.png" alt="rtx4090">
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Recently added Section -->
+  <section id="recent-tech">
+    <h2>Recently Added</h2>
+    <!-- collection Container -->
+    <div class="recent-collection-container">
+      <!-- Product Box Container -->
+      <div class="product-container">
+        <!-- Product Box 1-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rtx4090.png" alt="product-photo">
+            <span>NEW!</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 2-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rtx4090.png" alt="product-photo">
+            <span>NEW!</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 3-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rtx4090.png" alt="product-photo">
+            <span>NEW!</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 4-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rtx4090.png" alt="product-photo">
+            <span>NEW!</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 5-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rtx4090.png" alt="product-photo">
+            <span>NEW!</span>
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+
+
+  </section>
+
+  <!-- Recommended added Section -->
+  <section id="recommended-tech">
+    <h2>Recommended for you</h2>
+    <!-- collection Container -->
+    <div class="recommended-collection-container">
+      <!-- Product Box Container -->
+      <div class="product-container">
+        <!-- Product Box 1-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 2-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 3-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 4-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 5-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 6-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 7-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 8-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 9-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Product Box 10-->
+        <div class="product-box">
+          <a href="#" class="product-box-img">
+            <img src="resources/images/rx7700.png" alt="product-photo">
+
+          </a>
+          <div class="product-box-text">
+            <a href="#" class="product-text-title">The Beast PC</a>
+            <span>P 10,000.00</span>
+            <a href="#" class="product-cart-button">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+
+
+  </section>
+
+
+
+
+
+
+
 
   <script src="js/userLogon.js"></script>
 </body>

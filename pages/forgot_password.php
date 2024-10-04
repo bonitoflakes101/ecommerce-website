@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Store email in session to use in verify_pass_otp.php
             $_SESSION['reset_email'] = $email;
-            header("Location: verify_pass_otp.php");
+            header("Location: ../index.php?reset_pass=true");
             exit;
         } catch (Exception $e) {
             $errors[] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

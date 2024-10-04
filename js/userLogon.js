@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const navUser = document.querySelector('.nav-user');
     const loginForm = document.querySelector('.login-form');
     const signupForm = document.querySelector('.signup-form');
-    const forgotPassForm = document.querySelector('.forgot-pass-form'); 
+    const forgotPassForm = document.querySelector('.forgot-pass-form');
+    const verifyPassForm = document.querySelector('.verify-pass-form'); // Added verify pass form
     const formContainer = document.querySelector('.form');
     
     const createAccountButton = document.querySelector('.Sign-up-button');
@@ -11,9 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const logincancel = document.querySelector('.form-cancel');
 
     const forgotPasscancel = document.querySelector('.forgot-pass-cancel'); 
-    const toLoginButton = document.querySelector('.to-login-button'); 
+    const toLoginButton = document.querySelector('.to-login-button');
+    const secondLoginButton = document.querySelector('.to-login-button1');
     const forgotPassButton = document.querySelector('.forget');
-    
+
+    const verifyPasscancel = document.querySelector('.verify-pass-cancel'); // Cancel button for verify pass OTP form
     
 
     // Function to show the login form
@@ -26,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
         signupForm.style.opacity = "0"; 
         forgotPassForm.style.visibility = "hidden"; 
         forgotPassForm.style.opacity = "0"; 
+        verifyPassForm.style.visibility = "hidden"; // Hide verify pass form
+        verifyPassForm.style.opacity = "0"; 
     }
 
     // Function to show the signup form
@@ -38,6 +43,8 @@ document.addEventListener("DOMContentLoaded", function() {
         loginForm.style.opacity = "0"; 
         forgotPassForm.style.visibility = "hidden"; 
         forgotPassForm.style.opacity = "0"; 
+        verifyPassForm.style.visibility = "hidden"; // Hide verify pass form
+        verifyPassForm.style.opacity = "0"; 
     }
 
     // Function to show the forgot password form
@@ -46,6 +53,22 @@ document.addEventListener("DOMContentLoaded", function() {
         forgotPassForm.style.opacity = "1"; 
         formContainer.style.visibility = "visible"; 
         formContainer.style.opacity = "1"; 
+        loginForm.style.visibility = "hidden"; 
+        loginForm.style.opacity = "0"; 
+        signupForm.style.visibility = "hidden"; 
+        signupForm.style.opacity = "0"; 
+        verifyPassForm.style.visibility = "hidden"; // Hide verify pass form
+        verifyPassForm.style.opacity = "0"; 
+    }
+
+    // Function to show the verify password OTP form
+    function showVerifyPassForm() {
+        verifyPassForm.style.visibility = "visible"; 
+        verifyPassForm.style.opacity = "1"; 
+        formContainer.style.visibility = "visible"; 
+        formContainer.style.opacity = "1"; 
+        forgotPassForm.style.visibility = "hidden"; 
+        forgotPassForm.style.opacity = "0"; 
         loginForm.style.visibility = "hidden"; 
         loginForm.style.opacity = "0"; 
         signupForm.style.visibility = "hidden"; 
@@ -70,6 +93,27 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Error detected:", urlParams.get('forgot_pass_error'));
         showForgotPassForm(); 
     }
+
+    // CATCHES VERIFY PASS ERROR
+    if (urlParams.has('verify_pass_error')) {
+        console.log("Error detected:", urlParams.get('verify_pass_error'));
+        showVerifyPassForm(); // Show verify pass form on error
+    }
+
+
+    // CATCHES VERIFY PASS SUCCESS
+    if (urlParams.has('verify_pass_success')) {
+        console.log("OTP Verified", urlParams.get('verify_pass_success'));
+        showLoginForm(); 
+    }
+
+    // CATCHES RESET PASS 
+    if (urlParams.has('reset_pass')) {
+        console.log("Password reset clicked. OTP SENT");
+        showVerifyPassForm(); 
+    }
+
+
 
     // Show the login form when the nav user is clicked
     navUser.addEventListener('click', function() {
@@ -106,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
         showLoginForm(); 
     });
 
+    
     // Event for the Forgot Password button to show the forgot password form
     forgotPassButton.addEventListener('click', function() {
         showForgotPassForm(); 
@@ -118,4 +163,16 @@ document.addEventListener("DOMContentLoaded", function() {
         formContainer.style.visibility = "hidden"; 
         formContainer.style.opacity = "0"; 
     });
+
+    // Event for the verify pass OTP cancel button
+    verifyPasscancel.addEventListener('click', function() {
+        verifyPassForm.style.visibility = "hidden"; 
+        verifyPassForm.style.opacity = "0"; 
+        formContainer.style.visibility = "hidden"; 
+        formContainer.style.opacity = "0"; 
+    });
+    secondLoginButton.addEventListener('click', function() {
+        showLoginForm();
+    });
 });
+
