@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require '../includes/db_config.php';
 
 $error = "";
@@ -30,19 +29,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // 2.) If admin not found, check for Customer credentials
-            $sql_customer = "SELECT CustomerID, Username, Password FROM Customer WHERE Username = :username";
+            $sql_customer = "SELECT CustomerID, Username, Password, IsConfirmed FROM Customer WHERE Username = :username";
             $stmt_customer = $pdo->prepare($sql_customer);
             $stmt_customer->execute(['username' => $username]);
             $customer = $stmt_customer->fetch();
 
-            // Check if customer credentials are valid
+            // check if customer credentials are valid
             if ($customer) {
                 if ($password === $customer['Password']) {
-                    // Successful login for customer
-                    $_SESSION['CustomerID'] = $customer['CustomerID'];
-                    $_SESSION['Username'] = $customer['Username'];
-                    header("Location: ../index.php?login_success=true"); // Redirect to index
-                    exit;
+                    // check if the account is confirmed
+                    if ($customer['IsConfirmed'] == 1) {
+                        // Successful login for customer
+                        $_SESSION['CustomerID'] = $customer['CustomerID'];
+                        $_SESSION['Username'] = $customer['Username'];
+                        header("Location: ../index.php?login_success=true");
+                        exit;
+                    } else {
+                        $error = "Your account is not confirmed yet. Please check your email.";
+                    }
                 } else {
                     $error = "Invalid username or password.";
                 }
@@ -53,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// if may error, redirect back to the index w/ error
+// if any error, redirect back to the index with error
 if (!empty($error)) {
     header("Location: ../index.php?login_error=" . urlencode($error));
     exit;
