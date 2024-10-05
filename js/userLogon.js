@@ -1,5 +1,7 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     const navUser = document.querySelector('.nav-user');
+    const navCart = document.querySelector('.nav-cart');
     const loginForm = document.querySelector('.login-form');
     const signupForm = document.querySelector('.signup-form');
     const forgotPassForm = document.querySelector('.forgot-pass-form');
@@ -197,9 +199,20 @@ document.addEventListener("DOMContentLoaded", function() {
         showLoginForm();
     });
 
+    // redirects to  cart.php if user is logged in else show the login form
+    navCart.addEventListener('click', function() {
+        if (urlParams.has('login_success')) {
+            console.log("User log in", urlParams.get('login_success'));
+            //showCartForm(); -- uncomment this if forms ung cart
+            window.location.href = 'pages/cart.php'; 
+        } else {
+            showLoginForm();
+        }
+    });
+
     // Event for the Create Account button
     createAccountButton.addEventListener('click', function() {
-        showSignupForm(); // Show the signup form
+        showSignupForm(); 
     });
 
     // Event for the login cancel button

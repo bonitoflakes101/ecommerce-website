@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Successful login for customer
                     $_SESSION['CustomerID'] = $customer['CustomerID'];
                     $_SESSION['Username'] = $customer['Username'];
-                    header("Location: ../index.php"); // Redirect to index
+                    header("Location: ../index.php?login_success=true"); // Redirect to index
                     exit;
                 } else {
                     $error = "Invalid username or password.";

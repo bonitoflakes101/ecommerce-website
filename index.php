@@ -1,9 +1,6 @@
 <?php
 session_start();
 // require 'includes/db_config.php';
-
-// Check if the user is logged in
-$isLoggedIn = isset($_SESSION['CustomerID']);
 ?>
 
 
@@ -27,6 +24,7 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
     type="image/x-icon"
     href="resources/images/logo-icon.png" />
   <script type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -97,8 +95,9 @@ $isLoggedIn = isset($_SESSION['CustomerID']);
               </defs>
             </svg>
           </a>
+
           <!-- Cart BTN -->
-          <a href="#" class="nav-cart">
+          <a href="#" id="navCart" class="nav-cart">
             <svg
               width="27"
               height="28"
