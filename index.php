@@ -24,7 +24,18 @@ session_start();
     type="image/x-icon"
     href="resources/images/logo-icon.png" />
   <script type="text/javascript"></script>
-
+  <script>
+    window.embeddedChatbotConfig = {
+      chatbotId: "ctNklf3sTWQ7H8tDU6Xp5",
+      domain: "www.chatbase.co"
+    }
+  </script>
+  <script
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="ctNklf3sTWQ7H8tDU6Xp5"
+    domain="www.chatbase.co"
+    defer>
+  </script>
 </head>
 
 <body>
