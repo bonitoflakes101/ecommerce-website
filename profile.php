@@ -1,3 +1,35 @@
+<?php
+session_start();
+require 'includes/db_config.php';
+
+if (!isset($_SESSION['CustomerID'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
+$customerID = $_SESSION['CustomerID'];
+
+$sql = "SELECT FirstName, LastName, Email, FullAddress, ContactDetails FROM Customer WHERE CustomerID = :customerID";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['customerID' => $customerID]);
+
+$user = $stmt->fetch();
+
+if ($user) {
+    // Fetch the user's data
+    $firstName = $user['FirstName'];
+    $lastName = $user['LastName'];
+    $email = $user['Email'];
+    $fullAddress = $user['FullAddress'] ?? 'Address not provided';
+    $contactDetails = $user['ContactDetails'] ?? 'Contact details not provided';
+} else {
+    echo "Error fetching user data.";
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,91 +161,91 @@
 
     </section>
 
-    <section class="main-profile">
-        <div class="page-title">
-            <h1>Profile</h1>
-            <strong>Welcome to your Techvault Profile!</strong>
-        </div>
-        <div class="profile-content-container">
-            <div class="profile-content">
-                <div class="profile-content-image">
-                    <img src="resources/images/pfpholder.png" alt="profile-picture">
+    <<!-- Profile Section -->
+        <section class="main-profile">
+            <div class="page-title">
+                <h1>Profile</h1>
+                <strong>Welcome to your Techvault Profile!</strong>
+            </div>
+
+            <div class="profile-content-container">
+                <div class="profile-content">
+                    <div class="profile-content-image">
+                        <img src="resources/images/pfpholder.png" alt="profile-picture">
+                    </div>
+                    <div class="profile-content-text">
+                        <span><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></span>
+                        <p><?php echo htmlspecialchars($email); ?></p>
+                        <br>
+                        <p><?php echo htmlspecialchars($fullAddress); ?></p>
+                        <p><?php echo htmlspecialchars($contactDetails); ?></p>
+                    </div>
                 </div>
-                <div class="profile-content-text">
-                    <span>Kennett Miralles</span>
-                    <p>example@techvault.com</p>
+                <div class="other-content-text">
+                    <span>Customer</span>
+                    <p>89 Items Rated</p>
                     <br>
-                    <p>Full Address Here</p>
-                    <p>Contact Details Here</p>
+                    <p>Items Ordered: 89</p>
+                    <a href="pages/logout.php" class="logout-button">Logout</a>
                 </div>
             </div>
-            <div class="other-content-text">
-                <span>Customer</span>
-                <p>89 Items Rated</p>
-                <br>
-                <p>Items Ordered : 89</p>
-                <a href="pages/logout.php" class="logout-button">Logout</a>
+        </section>
 
+        <!-- Order history -->
+        <section class="order-profile">
+            <div class="order-page-title">
+                <h1>Order History</h1>
+            </div>
+            <!-- Order Container -->
+            <div class="order-container">
+                <div class="product-order">
+                    <div class="product-order-image">
+                        <img src="resources/images/pc1.png" alt="order-image">
+                    </div>
+                    <div class="product-order-details">
+                        <strong>Product Title</strong>
+                    </div>
+                    <div class="product-order-details">
+                        <strong>Product Category</strong>
+                    </div>
+                    <div class="product-order-details">
+                        <strong>Product Quantity</strong>
+                    </div>
+                    <div class="product-order-price">
+                        <strong>P100,000.00</strong>
+                    </div>
+                    <div class="product-order-status">
+                        <strong>In-Transit</strong>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Order Container -->
+            <div class="order-container">
+                <div class="product-order">
+                    <div class="product-order-image">
+                        <img src="resources/images/pc1.png" alt="order-image">
+                    </div>
+                    <div class="product-order-details">
+                        <strong>Product Title</strong>
+                    </div>
+                    <div class="product-order-details">
+                        <strong>Product Category</strong>
+                    </div>
+                    <div class="product-order-details">
+                        <strong>Product Quantity</strong>
+                    </div>
+                    <div class="product-order-price">
+                        <strong>P100,000.00</strong>
+                    </div>
+                    <div class="product-order-status">
+                        <strong>In-Transit</strong>
+                    </div>
+
+                </div>
             </div>
 
-        </div>
-    </section>
-
-    <!-- Order history -->
-    <section class="order-profile">
-        <div class="order-page-title">
-            <h1>Order History</h1>
-        </div>
-        <!-- Order Container -->
-        <div class="order-container">
-            <div class="product-order">
-                <div class="product-order-image">
-                    <img src="resources/images/pc1.png" alt="order-image">
-                </div>
-                <div class="product-order-details">
-                    <strong>Product Title</strong>
-                </div>
-                <div class="product-order-details">
-                    <strong>Product Category</strong>
-                </div>
-                <div class="product-order-details">
-                    <strong>Product Quantity</strong>
-                </div>
-                <div class="product-order-price">
-                    <strong>P100,000.00</strong>
-                </div>
-                <div class="product-order-status">
-                    <strong>In-Transit</strong>
-                </div>
-
-            </div>
-        </div>
-        <!-- Order Container -->
-        <div class="order-container">
-            <div class="product-order">
-                <div class="product-order-image">
-                    <img src="resources/images/pc1.png" alt="order-image">
-                </div>
-                <div class="product-order-details">
-                    <strong>Product Title</strong>
-                </div>
-                <div class="product-order-details">
-                    <strong>Product Category</strong>
-                </div>
-                <div class="product-order-details">
-                    <strong>Product Quantity</strong>
-                </div>
-                <div class="product-order-price">
-                    <strong>P100,000.00</strong>
-                </div>
-                <div class="product-order-status">
-                    <strong>In-Transit</strong>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
+        </section>
 
 </body>
 

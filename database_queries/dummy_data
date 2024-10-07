@@ -1,9 +1,11 @@
 -- Customer Table
-INSERT INTO Customer (FirstName, LastName, Email, Username, Password) VALUES
-('John', 'Doe', 'john.doe@example.com', 'johndoe', 'password123'),
-('Jane', 'Smith', 'jane.smith@example.com', 'janesmith', 'password456'),
-('Alice', 'Johnson', 'alice.johnson@example.com', 'alicej', 'password789'),
-('Bob', 'Brown', 'bob.brown@example.com', 'bobb', 'password101');
+INSERT INTO Customer (FirstName, LastName, Email, Username, Password, FullAddress, ContactDetails) 
+VALUES
+('John', 'Doe', 'john.doe@example.com', 'johndoe', 'password123', '123 Quezon Ave, Quezon City, Metro Manila', '09459647197'),
+('Jane', 'Smith', 'jane.smith@example.com', 'janesmith', 'password456', '456 Rizal St, Makati City, Metro Manila', '09173456789'),
+('Alice', 'Johnson', 'alice.johnson@example.com', 'alicej', 'password789', '789 Aguinaldo Highway, Imus, Cavite', '09298765432'),
+('Bob', 'Brown', 'bob.brown@example.com', 'bobb', 'password101', '101 Gen. Luna St, San Juan City, Metro Manila', '09354678901');
+
 
 -- Product Table
 -- Insert products for Laptops
