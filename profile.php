@@ -75,7 +75,7 @@ $orders = $stmtOrders->fetchAll();
             <!-- Top Header / Logo Bar -->
             <div class="header-top">
                 <!-- Logo -->
-                <a href="index.php" class="logo">
+                <a href="index.php?login_success=true" class="logo">
                     <img src="resources/images/logo-with-icon.png" alt="logo" />
                 </a>
 
