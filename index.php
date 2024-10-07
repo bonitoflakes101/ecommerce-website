@@ -79,7 +79,7 @@ session_start();
         <!-- Navigation Buttons -->
         <div class="nav-buttons">
           <!-- User BTN -->
-          <a href="#" class="nav-user">
+          <a href="profile.php" class="nav-user">
             <svg
               width="28"
               height="28"
