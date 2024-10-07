@@ -16,6 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $username = trim($_POST['username']);
     $password = $_POST['password'];
+    $contactNumber = trim($_POST['contact_number']);
+    $fullAddress = trim($_POST['full_address']);
+
+    // Validate contact number (Philippines format)
+    if (!preg_match('/^(0[9][0-9]{9})$/', $contactNumber)) {
+        $errors[] = "Invalid contact number. Must be in the format: 09XXXXXXXXX.";
+    }
 
     // Check if username is taken
     $checkUsername = $pdo->prepare("SELECT * FROM Customer WHERE Username = :username");
@@ -36,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) {
         $newCustomerID = mt_rand(1000, 9999);
 
-        $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password) 
-                VALUES (:customer_id, :first_name, :last_name, :email, :username, :password)";
+        $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password, FullAddress, ContactDetails) 
+                VALUES (:customer_id, :first_name, :last_name, :email, :username, :password, :full_address, :contact_number)";
         $stmt = $pdo->prepare($sql);
         $result = $stmt->execute([
             ':customer_id' => $newCustomerID,
@@ -45,13 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':last_name' => $lastName,
             ':email' => $email,
             ':username' => $username,
-            ':password' => $password
+            ':password' => $password,
+            ':full_address' => $fullAddress,
+            ':contact_number' => $contactNumber
         ]);
 
         if ($result) {
             $otp = random_int(100000, 999999);
-
-            // FIX EXPIRY TIME, NOT WORKING LMAO
             $expiryTime = date('Y-m-d H:i:s', strtotime('+5 minutes'));
             $updateSQL = "UPDATE Customer SET OTP = :otp, OTP_Expiry = :otp_expiry WHERE CustomerID = :customer_id";
             $updateStmt = $pdo->prepare($updateSQL);

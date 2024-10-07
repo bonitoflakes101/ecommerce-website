@@ -251,6 +251,22 @@ session_start();
         <input type="text" placeholder="John" name="first_name" required />
         <input type="text" placeholder="Doe" name="last_name" required />
         <input type="email" placeholder="example@gmail.com" name="email" required />
+        <input
+          type="text"
+          placeholder="Enter Full Address"
+          name="full_address"
+          required
+          pattern=".+"
+          title="Please enter your full address." />
+
+        <input
+          type="tel"
+          placeholder="09XXXXXXXXX"
+          name="contact_number"
+          required
+          pattern="^09\d{9}$"
+          title="Contact number must start with '09' and be followed by 9 digits." />
+
         <input type="text" placeholder="Enter Username here" name="username" required />
         <input
           type="password"
