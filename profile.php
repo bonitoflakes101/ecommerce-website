@@ -65,6 +65,12 @@ $orders = $stmtOrders->fetchAll();
 
     <title>TechVault Profile</title>
     <link rel="icon" type="image/x-icon" href="resources/images/logo-icon.png" />
+    <script
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="ctNklf3sTWQ7H8tDU6Xp5"
+        domain="www.chatbase.co"
+        defer>
+    </script>
 </head>
 
 <body>
