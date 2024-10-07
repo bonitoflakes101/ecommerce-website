@@ -80,7 +80,7 @@
                     </a>
 
                     <!-- Cart BTN -->
-                    <a href="#" id="navCart" class="nav-cart">
+                    <a href="cart.php" id="navCart" class="nav-cart">
                         <svg
                             width="27"
                             height="28"
