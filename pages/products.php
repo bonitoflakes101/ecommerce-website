@@ -267,7 +267,149 @@
 
 
 
+footer{
+    width: 100%;
+}
 
+.footer-container{
+    max-width: 1200px;
+    width: 90%;
+    margin: 0px auto;
+    padding: 50px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-company-box,
+.footer-newsletter{
+    max-width: 330px;
+}
+
+.footer-company-box .footer-logo{
+    max-width: 150px;
+    height: 45px;
+    display: flex;
+}
+
+.footer-company-box .footer-logo img{
+    width: 100%;
+    min-height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.footer-company-box p,
+.footer-newsletter p{
+    color: #121212;
+    margin: 5px 0px;
+}
+
+.footer-social{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-social a{
+    background-color: var(--price-color);
+    border-radius: 50%;
+    fill: #ffffff;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    transition: all ease 0.3s;
+}
+
+.footer-social a:hover{
+    fill: #ffffff;
+    background-color: var(--main-dark);
+}
+
+.footer-link-box{
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-link-box strong,
+.footer-newsletter strong{
+    color: #121212;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.footer-link-box ul{
+   margin-top: 5px; 
+}
+
+.footer-link-box ul li a{
+    color: #121212;
+    transition: all ease 0.3s;
+}
+
+.footer-link-box ul li a:hover{
+    color: var(--price-color);
+}
+
+.subscribe-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.subscribe-box input{
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: #e5e5e5;
+    border-radius: 10px 0px 0px 10px;
+    padding: 0px 15px;
+}
+
+.subscribe-box button{
+    border: none;
+    outline: none;
+    background-color: var(--price-color);
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 500px;
+    height: 40px;
+    padding: 0px 20px;
+    border-radius: 0px 10px 10px 0px;
+    transition: all ease 0.3s;
+}
+
+.subscribe-box button:hover{
+    background-color: var(--main-dark);
+    cursor: pointer;   
+}
+
+.footer-bottom{
+    background-color: var(--main-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-bottom span{
+    padding-top: 5px;
+    color: #cfcfcf;
+
+}
+
+.footer-bottom p{
+    padding-bottom: 5px;
+    color: #929292;
+
+}
 
 
     
@@ -464,5 +606,104 @@
       ?>
   
   </div>
+
+
+
+    <!-- Footer -->
+    <footer>
+    <!-- Footer Container -->
+    <div class="footer-container">
+      <!-- Company box -->
+      <div class="footer-company-box">
+        <!-- Logo -->
+        <a href="#" class="footer-logo">
+          <img src="../resources/images/logo.png" alt="logo">
+        </a>
+        <!-- Details -->
+        <p>Product names and logos used in this website are for identification purposes only and are trademarks of their respective owners.</p>
+        <!-- Social Box -->
+        <div class="footer-social">
+          <!-- Facebook -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" width="1em" viewBox="0 0 320 512">
+              <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" />
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="1em" width="1em">
+              <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+            </svg>
+          </a>
+          <!-- Messenger -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1em" width="1em">
+              <path d="M256.6 8C116.5 8 8 110.3 8 248.6c0 72.3 29.7 134.8 78.1 177.9 8.4 7.5 6.6 11.9 8.1 58.2A19.9 19.9 0 0 0 122 502.3c52.9-23.3 53.6-25.1 62.6-22.7C337.9 521.8 504 423.7 504 248.6 504 110.3 396.6 8 256.6 8zm149.2 185.1l-73 115.6a37.4 37.4 0 0 1 -53.9 9.9l-58.1-43.5a15 15 0 0 0 -18 0l-78.4 59.4c-10.5 7.9-24.2-4.6-17.1-15.7l73-115.6a37.4 37.4 0 0 1 53.9-9.9l58.1 43.5a15 15 0 0 0 18 0l78.4-59.4c10.4-8 24.1 4.5 17.1 15.6z" />
+            </svg>
+          </a>
+          <!-- Youtube -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+              <path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="footer-link-box">
+        <strong>Categories</strong>
+        <ul>
+          <li><a href="#">Computers</a></li>
+          <li><a href="#">Components</a></li>
+          <li><a href="#">Peripherals</a></li>
+          <li><a href="#">Networking</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+
+      <!-- Mode of Payments -->
+      <div class="footer-link-box">
+        <strong>Payments</strong>
+        <ul>
+          <li><a href="#">PayMaya</a></li>
+          <li><a href="#">Gcash</a></li>
+          <li><a href="#">BDO</a></li>
+          <li><a href="#">MetroBank</a></li>
+        </ul>
+      </div>
+
+      <!-- Physical Stores -->
+      <div class="footer-link-box">
+        <strong>Physical Stores</strong>
+        <ul>
+          <li><a href="#">Manila City</a></li>
+          <li><a href="#">Makati</a></li>
+          <li><a href="#">Quezon City</a></li>
+          <li><a href="#">Caloocan</a></li>
+          <li><a href="#">Marikina</a></li>
+        </ul>
+      </div>
+
+      <!-- NewsLetter -->
+      <div class="footer-newsletter">
+        <strong>Newsletter</strong>
+        <p>Enter Email to Receive Latest Discounts & Deals</p>
+        <form class="subscribe-box">
+          <input type="email" placeholder="example@techvault.com" required />
+          <button>Subscribe</button>
+
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="footer-bottom">
+      <span class="footer-owner"> All Rights Reserved 2024</span>
+      <p>All Resources and Products in this website is solely for Educational Purposes Only</p>
+    </div>
+  </footer>
+
 </body>
 </html>
