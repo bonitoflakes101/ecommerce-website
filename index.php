@@ -885,6 +885,144 @@ session_start();
 
   </section>
 
+  <!-- Services -->
+  <section class="services">
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="1em" width="1em">
+        <path d="M48 0C21.5 0 0 21.5 0 48L0 368c0 26.5 21.5 48 48 48l16 0c0 53 43 96 96 96s96-43 96-96l128 0c0 53 43 96 96 96s96-43 96-96l32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l0-64 0-32 0-18.7c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7L416 96l0-48c0-26.5-21.5-48-48-48L48 0zM416 160l50.7 0L544 237.3l0 18.7-128 0 0-96zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+      </svg>
+      <span>Free Shipping</span>
+      <p>Free Shipping for Selected Products</p>
+    </div>
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1em" width="1em">
+        <path d="M256 0c53 0 96 43 96 96l0 3.6c0 15.7-12.7 28.4-28.4 28.4l-135.1 0c-15.7 0-28.4-12.7-28.4-28.4l0-3.6c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4l112 0c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5l64.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6L272 240c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 239.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64.3 0c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z" />
+      </svg>
+      <span>Technical Support</span>
+      <p>Product & Technical Support 24/7</p>
+    </div>
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1em" width="1em">
+        <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z" />
+      </svg>
+      <span>Consumer Protection</span>
+      <p>Ensuring all products are Legit and Authentic</p>
+    </div>
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="1em" width="1em">
+        <path d="M184 48l144 0c4.4 0 8 3.6 8 8l0 40L176 96l0-40c0-4.4 3.6-8 8-8zm-56 8l0 40L64 96C28.7 96 0 124.7 0 160l0 96 192 0 160 0 8.2 0c32.3-39.1 81.1-64 135.8-64c5.4 0 10.7 .2 16 .7l0-32.7c0-35.3-28.7-64-64-64l-64 0 0-40c0-30.9-25.1-56-56-56L184 0c-30.9 0-56 25.1-56 56zM320 352l-96 0c-17.7 0-32-14.3-32-32l0-32L0 288 0 416c0 35.3 28.7 64 64 64l296.2 0C335.1 449.6 320 410.5 320 368c0-5.4 .2-10.7 .7-16l-.7 0zm320 16a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zM496 288c8.8 0 16 7.2 16 16l0 48 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-48 0c-8.8 0-16-7.2-16-16l0-64c0-8.8 7.2-16 16-16z" />
+      </svg>
+      <span>Money Back Guarantee</span>
+      <p>You have 30 days to return Product</p>
+    </div>
+
+
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Footer Container -->
+    <div class="footer-container">
+      <!-- Company box -->
+      <div class="footer-company-box">
+        <!-- Logo -->
+        <a href="#" class="footer-logo">
+          <img src="resources/images/logo.png" alt="logo">
+        </a>
+        <!-- Details -->
+        <p>Product names and logos used in this website are for identification purposes only and are trademarks of their respective owners.</p>
+        <!-- Social Box -->
+        <div class="footer-social">
+          <!-- Facebook -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" width="1em" viewBox="0 0 320 512">
+              <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" />
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="1em" width="1em">
+              <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+            </svg>
+          </a>
+          <!-- Messenger -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1em" width="1em">
+              <path d="M256.6 8C116.5 8 8 110.3 8 248.6c0 72.3 29.7 134.8 78.1 177.9 8.4 7.5 6.6 11.9 8.1 58.2A19.9 19.9 0 0 0 122 502.3c52.9-23.3 53.6-25.1 62.6-22.7C337.9 521.8 504 423.7 504 248.6 504 110.3 396.6 8 256.6 8zm149.2 185.1l-73 115.6a37.4 37.4 0 0 1 -53.9 9.9l-58.1-43.5a15 15 0 0 0 -18 0l-78.4 59.4c-10.5 7.9-24.2-4.6-17.1-15.7l73-115.6a37.4 37.4 0 0 1 53.9-9.9l58.1 43.5a15 15 0 0 0 18 0l78.4-59.4c10.4-8 24.1 4.5 17.1 15.6z" />
+            </svg>
+          </a>
+          <!-- Youtube -->
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+              <path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="footer-link-box">
+        <strong>Categories</strong>
+        <ul>
+          <li><a href="#">Computers</a></li>
+          <li><a href="#">Components</a></li>
+          <li><a href="#">Peripherals</a></li>
+          <li><a href="#">Networking</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+
+      <!-- Mode of Payments -->
+      <div class="footer-link-box">
+        <strong>Payments</strong>
+        <ul>
+          <li><a href="#">PayMaya</a></li>
+          <li><a href="#">Gcash</a></li>
+          <li><a href="#">BDO</a></li>
+          <li><a href="#">MetroBank</a></li>
+        </ul>
+      </div>
+
+      <!-- Physical Stores -->
+      <div class="footer-link-box">
+        <strong>Physical Stores</strong>
+        <ul>
+          <li><a href="#">Manila City</a></li>
+          <li><a href="#">Makati</a></li>
+          <li><a href="#">Quezon City</a></li>
+          <li><a href="#">Caloocan</a></li>
+          <li><a href="#">Marikina</a></li>
+        </ul>
+      </div>
+
+      <!-- NewsLetter -->
+      <div class="footer-newsletter">
+        <strong>Newsletter</strong>
+        <p>Enter Email to Receive Latest Discounts & Deals</p>
+        <form class="subscribe-box">
+          <input type="email" placeholder="example@techvault.com" required />
+          <button>Subscribe</button>
+
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="footer-bottom">
+      <span class="footer-owner"> All Rights Reserved 2024</span>
+      <p>All Resources and Products in this website is solely for Educational Purposes Only</p>
+    </div>
+  </footer>
+
 
 
 
