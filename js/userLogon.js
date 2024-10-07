@@ -196,7 +196,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Show the login form when the nav user is clicked
     navUser.addEventListener('click', function() {
-        showLoginForm();
+        if (urlParams.has('login_success')) {
+            console.log("User log in", urlParams.get('login_success'));
+            //showAccountForm(); -- uncomment this if forms ung cart
+            window.location.href = 'account.php'; 
+        } else {
+            showLoginForm();
+        }
     });
 
     // redirects to  cart.php if user is logged in else show the login form
