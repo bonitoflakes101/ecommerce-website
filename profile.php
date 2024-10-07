@@ -7,17 +7,15 @@ if (!isset($_SESSION['CustomerID'])) {
     exit();
 }
 
-
 $customerID = $_SESSION['CustomerID'];
 
-$sql = "SELECT FirstName, LastName, Email, FullAddress, ContactDetails FROM Customer WHERE CustomerID = :customerID";
-$stmt = $pdo->prepare($sql);
-$stmt->execute(['customerID' => $customerID]);
-
-$user = $stmt->fetch();
+// Fetch user data
+$sqlUser = "SELECT FirstName, LastName, Email, FullAddress, ContactDetails FROM Customer WHERE CustomerID = :customerID";
+$stmtUser = $pdo->prepare($sqlUser);
+$stmtUser->execute(['customerID' => $customerID]);
+$user = $stmtUser->fetch();
 
 if ($user) {
-    // Fetch the user's data
     $firstName = $user['FirstName'];
     $lastName = $user['LastName'];
     $email = $user['Email'];
@@ -27,7 +25,34 @@ if ($user) {
     echo "Error fetching user data.";
     exit();
 }
+
+// Fetch order history
+$sqlOrders = "
+    SELECT 
+        o.OrderID,
+        o.OrderDate,
+        o.Status,
+        o.EstimatedDeliveryDate,
+        oi.Quantity,
+        oi.Price,
+        p.ProductName,
+        p.Category AS ProductCategory,
+        p.ProductImages
+    FROM 
+        `Order` o
+    JOIN 
+        OrderItem oi ON o.OrderID = oi.OrderID
+    JOIN 
+        Product p ON oi.ProductID = p.ProductID
+    WHERE 
+        o.CustomerID = :customerID
+";
+
+$stmtOrders = $pdo->prepare($sqlOrders);
+$stmtOrders->execute(['customerID' => $customerID]);
+$orders = $stmtOrders->fetchAll();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -112,7 +137,7 @@ if ($user) {
                     </a>
 
                     <!-- Cart BTN -->
-                    <a href="cart.php" id="navCart" class="nav-cart">
+                    <a href="pages/cart.php" id="navCart" class="nav-cart">
                         <svg
                             width="27"
                             height="28"
@@ -196,55 +221,36 @@ if ($user) {
             <div class="order-page-title">
                 <h1>Order History</h1>
             </div>
-            <!-- Order Container -->
-            <div class="order-container">
-                <div class="product-order">
-                    <div class="product-order-image">
-                        <img src="resources/images/pc1.png" alt="order-image">
-                    </div>
-                    <div class="product-order-details">
-                        <strong>Product Title</strong>
-                    </div>
-                    <div class="product-order-details">
-                        <strong>Product Category</strong>
-                    </div>
-                    <div class="product-order-details">
-                        <strong>Product Quantity</strong>
-                    </div>
-                    <div class="product-order-price">
-                        <strong>P100,000.00</strong>
-                    </div>
-                    <div class="product-order-status">
-                        <strong>In-Transit</strong>
-                    </div>
 
-                </div>
-            </div>
-            <!-- Order Container -->
-            <div class="order-container">
-                <div class="product-order">
-                    <div class="product-order-image">
-                        <img src="resources/images/pc1.png" alt="order-image">
-                    </div>
-                    <div class="product-order-details">
-                        <strong>Product Title</strong>
-                    </div>
-                    <div class="product-order-details">
-                        <strong>Product Category</strong>
-                    </div>
-                    <div class="product-order-details">
-                        <strong>Product Quantity</strong>
-                    </div>
-                    <div class="product-order-price">
-                        <strong>P100,000.00</strong>
-                    </div>
-                    <div class="product-order-status">
-                        <strong>In-Transit</strong>
-                    </div>
 
-                </div>
-            </div>
-
+            <?php if (count($orders) > 0): ?>
+                <?php foreach ($orders as $order): ?>
+                    <div class="order-container">
+                        <div class="product-order">
+                            <div class="product-order-image">
+                                <img src="<?php echo htmlspecialchars($order['ProductImages']); ?>" alt="order-image">
+                            </div>
+                            <div class="product-order-details">
+                                <strong><?php echo htmlspecialchars($order['ProductName']); ?></strong>
+                            </div>
+                            <div class="product-order-details">
+                                <strong><?php echo htmlspecialchars($order['ProductCategory']); ?></strong>
+                            </div>
+                            <div class="product-order-details">
+                                <strong><?php echo htmlspecialchars($order['Quantity']); ?></strong>
+                            </div>
+                            <div class="product-order-price">
+                                <strong>P<?php echo number_format($order['Price'], 2); ?></strong>
+                            </div>
+                            <div class="product-order-status">
+                                <strong><?php echo htmlspecialchars($order['Status']); ?></strong>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div>No orders found.</div>
+            <?php endif; ?>
         </section>
 
 </body>
