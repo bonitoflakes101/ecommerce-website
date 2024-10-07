@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (urlParams.has('login_success')) {
             console.log("User log in", urlParams.get('login_success'));
             //showAccountForm(); -- uncomment this if forms ung cart
-            window.location.href = '../profile.php'; 
+            window.location.href = '../ecommerce-website/profile.php'; 
         } else {
             showLoginForm();
         }

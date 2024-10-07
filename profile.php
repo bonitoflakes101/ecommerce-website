@@ -152,7 +152,7 @@
                 <p>89 Items Rated</p>
                 <br>
                 <p>Items Ordered : 89</p>
-                <a href="#">Logout</a>
+                <a href="pages/logout.php" class="logout-button">Logout</a>
 
             </div>
 
@@ -185,7 +185,7 @@
                 <div class="product-order-status">
                     <strong>In-Transit</strong>
                 </div>
-                
+
             </div>
         </div>
         <!-- Order Container -->
@@ -209,10 +209,10 @@
                 <div class="product-order-status">
                     <strong>In-Transit</strong>
                 </div>
-                
+
             </div>
         </div>
-        
+
     </section>
 
 </body>
