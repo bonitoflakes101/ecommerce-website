@@ -143,7 +143,7 @@ $orders = $stmtOrders->fetchAll();
                     </a>
 
                     <!-- Cart BTN -->
-                    <a href="pages/cart.php" id="navCart" class="nav-cart">
+                    <a href="#" id="navCart" class="nav-cart">
                         <svg
                             width="27"
                             height="28"
