@@ -47,7 +47,7 @@ session_start();
       <!-- Top Header / Logo Bar -->
       <div class="header-top">
         <!-- Logo -->
-        <a href="#" class="logo">
+        <a href="" class="logo">
           <img src="resources/images/logo-with-icon.png" alt="logo" />
         </a>
 
@@ -145,13 +145,13 @@ session_start();
       <!-- Navigation Bar -->
       <nav class="navigation">
         <ul class="menu">
-          <li><a href="#">Computers</a></li>
-          <li><a href="#">Components</a></li>
-          <li><a href="#">Peripherals</a></li>
-          <li><a href="#">Networking</a></li>
-          <li><a href="#">Accessories</a></li>
-          <li><a href="#">Gadgets</a></li>
-          <li><a href="#">Deals</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=laptops">Laptops</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=desktops">Desktops</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=processors">Processors</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=motherboards">Motherboards</a></li>
+          <li><a href="products.php?category=GraphicCards">Graphics Cards</a></li>
+          <li><a href="products.php?category=MemoryStorage">Memory & Storage</a></li>
+          <li><a href="products.php?category=Hardware">Hardware</a></li>
         </ul>
       </nav>
     </header>
