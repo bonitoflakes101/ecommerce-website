@@ -24,9 +24,13 @@
     background-image: linear-gradient(to top, #ebebeb , #ffffff);
     position: fixed;
     inset: 0 0 0 auto;
+    display: grid;
     grid-template-rows: 70px 1fr 70px;
     border-radius: 20px 0 0 20px;
     z-index: 103;
+
+    visibility: hidden; 
+    opacity: 0;  
 }
 
 .cart-tab h1{

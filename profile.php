@@ -62,7 +62,7 @@ $orders = $stmtOrders->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/profileStyle.css" />
-
+    <link rel="stylesheet" href="css/cartStyle.css" />
     <title>TechVault Profile</title>
     <link rel="icon" type="image/x-icon" href="resources/images/logo-icon.png" />
     <script
@@ -71,6 +71,8 @@ $orders = $stmtOrders->fetchAll();
         domain="www.chatbase.co"
         defer>
     </script>
+    <script src="js/cartVisibility.js"></script>
+    <script src="js/userLogon.js"></script>
 </head>
 
 <body>
@@ -259,6 +261,38 @@ $orders = $stmtOrders->fetchAll();
             <?php endif; ?>
         </section>
 
+        <section class="cart">
+            <div class="cart-tab">
+                <h1>My Cart</h1>
+                <div class="cart-list">
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="resources/images/pc1.png" alt="cart-pic">
+                        </div>
+                        <div class="cart-item-title">
+                            <p>The Beast PC</p>
+                        </div>
+                        <div class="cart-item-price">
+                            <p>P100,000.00</p>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <span class="minus">-</span>
+                            <span class="amount">1</span>
+                            <span class="Plus">+</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="cart-buttons">
+                    <button class="cart-close">Close</button>
+                    <br>
+                    <button class="cart-checkout">Checkout</button>
+
+                </div>
+            </div>
+
+        </section>
 </body>
 
 </html>

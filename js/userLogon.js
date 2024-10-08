@@ -198,8 +198,9 @@ document.addEventListener("DOMContentLoaded", function() {
     navUser.addEventListener('click', function() {
         if (urlParams.has('login_success')) {
             console.log("User log in", urlParams.get('login_success'));
-            //showAccountForm(); -- uncomment this if forms ung cart
-            window.location.href = '../ecommerce-website/profile.php'; 
+            
+            window.location.href = '../ecommerce-website/profile.php?login_success=true'; 
+            header("Location: ../profile.php?login_success=true");
         } else {
             showLoginForm();
         }
@@ -209,8 +210,7 @@ document.addEventListener("DOMContentLoaded", function() {
     navCart.addEventListener('click', function() {
         if (urlParams.has('login_success')) {
             console.log("User log in", urlParams.get('login_success'));
-            //showCartForm(); -- uncomment this if forms ung cart
-            window.location.href = 'pages/cart.php'; 
+            showCartBox();
         } else {
             showLoginForm();
         }

@@ -1,7 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const cartTab = document.querySelector('cart-tab');
+    const cartTab = document.querySelector('.cart-tab'); 
     const formContainer = document.querySelector('.form'); 
+    const closeButton = document.querySelector('.cart-close');
+
+    window.cartTab = cartTab; // para global
+
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            hideCartBox();
+        });
+    }
 })
+
 
 function showCartBox() {
     cartTab.style.visibility = "visible"; 
