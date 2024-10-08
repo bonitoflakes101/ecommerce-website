@@ -3,7 +3,7 @@ session_start();
 require 'includes/db_config.php';
 
 if (!isset($_SESSION['CustomerID'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
