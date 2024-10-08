@@ -13,6 +13,7 @@ session_start();
 
   <!-- Stylesheet for CSS -->
   <link rel="stylesheet" href="css/mainStyle.css" />
+  <link rel="stylesheet" href="css/cartStyle.css" />
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -943,6 +944,40 @@ session_start();
 
   </section>
 
+  <!-- Cart Pop-up -->
+  <section class="cart">
+    <div class="cart-tab">
+      <h1>My Cart</h1>
+      <div class="cart-list">
+        <div class="cart-item">
+          <div class="cart-item-image">
+            <img src="resources/images/pc1.png" alt="cart-pic">
+          </div>
+          <div class="cart-item-title">
+            <p>The Beast PC</p>
+          </div>
+          <div class="cart-item-price">
+            <p>P100,000.00</p>
+          </div>
+          <div class="cart-item-quantity">
+            <span class="minus">-</span>
+            <span class="amount">1</span>
+            <span class="Plus">+</span>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="cart-buttons">
+        <button class="cart-close">Close</button>
+        <br>
+        <button class="cart-checkout">Checkout</button>
+
+      </div>
+    </div>
+
+  </section>
+
   <!-- Footer -->
   <footer>
     <!-- Footer Container -->
@@ -1039,14 +1074,8 @@ session_start();
     </div>
   </footer>
 
-
-
-
-
-
-
-
   <script src="js/userLogon.js"></script>
+  <script src="js/cartVisibility.js"></script>
 </body>
 
 </html>
