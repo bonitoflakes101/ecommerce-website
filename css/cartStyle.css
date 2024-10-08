@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Afacad Flux", sans-serif;
+}
+
+:root{
+    --text-color:#f8f8f8;
+    --main-color:#bdbdbd;
+    --main-dark:#212121;
+    --secondary-color:#3BBECD;
+    --tertiary-color:#5edbe9;
+    --product-bg-color:#e2e2e2;
+    --price-color:#20919e;
+}
+
+.cart-tab{
+    width: 400px;
+    background-image: linear-gradient(to top, #ebebeb , #ffffff);
+    position: fixed;
+    inset: 0 0 0 auto;
+    display: grid;
+    grid-template-rows: 70px 1fr 70px;
+    border-radius: 20px 0 0 20px;
+    z-index: 103;
+}
+
+.cart-tab h1{
+    padding: 20px 20px;
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.cart-tab .cart-buttons{
+    display: grid;
+    grid-template-columns: 1fr 10px 1fr;
+    padding: 10px;
+
+}
+
+.cart-tab .cart-buttons .cart-close{
+    border: none;
+    background-color: var(--main-color);
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #212121;
+    border-radius: 30px;
+    transition: all ease 0.3s;
+}
+
+.cart-tab .cart-buttons .cart-close:hover{
+    background-color: #c8c8c8;
+}
+
+.cart-tab .cart-buttons .cart-checkout{
+    border: none;
+    background-color: var(--price-color);
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #212121;
+    border-radius: 30px;
+    transition: all ease 0.3s;
+}
+
+.cart-tab .cart-buttons .cart-checkout:hover{
+    background-color: var(--secondary-color);
+}
+
+.cart-item-image img{
+    width: 100%;
+}
+
+.cart-item{
+    margin: 5px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 40px 130px 100px 1fr;
+    gap: 5px;
+    text-align: center;
+    align-items: center;
+}
+
+.cart-item-quantity span{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    color: #ffffff;
+    background-color: #212121;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cart-item-quantity .amount{
+    color: var(--main-dark);
+    background-color: transparent;
+    cursor: auto;
+}
+
+.cart-item:nth-child(even){
+    background-color: #f3f3f3;
+}
+
+.cart-list{
+    overflow: auto;
+}
+
+.cart-list::-webkit-scrollbar{
+    width: 0;
+}
