@@ -304,7 +304,8 @@ ul{
 .product-order{
     padding-top: 5px;
     padding-bottom: 5px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 200px 200px 200px 100px 200px 100px;
     align-items: center; 
     justify-content: center;   
 }
