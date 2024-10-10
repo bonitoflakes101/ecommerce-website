@@ -2,7 +2,7 @@
 <?php session_start();
 
 $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
-echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
+// echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
 
 ?>
 
