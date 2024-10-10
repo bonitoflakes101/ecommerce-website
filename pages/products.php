@@ -464,7 +464,39 @@ echo "Login success: " . ($login_success); // indicator if naka login, tanggalin
 
   </div>
 
+  <!-- Cart Pop-up -->
+  <section class="cart">
+    <div class="cart-tab">
+      <h1>My Cart</h1>
+      <div class="cart-list">
+        <div class="cart-item">
+          <div class="cart-item-image">
+            <img src="../resources/images/pc1.png" alt="cart-pic">
+          </div>
+          <div class="cart-item-title">
+            <p>The Beast PC</p>
+          </div>
+          <div class="cart-item-price">
+            <p>P100,000.00</p>
+          </div>
+          <div class="cart-item-quantity">
+            <span class="minus">-</span>
+            <span class="amount">1</span>
+            <span class="Plus">+</span>
+          </div>
+        </div>
 
+
+      </div>
+      <div class="cart-buttons">
+        <button class="cart-close">Close</button>
+        <br>
+        <button class="cart-checkout">Checkout</button>
+
+      </div>
+    </div>
+
+  </section>
 
   <!-- Footer -->
   <footer>

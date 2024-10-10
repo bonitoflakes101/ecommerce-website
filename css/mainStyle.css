@@ -141,6 +141,16 @@ ul{
     position: relative;
 }
 
+.navigation .menu li a {
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.navigation .menu li a:hover {
+    /* Optional: add styles for hover effect, e.g., change color or background */
+    color: #007BFF; /* Change to your desired hover color */
+    text-decoration: underline; /* Optional: underline on hover */
+}
+
 .menu li a{
     margin-left: 0;
     margin-top: 0;
