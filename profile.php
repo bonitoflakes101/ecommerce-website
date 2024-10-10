@@ -2,6 +2,11 @@
 session_start();
 require 'includes/db_config.php';
 
+$login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
+echo "Login success: " . ($login_success);
+
+
+
 if (!isset($_SESSION['CustomerID'])) {
     header("Location: index.php");
     exit();
@@ -63,6 +68,9 @@ $orders = $stmtOrders->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/profileStyle.css" />
     <link rel="stylesheet" href="css/cartStyle.css" />
+    <link rel="stylesheet" href="css/profileStyle.css" />
+    <link rel="stylesheet" href="css/productsStyle.css" />
+
     <title>TechVault Profile</title>
     <link rel="icon" type="image/x-icon" href="resources/images/logo-icon.png" />
     <script
@@ -73,6 +81,10 @@ $orders = $stmtOrders->fetchAll();
     </script>
     <script src="js/cartVisibility.js"></script>
     <script src="js/userLogon.js"></script>
+    <script src="js/products.js"></script>
+
+
+
 </head>
 
 <body>
@@ -181,13 +193,13 @@ $orders = $stmtOrders->fetchAll();
             <!-- Navigation Bar -->
             <nav class="navigation">
                 <ul class="menu">
-                    <li><a href="#">Computers</a></li>
-                    <li><a href="#">Components</a></li>
-                    <li><a href="#">Peripherals</a></li>
-                    <li><a href="#">Networking</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Gadgets</a></li>
-                    <li><a href="#">Deals</a></li>
+                    <li><a href="pages/products.php?category=laptops">Laptops</a></li>
+                    <li><a href="pages/products.php?category=desktops">Desktops</a></li>
+                    <li><a href="pages/products.php?category=Processors">Processors</a></li>
+                    <li><a href="pages/products.php?category=Motherboards">Motherboards</a></li>
+                    <li><a href="pages/products.php?category=GraphicCards">Graphics Cards</a></li>
+                    <li><a href="pages/products.php?category=MemoryStorage">Memory & Storage</a></li>
+                    <li><a href="pages/products.php?category=Hardware">Hardware</a></li>
                 </ul>
             </nav>
         </header>
@@ -293,6 +305,12 @@ $orders = $stmtOrders->fetchAll();
             </div>
 
         </section>
+
+        <script>
+            // Pass the PHP session variable to JavaScript
+            const login_success = <?php echo json_encode($login_success); ?>;
+        </script>
+
 </body>
 
 </html>

@@ -1,6 +1,8 @@
 <?php
 session_start();
-// require 'includes/db_config.php';
+
+$login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
+echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
 ?>
 
 
@@ -1076,6 +1078,10 @@ session_start();
 
   <script src="js/userLogon.js"></script>
   <script src="js/cartVisibility.js"></script>
+  <script>
+    // Pass the PHP session variable to JavaScript
+    const login_success = <?php echo json_encode($login_success); ?>;
+  </script>
 </body>
 
 </html>

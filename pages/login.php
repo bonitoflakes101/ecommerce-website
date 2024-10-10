@@ -42,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Successful login for customer
                         $_SESSION['CustomerID'] = $customer['CustomerID'];
                         $_SESSION['Username'] = $customer['Username'];
-                        header("Location: ../index.php?login_success=true");
+                        $_SESSION['login_success'] = true;
+                        header("Location: ../index.php");
                         exit;
                     } else {
                         $error = "Your account is not confirmed yet. Please check your email.";

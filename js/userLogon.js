@@ -22,6 +22,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const verifyPasscancel = document.querySelector('.verify-pass-cancel'); // Cancel button for verify password OTP form
     const verifyEmailcancel = document.querySelector('.verify-pass-cancel'); // Cancel button for verify email OTP form
+    
+
+
+    const cartElement = document.getElementById("cart");
+    const chatbotElement = document.querySelector('[src="https://www.chatbase.co/embed.min.js"]');
+
+
+    function hideChatbot() {
+        if (chatbotElement) {
+            chatbotElement.style.display = "none"; 
+        }
+    }
 
     function showOtpNotification() {
         const notification = document.getElementById('otpNotification');
@@ -194,27 +206,34 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
 
-    // Show the login form when the nav user is clicked
-    navUser.addEventListener('click', function() {
-        if (urlParams.has('login_success')) {
-            console.log("User log in", urlParams.get('login_success'));
-            
-            window.location.href = '../ecommerce-website/profile.php?login_success=true'; 
-            header("Location: ../profile.php?login_success=true");
+    navUser.addEventListener('click', function(event) {
+        console.log("User clicked on navUser button");
+    
+        const currentUrlParams = new URLSearchParams(window.location.search);
+        console.log("Current URL Parameters:", currentUrlParams.toString());
+    
+        if (login_success) {    
+            console.log("User is logged in, redirecting to profile page...");
+            window.location.assign('../ecommerce-website/profile.php');
         } else {
+            console.log("User is not logged in, showing login form");
             showLoginForm();
+        }
+    
+        event.preventDefault(); 
+    });
+    
+
+    navCart.addEventListener('click', function() {
+        if (login_success) {
+            console.log("User is logged in", login_success);
+            showCartBox();  
+        } else {
+            console.log("User is not logged in, showing login form");
+            showLoginForm();  
         }
     });
 
-    // redirects to  cart.php if user is logged in else show the login form
-    navCart.addEventListener('click', function() {
-        if (urlParams.has('login_success')) {
-            console.log("User log in", urlParams.get('login_success'));
-            showCartBox();
-        } else {
-            showLoginForm();
-        }
-    });
 
     // Event for the Create Account button
     createAccountButton.addEventListener('click', function() {
