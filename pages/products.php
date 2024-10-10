@@ -93,7 +93,7 @@ echo "Login success: " . ($login_success); // indicator if naka login, tanggalin
           </a>
 
           <!-- Cart BTN -->
-          <a href="cart.php" id="navCart" class="nav-cart">
+          <a href="#" id="navCart" class="nav-cart">
             <svg
               width="27"
               height="28"
@@ -561,7 +561,10 @@ echo "Login success: " . ($login_success); // indicator if naka login, tanggalin
       <p>All Resources and Products in this website is solely for Educational Purposes Only</p>
     </div>
   </footer>
-
+  <script>
+    // pass php session to js
+    const login_success = <?php echo json_encode($login_success); ?>;
+  </script>
   <script src="../js/products.js"></script>
   <script src="../js/userLogon.js"></script>
   <script src="../js/cartVisibility.js"></script>

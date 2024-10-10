@@ -3,8 +3,7 @@ session_start();
 require 'includes/db_config.php';
 
 $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
-echo "Login success: " . ($login_success);
-
+echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
 
 
 if (!isset($_SESSION['CustomerID'])) {
@@ -307,7 +306,7 @@ $orders = $stmtOrders->fetchAll();
         </section>
 
         <script>
-            // Pass the PHP session variable to JavaScript
+            // pass php session to js
             const login_success = <?php echo json_encode($login_success); ?>;
         </script>
 

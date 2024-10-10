@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         if (login_success) {    
             console.log("User is logged in, redirecting to profile page...");
-            window.location.assign('../ecommerce-website/profile.php');
+            window.location.assign('/ecommerce-website/profile.php'); 
         } else {
             console.log("User is not logged in, showing login form");
             showLoginForm();

@@ -1079,7 +1079,7 @@ echo "Login success: " . ($login_success); // indicator if naka login, tanggalin
   <script src="js/userLogon.js"></script>
   <script src="js/cartVisibility.js"></script>
   <script>
-    // Pass the PHP session variable to JavaScript
+    // pass php session to js
     const login_success = <?php echo json_encode($login_success); ?>;
   </script>
 </body>
