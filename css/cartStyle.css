@@ -19,14 +19,13 @@
 
 .cart-tab{
     display: grid;
-
     width: 400px;
     background-image: linear-gradient(to top, #ebebeb , #ffffff);
     position: fixed;
-    inset: 0 0 0 auto;
+    inset: 30px 0 140px auto;   /* Inset ( Top, Right, Bottom, Left */
     display: grid;
     grid-template-rows: 70px 1fr 70px;
-    border-radius: 20px 0 0 20px;
+    border-radius: 20px 0 0 20px; 
     z-index: 103;
 
     visibility: hidden; 
