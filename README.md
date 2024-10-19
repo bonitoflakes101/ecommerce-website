@@ -73,7 +73,7 @@
 
 1. **Install PHPMailer:**
    - Open a terminal in the project root directory (where the composer.json file is located).
-     Run the following command to install PHPMailer:
+   - Run the following command to install PHPMailer:
      `composer require phpmailer/phpmailer`
 
 ## Running the Application
