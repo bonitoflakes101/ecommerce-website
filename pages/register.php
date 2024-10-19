@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = "Username already taken";
     }
 
-    // Check if email is already registered
+    // checks email if alr registered
     $checkEmail = $pdo->prepare("SELECT * FROM Customer WHERE Email = :email");
     $checkEmail->execute([':email' => $email]);
 
@@ -41,7 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($errors)) {
-        $newCustomerID = mt_rand(1000, 9999);
+        do {
+            $newCustomerID = mt_rand(1000, 9999);
+
+            // prevents duplicate ng cx id
+            $checkCustomerID = $pdo->prepare("SELECT * FROM Customer WHERE CustomerID = :customer_id");
+            $checkCustomerID->execute([':customer_id' => $newCustomerID]);
+        } while ($checkCustomerID->rowCount() > 0);
+
 
         $sql = "INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Username, Password, FullAddress, ContactDetails) 
                 VALUES (:customer_id, :first_name, :last_name, :email, :username, :password, :full_address, :contact_number)";
@@ -58,6 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         if ($result) {
+            // creates a cart for the new customer
+            $cartSQL = "INSERT INTO Cart (CustomerID) VALUES (:customer_id)";
+            $cartStmt = $pdo->prepare($cartSQL);
+            $cartStmt->execute([':customer_id' => $newCustomerID]);
+
             $otp = random_int(100000, 999999);
             $expiryTime = date('Y-m-d H:i:s', strtotime('+5 minutes'));
             $updateSQL = "UPDATE Customer SET OTP = :otp, OTP_Expiry = :otp_expiry WHERE CustomerID = :customer_id";
