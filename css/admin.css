@@ -115,6 +115,17 @@
     margin-top: 20px;
 }
 
+.table-container {
+    flex: 1; 
+}
+
+.product-management-container {
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    display: flex;
+}
+
 .order-table {
     width: 100%;
     border-collapse: collapse;
@@ -142,23 +153,69 @@
     outline: none;
 }
 
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #ececec;
+    border-radius: 20px;
+}
+
+.product-table th {
+    padding: 10px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background-color: #20919e;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.product-table td {
+    padding: 10px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
 .order-body {
     display: block;
-    max-height: 400px; /* Set the desired max height for scrollable area */
-    overflow-y: auto;  /* Enable vertical scrolling */
+    max-height: 300px; 
+    overflow-y: auto; 
     width: 100%;
 }
 
 .order-body tr {
     display: table;
     width: 100%;
-    table-layout: fixed; /* Ensures the table layout stays fixed */
+    table-layout: fixed; 
+}
+
+.product-body {
+    display: block;
+    max-height: 400px; 
+    overflow-y: auto;  
+    width: 100%;
+}
+
+.product-body tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; 
 }
 
 .order-header tr {
     display: table;
     width: 100%;
-    table-layout: fixed; /* Ensures the header layout stays fixed */
+    table-layout: fixed; 
+}
+
+.product-header tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; 
 }
 
 th.order-id {

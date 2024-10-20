@@ -202,38 +202,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <br>
 
-            <div class="order-management-container">
+            <div class="product-management-container">
                 <!-- edit btn to text fields/ delete product -->
-                <table class="order-table">
-                    <thead class="order-header">
-                        <tr>
-                            <th class="product-id">Product ID</th>
-                            <th class="product-name">Product Name</th>
-                            <th class="manufacturer">Manufacturer</th>
-                            <th class="price">Price</th>
-                            <th class="stock">Stock</th>
-                            <th class="category">Category</th>
-                            <th class="manage-action">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="order-body">
-                        <?php foreach ($products as $product): ?>
+                <div class="table-container">
+                    <table class="product-table">
+                        <thead class="product-header">
                             <tr>
-                                <!-- product tables -->
-                                <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
-                                <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
-                                <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
-                                <td><?php echo htmlspecialchars($product['Price']); ?></td>
-                                <td><?php echo htmlspecialchars($product['Stock']); ?></td>
-                                <td><?php echo htmlspecialchars($product['Category']); ?></td>
-                                <td id="table-buttons">
-                                    <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">Edit</button>
-                                    <button class="delete-button" onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">Delete</button>
-                                </td>
+                                <th class="product-id">Product ID</th>
+                                <th class="product-name">Product Name</th>
+                                <th class="manufacturer">Manufacturer</th>
+                                <th class="price">Price</th>
+                                <th class="stock">Stock</th>
+                                <th class="category">Category</th>
+                                <th class="manage-action">Action</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="product-body">
+                            <?php foreach ($products as $product): ?>
+                                <tr>
+                                    <!-- product tables -->
+                                    <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
+                                    <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
+                                    <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
+                                    <td><?php echo htmlspecialchars($product['Price']); ?></td>
+                                    <td><?php echo htmlspecialchars($product['Stock']); ?></td>
+                                    <td><?php echo htmlspecialchars($product['Category']); ?></td>
+                                    <td id="table-buttons">
+                                        <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">Edit</button>
+                                        <button class="delete-button" onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">Delete</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </section>
