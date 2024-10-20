@@ -75,6 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         $message = "Product edited successfully!";
+    } elseif (isset($_POST['delete_product']) && isset($_POST['productID'])) {
+        // deletes a product
+        $sql_delete = "DELETE FROM Product WHERE ProductID = :productID";
+        $stmt_delete = $pdo->prepare($sql_delete);
+        $stmt_delete->execute(['productID' => $_POST['productID']]);
+
+        $message = "Product deleted successfully!";
     }
 
     header("Location: admin.php?message=" . urlencode($message));
@@ -109,6 +116,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 form.appendChild(inputOrderID);
                 form.appendChild(inputAction);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+
+        function confirmDelete(productID) {
+            if (confirm("Are you sure you want to delete this product?")) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "admin.php";
+
+                const inputProductID = document.createElement("input");
+                inputProductID.type = "hidden";
+                inputProductID.name = "productID";
+                inputProductID.value = productID;
+
+                const inputDelete = document.createElement("input");
+                inputDelete.type = "hidden";
+                inputDelete.name = "delete_product";
+                inputDelete.value = "1";
+
+                form.appendChild(inputProductID);
+                form.appendChild(inputDelete);
                 document.body.appendChild(form);
                 form.submit();
             }
@@ -150,6 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
 
     <main>
+        <!-- confirm/reject orders -->
         <h2>Orders Management</h2>
         <?php if (isset($_GET['message'])): ?>
             <p><?php echo htmlspecialchars($_GET['message']); ?></p>
@@ -179,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php endforeach; ?>
             </tbody>
         </table>
-
+        <!-- add/edit products text field/btn-->
         <h2>Manage Products</h2>
         <form action="admin.php" method="POST">
             <input type="hidden" name="productID" id="productID" value="">
@@ -206,27 +237,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="Hardware">Hardware</option>
             </select>
 
-            <input type="submit" id="add_product_button" name="add_product" value="Add Product">
-            <input type="submit" id="edit_product_button" name="edit_product" value="Edit Product" style="display: none;">
+            <button type="submit" name="add_product" id="add_product_button">Add Product</button>
+            <button type="submit" name="edit_product" id="edit_product_button" style="display:none;">Edit Product</button>
             <button type="button" onclick="resetForm()">Reset Form</button>
         </form>
 
-        <h2>Product List</h2>
+        <!-- edit btn to text fields/ delete product -->
         <table>
             <thead>
                 <tr>
                     <th>Product ID</th>
-                    <th>Name</th>
+                    <th>Product Name</th>
                     <th>Manufacturer</th>
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Category</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($products as $product): ?>
                     <tr>
+                        <!-- product tables -->
                         <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
                         <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
                         <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
@@ -234,13 +266,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <td><?php echo htmlspecialchars($product['Stock']); ?></td>
                         <td><?php echo htmlspecialchars($product['Category']); ?></td>
                         <td>
-                            <button onclick="editProduct(
-                                <?php echo htmlspecialchars($product['ProductID']); ?>,
-                                '<?php echo htmlspecialchars($product['ProductName']); ?>',
-                                '<?php echo htmlspecialchars($product['Manufacturer']); ?>',
-                                <?php echo htmlspecialchars($product['Price']); ?>,
-                                <?php echo htmlspecialchars($product['Stock']); ?>,
-                                '<?php echo htmlspecialchars($product['Category']); ?>')">Edit</button>
+                            <button onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">Edit</button>
+                            <button onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">Delete</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
