@@ -99,114 +99,131 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../css/main.css">
     <script src="../js/admin.js"></script>
+
+    <link rel="stylesheet" href="../css/mainStyle.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
 </head>
 
 <body>
-    <header>
-        <h1>Admin Dashboard</h1>
-        <nav>
-            <ul>
-                <li><a href="admin.php">Home</a></li>
-                <li><a href="logout.php">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Main Header -->
+    <section id="main">
+        <!-- Header -->
+        <header>
+            <!-- Top Header / Logo Bar -->
+            <div class="header-top">
+                <!-- Logo -->
+                <a href="../index.php" class="logo">
+                    <img src="../resources/images/logo-with-icon.png" alt="logo" />
+                </a>
 
-    <main>
-        <!-- confirm/reject orders -->
-        <h2>Orders Management</h2>
-        <?php if (isset($_GET['message'])): ?>
-            <p><?php echo htmlspecialchars($_GET['message']); ?></p>
-        <?php endif; ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer Name</th>
-                    <th>Order Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($orders as $order): ?>
+                <a href="logout.php" class="logout-button">Logout</a>
+            </div>
+
+
+        </header>
+
+
+        <main>
+            <!-- confirm/reject orders -->
+            <h2>Orders Management</h2>
+            <?php if (isset($_GET['message'])): ?>
+                <p><?php echo htmlspecialchars($_GET['message']); ?></p>
+            <?php endif; ?>
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo htmlspecialchars($order['OrderID']); ?></td>
-                        <td><?php echo htmlspecialchars($order['FirstName'] . ' ' . $order['LastName']); ?></td>
-                        <td><?php echo htmlspecialchars($order['OrderDate']); ?></td>
-                        <td><?php echo htmlspecialchars($order['Status']); ?></td>
-                        <td>
-                            <button onclick="confirmAction('confirm', <?php echo $order['OrderID']; ?>)">Confirm</button>
-                            <button onclick="confirmAction('reject', <?php echo $order['OrderID']; ?>)">Reject</button>
-                        </td>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <!-- add/edit products text field/btn-->
-        <h2>Manage Products</h2>
-        <form action="admin.php" method="POST">
-            <input type="hidden" name="productID" id="productID" value="">
-            <label for="productName">Product Name:</label>
-            <input type="text" id="productName" name="productName" required>
+                </thead>
+                <tbody>
+                    <?php foreach ($orders as $order): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($order['OrderID']); ?></td>
+                            <td><?php echo htmlspecialchars($order['FirstName'] . ' ' . $order['LastName']); ?></td>
+                            <td><?php echo htmlspecialchars($order['OrderDate']); ?></td>
+                            <td><?php echo htmlspecialchars($order['Status']); ?></td>
+                            <td>
+                                <button onclick="confirmAction('confirm', <?php echo $order['OrderID']; ?>)">Confirm</button>
+                                <button onclick="confirmAction('reject', <?php echo $order['OrderID']; ?>)">Reject</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <!-- add/edit products text field/btn-->
+            <h2>Manage Products</h2>
+            <form action="admin.php" method="POST">
+                <input type="hidden" name="productID" id="productID" value="">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" required>
 
-            <label for="manufacturer">Manufacturer:</label>
-            <input type="text" id="manufacturer" name="manufacturer" required>
+                <label for="manufacturer">Manufacturer:</label>
+                <input type="text" id="manufacturer" name="manufacturer" required>
 
-            <label for="price">Price:</label>
-            <input type="number" id="price" name="price" step="0.01" required>
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" step="0.01" required>
 
-            <label for="stock">Stock:</label>
-            <input type="number" id="stock" name="stock" required>
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" name="stock" required>
 
-            <label for="category">Category:</label>
-            <select name="category" id="category" required>
-                <option value="Laptops">Laptops</option>
-                <option value="Desktops">Desktops</option>
-                <option value="Processors">Processors</option>
-                <option value="Motherboards">Motherboards</option>
-                <option value="Graphics Card">Graphics Card</option>
-                <option value="Memory & Storage">Memory & Storage</option>
-                <option value="Hardware">Hardware</option>
-            </select>
+                <label for="category">Category:</label>
+                <select name="category" id="category" required>
+                    <option value="Laptops">Laptops</option>
+                    <option value="Desktops">Desktops</option>
+                    <option value="Processors">Processors</option>
+                    <option value="Motherboards">Motherboards</option>
+                    <option value="Graphics Card">Graphics Card</option>
+                    <option value="Memory & Storage">Memory & Storage</option>
+                    <option value="Hardware">Hardware</option>
+                </select>
 
-            <button type="submit" name="add_product" id="add_product_button">Add Product</button>
-            <button type="submit" name="edit_product" id="edit_product_button" style="display:none;">Edit Product</button>
-            <button type="button" onclick="resetForm()">Reset Form</button>
-        </form>
+                <button type="submit" name="add_product" id="add_product_button">Add Product</button>
+                <button type="submit" name="edit_product" id="edit_product_button" style="display:none;">Edit Product</button>
+                <button type="button" onclick="resetForm()">Reset Form</button>
+            </form>
 
-        <!-- edit btn to text fields/ delete product -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Manufacturer</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Category</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($products as $product): ?>
+            <!-- edit btn to text fields/ delete product -->
+            <table class="table">
+                <thead>
                     <tr>
-                        <!-- product tables -->
-                        <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
-                        <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
-                        <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
-                        <td><?php echo htmlspecialchars($product['Price']); ?></td>
-                        <td><?php echo htmlspecialchars($product['Stock']); ?></td>
-                        <td><?php echo htmlspecialchars($product['Category']); ?></td>
-                        <td>
-                            <button onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">Edit</button>
-                            <button onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">Delete</button>
-                        </td>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Manufacturer</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Category</th>
+                        <th>Actions</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </main>
+                </thead>
+            </table>
+
+            <div class="table-body">
+                <table class="table">
+                    <tbody>
+                        <?php foreach ($products as $product): ?>
+                            <tr>
+                                <!-- product tables -->
+                                <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
+                                <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
+                                <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
+                                <td><?php echo htmlspecialchars($product['Price']); ?></td>
+                                <td><?php echo htmlspecialchars($product['Stock']); ?></td>
+                                <td><?php echo htmlspecialchars($product['Category']); ?></td>
+                                <td>
+                                    <button onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">Edit</button>
+                                    <button onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">Delete</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
 </body>
 
 </html>
