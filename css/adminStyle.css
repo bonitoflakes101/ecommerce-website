@@ -253,7 +253,7 @@ table th {
     background-color: #1094a3;
     border: none;
     outline: none;
-    width: 130px;
+    width: 50%;
     padding: 10px 5px;
     border-radius: 20px;
     color: #f8f8f8;
@@ -272,7 +272,7 @@ table th {
     background-color: #424242;
     border: none;
     outline: none;
-    width: 130px;
+    width: 50%;
     padding: 10px 5px;
     border-radius: 20px;
     color: #f8f8f8;
@@ -318,7 +318,7 @@ th.manage-action {
     background-color: #1094a3;
     border: none;
     outline: none;
-    width: 80px;
+    width: 35%;
     padding: 10px 5px;
     border-radius: 20px;
     color: #f8f8f8;
@@ -335,7 +335,7 @@ th.manage-action {
     background-color: #424242;
     border: none;
     outline: none;
-    width: 110px;
+    width: 45%;
     padding: 10px 5px;
     border-radius: 20px;
     color: #f8f8f8;
