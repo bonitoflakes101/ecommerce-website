@@ -718,6 +718,16 @@ ul{
     width: 100%;
 }
 
+.product-box:hover {
+    border-radius: 10px;
+    transition: all ease 0.2s;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 10px;
+  }
+
+
+
 .product-box-img{
     width: 100%;
     max-height: 300px;
@@ -779,7 +789,10 @@ ul{
     background-color: var(--secondary-color);
     border-radius: 10px;
     transition: all ease 0.3s;
+    border-style: none;
 }
+
+
 
 .product-cart-button svg{
     margin-left: 5px;

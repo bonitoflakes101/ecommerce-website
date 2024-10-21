@@ -497,97 +497,43 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     <div class="popular-collection-container">
       <!-- Product Box Container -->
       <div class="product-container">
+
+      <!-- query setup for popular tech of the month (top sales) -->
+
+      <?php
+        require '../ecommerce-website/includes/db_config.php';
+
+        $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY Sales DESC LIMIT 5";
+        $stmtProductQuery = $pdo->query($productQuery);
+        
+        while ($row = $stmtProductQuery->fetch()) {
+      ?>
         <!-- Product Box 1-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/pc1.png" alt="product-photo">
-            <span>BEST SELLER</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 2-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/pc1.png" alt="product-photo">
-            <span>BEST SELLER</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 3-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/pc1.png" alt="product-photo">
-            <span>BEST SELLER</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 4-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/pc1.png" alt="product-photo">
-            <span>BEST SELLER</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 5-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/pc1.png" alt="product-photo">
-            <span>BEST SELLER</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
+        <form class="product-box" action="" method="POST"> 
 
+          <?php
+          echo '<a class="product-box-img">';
+          echo '<img src="../ecommerce-website/resources/images/pc1.png" alt="">';
+          echo '</a>';
+
+          echo '<div class="product-box-text">';
+          echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+          echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+          echo '<button name="product-atc-btn"  value ="'.htmlspecialchars($row['ProductID']).'" class="product-cart-button atc-'.htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))).'">
+                Add to Cart
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                  <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                </svg>
+              </button>';
+
+          echo '</div>';
+          ?>
+
+        </form>
+      
+      <?php } ?>
       </div>
-
-
-
-
 
     </div>
 
@@ -618,91 +564,40 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     <div class="recent-collection-container">
       <!-- Product Box Container -->
       <div class="product-container">
-        <!-- Product Box 1-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rtx4090.png" alt="product-photo">
-            <span>NEW!</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 2-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rtx4090.png" alt="product-photo">
-            <span>NEW!</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 3-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rtx4090.png" alt="product-photo">
-            <span>NEW!</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 4-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rtx4090.png" alt="product-photo">
-            <span>NEW!</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 5-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rtx4090.png" alt="product-photo">
-            <span>NEW!</span>
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
+        
+        <?php
+          require '../ecommerce-website/includes/db_config.php';
+
+          $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 5";
+          $stmtProductQuery = $pdo->query($productQuery);
+          
+          while ($row = $stmtProductQuery->fetch()) {
+        ?>
+          <!-- Product Box 1-->
+          <form class="product-box" action="" method="POST"> 
+
+            <?php
+            echo '<a class="product-box-img">';
+            echo '<img src="../ecommerce-website/resources/images/pc1.png" alt="">';
+            echo '</a>';
+
+            echo '<div class="product-box-text">';
+            echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+            echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+            echo '<button name="product-atc-btn"  value ="'.htmlspecialchars($row['ProductID']).'" class="product-cart-button atc-'.htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))).'">
+                  Add to Cart
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                    <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                  </svg>
+                </button>';
+
+            echo '</div>';
+            ?>
+
+           </form>
+        
+        <?php } ?>
 
       </div>
 
@@ -714,6 +609,71 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
 
   </section>
+  
+  <!-- Add to cart functionality (scope is up until products sa recenlty added palang) -->
+  <?php 
+    // check muna if naka login si user/ else dont proceed
+    if($login_success == true) {
+
+
+      // check if the add to cart button is clicked
+      if(isset($_POST['product-atc-btn'])) {
+
+        $productID = $_POST['product-atc-btn'];
+        $customerID = $_SESSION['CustomerID'];
+
+        $cartDataQuery = "SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
+                        FROM Cart as a
+                        JOIN CartItem as b ON a.CartID = b.CartID
+                        WHERE CustomerID = $customerID AND  ProductID = $productID";
+        $cartData = $pdo->query($cartDataQuery);
+        $cartData = $cartData->fetch();
+
+
+        // check if may existing product na sa cart
+        if (isset($cartData['Quantity'])) { 
+            $cartID = $cartData['CartID'];
+            $itemQuantity = $cartData['Quantity'];
+            $cartItemID = $cartData['CartItemID'];
+
+
+            //checking lang if na ccapture yung data ng maayos
+            //echo 'ProductID: '.htmlspecialchars($productID).'  Customer ID: '. htmlspecialchars($customerID).'   CartID: '. htmlspecialchars($cartID).' Quantity: '.htmlspecialchars($itemQuantity). ' CartItemID: '.htmlspecialchars($cartItemID);
+
+
+            // ADD Item Quantity if may Existing Product na sa Cart.
+            $itemQuantity++;
+            $updateQuery = "UPDATE cartitem SET Quantity = :itemQuantity WHERE CartItemID = :cartItemID;";
+            $prepareUpdateQuery = $pdo->prepare($updateQuery);
+            $prepareUpdateQuery->execute([
+              ":itemQuantity" => $itemQuantity,
+              ":cartItemID" => $cartItemID
+            ]);
+
+            // else if wala pang existing product sa cart
+        } else {
+
+            //capturing cart id muna
+            $cartIDQuery = "SELECT CartID FROM Cart WHERE CustomerID = $customerID";
+            $cartID = $pdo->query($cartIDQuery);
+            $cartID = $cartID->fetch();
+            $cartID = $cartID['CartID'];
+            
+            // query for inserting the product na
+            $addToCartQuery = "INSERT INTO cartitem(CartID, ProductID, Quantity) VALUES(:cartID, :productID, 1)";
+            $addToCart = $pdo->prepare($addToCartQuery);
+            $addToCart->execute([
+              ":cartID" => $cartID,
+              ":productID"=> $productID,
+            ]);
+            
+        }
+        
+      }      
+
+    }
+  ?>
+
 
   <!-- Recommended added Section -->
   <section id="recommended-tech">
@@ -739,6 +699,11 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
             </a>
           </div>
         </div>
+
+
+
+
+
         <!-- Product Box 2-->
         <div class="product-box">
           <a href="#" class="product-box-img">
