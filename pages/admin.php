@@ -135,23 +135,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="order-management-container">
-                <!-- confirm/reject orders -->
                 <h2>Order Management</h2>
+
+                <!-- Display any message -->
                 <?php if (isset($_GET['message'])): ?>
                     <p><?php echo htmlspecialchars($_GET['message']); ?></p>
                 <?php endif; ?>
+
                 <table class="order-table">
                     <thead class="order-header">
                         <tr>
-                            <th class="order-id">Order ID</th>
-                            <th class="customer-name">Customer Name</th>
-                            <th class="order-date">Order Date</th>
-                            <th class="status">Status</th>
+                            <th class="order-id">
+                                <div class="header-container">
+                                    <span>Order ID</span>
+                                    <form method="GET" class="sort-form">
+                                        <input type="hidden" name="sort_by" value="OrderID">
+                                        <input type="hidden" name="order" value="<?php echo isset($_GET['order']) && $_GET['order'] === 'asc' ? 'desc' : 'asc'; ?>">
+                                        <button type="submit" class="sort-button">
+                                            <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/sort.png" alt="sort" />
+                                        </button>
+                                    </form>
+                                </div>
+                            </th>
+                            <th class="customer-name">
+                                <div class="header-container">
+                                    <span>Customer Name</span>
+                                    <form method="GET" class="sort-form">
+                                        <input type="hidden" name="sort_by" value="CustomerName">
+                                        <input type="hidden" name="order" value="<?php echo isset($_GET['order']) && $_GET['order'] === 'asc' ? 'desc' : 'asc'; ?>">
+                                        <button type="submit" class="sort-button">
+                                            <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/sort.png" alt="sort" />
+                                        </button>
+                                    </form>
+                                </div>
+                            </th>
+                            <th class="order-date">
+                                <div class="header-container">
+                                    <span>Order Date</span>
+                                    <form method="GET" class="sort-form">
+                                        <input type="hidden" name="sort_by" value="OrderDate">
+                                        <input type="hidden" name="order" value="<?php echo isset($_GET['order']) && $_GET['order'] === 'asc' ? 'desc' : 'asc'; ?>">
+                                        <button type="submit" class="sort-button">
+                                            <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/sort.png" alt="sort" />
+                                        </button>
+                                    </form>
+                                </div>
+                            </th>
+                            <th class="status">
+                                <div class="header-container">
+                                    <span>Status</span>
+                                    <form method="GET" class="sort-form">
+                                        <input type="hidden" name="sort_by" value="Status">
+                                        <input type="hidden" name="order" value="<?php echo isset($_GET['order']) && $_GET['order'] === 'asc' ? 'desc' : 'asc'; ?>">
+                                        <button type="submit" class="sort-button">
+                                            <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/sort.png" alt="sort" />
+                                        </button>
+                                    </form>
+                                </div>
+                            </th>
                             <th class="action">Action</th>
                         </tr>
                     </thead>
                     <tbody class="order-body">
-                        <?php foreach ($orders as $order): ?>
+                        <?php
+                        // Sort logic
+                        $sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'OrderID'; // Default sort by Order ID
+                        $order = isset($_GET['order']) && $_GET['order'] === 'desc' ? 'desc' : 'asc';
+
+                        usort($orders, function ($a, $b) use ($sort_by, $order) {
+                            if ($sort_by === 'CustomerName') {
+                                $a_value = strtolower($a['FirstName'] . ' ' . $a['LastName']);
+                                $b_value = strtolower($b['FirstName'] . ' ' . $b['LastName']);
+                            } else {
+                                $a_value = strtolower($a[$sort_by]);
+                                $b_value = strtolower($b[$sort_by]);
+                            }
+
+                            if ($order === 'asc') {
+                                return $a_value <=> $b_value;
+                            } else {
+                                return $b_value <=> $a_value;
+                            }
+                        });
+
+                        // Display sorted orders
+                        foreach ($orders as $order): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($order['OrderID']); ?></td>
                                 <td><?php echo htmlspecialchars($order['FirstName'] . ' ' . $order['LastName']); ?></td>
@@ -173,9 +241,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
-
                 </table>
             </div>
+
+
+
             <br>
 
             <div class="admin-container">

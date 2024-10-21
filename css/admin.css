@@ -115,9 +115,29 @@
     margin-top: 20px;
 }
 
-.table-container {
+/* .table-container {
     flex: 1; 
+} */
+
+.table-container {
+    position: relative; /* Set positioning context for absolute positioning */
 }
+
+.sort-button {
+    position: absolute; /* Use absolute positioning */
+    top: 10px; /* Adjust vertical position */
+    right: 10px; /* Adjust horizontal position */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-left: 5px; /* Space between the text and icon */
+}
+
+.sort-button img {
+    vertical-align: middle; /* Center icon vertically */
+    margin-left: 5px; /* Optional: Space between text and icon */
+}
+
 
 .order-manager, .product-management-container {
     flex: 1; 
@@ -239,20 +259,20 @@ th.customer-name {
 }
 
 th.order-date {
-    width: 15%;
+    width: 20%;
 }
 
 th.status {
-    width: 15%;
+    width: 20%;
 }
 
 th.action {
-    width: 30%;
+    width: 20%;
 }
 
 #table-buttons {
     display: flex;
-    justify-content: center; /* Center align buttons */
+    justify-content: center; 
 }
 
 .confirm-button {
@@ -261,7 +281,7 @@ th.action {
     background-color: #1094a3;
     border: none;
     outline: none;
-    width: 130px; /* Set fixed width for consistency */
+    width: 130px; 
     padding: 10px 5px;
     border-radius: 20px;
     color: #f8f8f8;
@@ -270,7 +290,7 @@ th.action {
 }
 
 .confirm-button:hover {
-    background-color: #1ebecf; /* Hover color */
+    background-color: #1ebecf; 
 }
 
 .decline-button {
@@ -278,7 +298,7 @@ th.action {
     background-color: #851e1e;
     border: none;
     outline: none;
-    width: 130px; /* Set fixed width for consistency */
+    width: 130px; 
     padding: 10px 5px;
     border-radius: 20px;
     color: #f8f8f8;
@@ -287,7 +307,7 @@ th.action {
 }
 
 .decline-button:hover {
-    background-color: #575757; /* Hover color */
+    background-color: #575757; 
 }
 
 .admin-container {
@@ -433,4 +453,3 @@ th.manage-action {
     gap: 10px; 
 }
 
- 
