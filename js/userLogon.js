@@ -28,6 +28,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const cartElement = document.getElementById("cart");
     const chatbotElement = document.querySelector('[src="https://www.chatbase.co/embed.min.js"]');
 
+    
+const addToCartButtons = document.querySelectorAll('.product-cart-button');
+    
+    console.log("Add to Cart buttons found:", addToCartButtons.length);
+    
 
     function hideChatbot() {
         if (chatbotElement) {
@@ -232,6 +237,17 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("User is not logged in, showing login form");
             showLoginForm();  
         }
+    });
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            if (!login_success) {
+                event.preventDefault(); 
+                showLoginForm();
+            } else {
+                console.log("User is logged in, submitting the form for PHP processing.");
+            }
+        });
     });
 
 
