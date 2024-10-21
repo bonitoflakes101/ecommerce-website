@@ -101,7 +101,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         rel="icon"
         type="image/x-icon"
         href="../resources/images/logo-icon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script src="../js/admin.js"></script>
+
 
     <!-- <link rel="stylesheet" href="../css/mainStyle.css" /> -->
     <link rel="stylesheet" href="../css/admin.css" />
@@ -166,75 +169,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <br>
 
-            <div class="order-manager">
-                <!-- add/edit products text field/btn-->
-                <h2>Manage Products</h2>
-                <form action="admin.php" method="POST" class="order-manager-form">
-                    <input type="hidden" name="productID" id="productID" value="">
-                    <label for="productName">Product Name:</label>
-                    <input type="text" id="productName" name="productName" required>
+            <div class="admin-container">
+                <div class="order-manager">
+                    <!-- add/edit products text field/btn-->
+                    <h2>Manage Products</h2>
+                    <form action="admin.php" method="POST" class="order-manager-form">
+                        <input type="hidden" name="productID" id="productID" value="">
+                        <label for="productName">Product Name:</label>
+                        <input type="text" id="productName" name="productName" required>
 
-                    <label for="manufacturer">Manufacturer:</label>
-                    <input type="text" id="manufacturer" name="manufacturer" required>
+                        <label for="manufacturer">Manufacturer:</label>
+                        <input type="text" id="manufacturer" name="manufacturer" required>
 
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" name="price" step="0.01" required>
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" step="0.01" required>
 
-                    <label for="stock">Stock:</label>
-                    <input type="number" id="stock" name="stock" required>
+                        <label for="stock">Stock:</label>
+                        <input type="number" id="stock" name="stock" required>
 
-                    <label for="category">Category:</label>
-                    <select name="category" id="category" required>
-                        <option value="Laptops">Laptops</option>
-                        <option value="Desktops">Desktops</option>
-                        <option value="Processors">Processors</option>
-                        <option value="Motherboards">Motherboards</option>
-                        <option value="Graphics Card">Graphics Card</option>
-                        <option value="Memory & Storage">Memory & Storage</option>
-                        <option value="Hardware">Hardware</option>
-                    </select>
-                    <div class="button-container">
-                        <button type="submit" name="add_product" id="add_product_button">Add Product</button>
-                        <button type="submit" name="edit_product" id="edit_product_button" style="display:none;">Edit Product</button>
-                        <button type="button" onclick="resetForm()" class="reset_form_button">Reset Form</button>
-                    </div>
-                </form>
-            </div>
-            <br>
+                        <label for="category">Category:</label>
+                        <select name="category" id="category" required>
+                            <option value="Laptops">Laptops</option>
+                            <option value="Desktops">Desktops</option>
+                            <option value="Processors">Processors</option>
+                            <option value="Motherboards">Motherboards</option>
+                            <option value="Graphics Card">Graphics Card</option>
+                            <option value="Memory & Storage">Memory & Storage</option>
+                            <option value="Hardware">Hardware</option>
+                        </select>
+                        <div class="button-container">
+                            <button type="submit" name="add_product" id="add_product_button">Add Product</button>
+                            <button type="submit" name="edit_product" id="edit_product_button" style="display:none;">Edit Product</button>
+                            <button type="button" onclick="resetForm()" class="reset_form_button">Reset Form</button>
+                        </div>
+                    </form>
+                </div>
+                <br>
 
-            <div class="product-management-container">
-                <!-- edit btn to text fields/ delete product -->
-                <div class="table-container">
-                    <table class="product-table">
-                        <thead class="product-header">
-                            <tr>
-                                <th class="product-id">Product ID</th>
-                                <th class="product-name">Product Name</th>
-                                <th class="manufacturer">Manufacturer</th>
-                                <th class="price">Price</th>
-                                <th class="stock">Stock</th>
-                                <th class="category">Category</th>
-                                <th class="manage-action">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="product-body">
-                            <?php foreach ($products as $product): ?>
+                <div class="product-management-container">
+                    <!-- edit btn to text fields/ delete product -->
+                    <div class="table-container">
+                        <table class="product-table">
+                            <thead class="product-header">
                                 <tr>
-                                    <!-- product tables -->
-                                    <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
-                                    <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
-                                    <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
-                                    <td><?php echo htmlspecialchars($product['Price']); ?></td>
-                                    <td><?php echo htmlspecialchars($product['Stock']); ?></td>
-                                    <td><?php echo htmlspecialchars($product['Category']); ?></td>
-                                    <td id="table-buttons">
-                                        <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">Edit</button>
-                                        <button class="delete-button" onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">Delete</button>
-                                    </td>
+                                    <th class="product-id">Product ID</th>
+                                    <th class="product-name">Product Name</th>
+                                    <th class="manufacturer">Manufacturer</th>
+                                    <th class="price">Price</th>
+                                    <th class="stock">Stock</th>
+                                    <th class="category">Category</th>
+                                    <th class="manage-action">Action</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="product-body">
+                                <?php foreach ($products as $product): ?>
+                                    <tr>
+                                        <!-- product tables -->
+                                        <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['Price']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['Stock']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['Category']); ?></td>
+                                        <td id="table-buttons">
+                                            <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="delete-button" onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
