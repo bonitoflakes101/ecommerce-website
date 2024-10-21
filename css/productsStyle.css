@@ -38,12 +38,13 @@
       align-content: center;
     }
 
-    /* .product-box:hover {
+    .product-box:hover {
       border: solid var(--price-color);
       border-radius: 10px;
       transition: all ease 0.2s;
       cursor: pointer;
-    } */
+      padding: 10px;
+    }
 
     .product-box-img {
 
@@ -100,6 +101,8 @@
       background-color: var(--secondary-color);
       border-radius: 10px;
       transition: all ease 0.3s;
+      border: none;
+      outline: none;
     }
 
     .product-cart-button svg {

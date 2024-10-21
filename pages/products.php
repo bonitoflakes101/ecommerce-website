@@ -411,21 +411,21 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     $query = "";
 
     if ($category === "laptops") {
-      $query = "SELECT ProductName, Price, ProductImages FROM product WHERE category = 'Laptops'";
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Laptops'";
     } elseif ($category === "desktops") {
-      $query = "SELECT ProductName, Price, ProductImages FROM product WHERE category = 'Desktops'";
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Desktops'";
     } elseif ($category === "Processors") {
-      $query = "SELECT ProductName, Price, ProductImages FROM product WHERE category = 'Processors'";
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Processors'";
     } elseif ($category === "Motherboards") {
-      $query = "SELECT ProductName, Price, ProductImages FROM product WHERE category = 'Motherboards'";
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Motherboards'";
     } elseif ($category === "GraphicCards") {
-      $query = "SELECT ProductName, Price, ProductImages FROM product WHERE category = 'Graphics Card'";
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Graphics Card'";
     } elseif ($category === "MemoryStorage") {
-      $query = "SELECT ProductName, Price, ProductImages FROM product WHERE category = 'Memory & Storage'";
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Memory & Storage'";
     } elseif ($category === "Hardware") {
-      $query = "SELECT ProductName, Price, ProductImages FROM product WHERE category = 'Hardware'";
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Hardware'";
     } else {
-      $query = "SELECT ProductName, Price, ProductImages FROM product"; // default query
+      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product"; // default query
     }
 
 
@@ -435,34 +435,100 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
     while ($row = $stmt->fetch()) { ?>
 
-      <div class="product-box">
+    <form class="product-box" action="" method="POST"> 
 
-        <?php
-        echo '<a class="product-box-img">';
-        echo '<img src="..\resources\images\pc1.png" alt="">';
-        echo '</a>';
+    <?php
+    echo '<a class="product-box-img">';
+    echo '<img src="..\resources\images\pc1.png" alt="">';
+    echo '</a>';
 
-        echo '<div class="product-box-text">';
-        echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
-        echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+    echo '<div class="product-box-text">';
+    echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+    echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
 
-        echo '<a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>';
+    echo '<button name="product-atc-btn"  value ="'.htmlspecialchars($row['ProductID']).'" class="product-cart-button atc-'.htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))).'">
+          Add to Cart
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+          </svg>
+        </button>';
 
-        echo '</div>';
-        ?>
+    echo '</div>';
+    ?>
 
-      </div>
+    </form>
 
     <?php
     }
     ?>
 
   </div>
+
+  <?php 
+
+// check muna if naka login si user/ else dont proceed
+if($login_success == true) {
+
+
+  // check if the add to cart button is clicked
+  if(isset($_POST['product-atc-btn'])) {
+
+    $productID = $_POST['product-atc-btn'];
+    $customerID = $_SESSION['CustomerID'];
+
+    $cartDataQuery = "SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
+                    FROM Cart as a
+                    JOIN CartItem as b ON a.CartID = b.CartID
+                    WHERE CustomerID = $customerID AND  ProductID = $productID";
+    $cartData = $pdo->query($cartDataQuery);
+    $cartData = $cartData->fetch();
+
+
+    // check if may existing product na sa cart
+    if (isset($cartData['Quantity'])) { 
+        $cartID = $cartData['CartID'];
+        $itemQuantity = $cartData['Quantity'];
+        $cartItemID = $cartData['CartItemID'];
+
+
+        //checking lang if na ccapture yung data ng maayos
+        //echo 'ProductID: '.htmlspecialchars($productID).'  Customer ID: '. htmlspecialchars($customerID).'   CartID: '. htmlspecialchars($cartID).' Quantity: '.htmlspecialchars($itemQuantity). ' CartItemID: '.htmlspecialchars($cartItemID);
+
+
+        // ADD Item Quantity if may Existing Product na sa Cart.
+        $itemQuantity++;
+        $updateQuery = "UPDATE cartitem SET Quantity = :itemQuantity WHERE CartItemID = :cartItemID;";
+        $prepareUpdateQuery = $pdo->prepare($updateQuery);
+        $prepareUpdateQuery->execute([
+          ":itemQuantity" => $itemQuantity,
+          ":cartItemID" => $cartItemID
+        ]);
+
+        // else if wala pang existing product sa cart
+    } else {
+
+        //capturing cart id muna
+        $cartIDQuery = "SELECT CartID FROM Cart WHERE CustomerID = $customerID";
+        $cartID = $pdo->query($cartIDQuery);
+        $cartID = $cartID->fetch();
+        $cartID = $cartID['CartID'];
+        
+        // query for inserting the product na
+        $addToCartQuery = "INSERT INTO cartitem(CartID, ProductID, Quantity) VALUES(:cartID, :productID, 1)";
+        $addToCart = $pdo->prepare($addToCartQuery);
+        $addToCart->execute([
+          ":cartID" => $cartID,
+          ":productID"=> $productID,
+        ]);
+        
+    }
+    
+  }      
+
+}
+?>
+
+
 
   <!-- Cart Pop-up -->
   <section class="cart">

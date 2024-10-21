@@ -718,6 +718,16 @@ ul{
     width: 100%;
 }
 
+.product-box:hover {
+    border: solid var(--price-color);
+    border-radius: 10px;
+    transition: all ease 0.2s;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+
+
 .product-box-img{
     width: 100%;
     max-height: 300px;
