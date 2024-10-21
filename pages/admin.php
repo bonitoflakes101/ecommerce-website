@@ -162,6 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <button class="confirm-button" onclick="confirmAction('confirm', <?php echo $order['OrderID']; ?>)">Confirm</button>
                                     <?php else: ?>
                                         <button class="confirm-button" disabled style="background-color: grey; cursor: not-allowed;">Confirmed</button>
+                                    <?php endif; ?>
 
                                     <?php if ($order['Status'] !== 'Cancelled'): ?>
                                         <button class="decline-button" onclick="confirmAction('reject', <?php echo $order['OrderID']; ?>)">Decline</button>
