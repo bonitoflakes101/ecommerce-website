@@ -275,7 +275,7 @@ th.action {
 
 .decline-button {
     text-decoration: none;
-    background-color: #424242;
+    background-color: #851e1e;
     border: none;
     outline: none;
     width: 130px; /* Set fixed width for consistency */
@@ -433,14 +433,4 @@ th.manage-action {
     gap: 10px; 
 }
 
-
-
-@media (max-width: 768px) {
-    .admin-container {
-        flex-direction: column;
-    }
-
-    .order-manager, .product-management-container {
-        max-width: 100%;
-    }
-}
+ 

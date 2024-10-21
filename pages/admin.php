@@ -44,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: admin.php?message=" . urlencode($message));
         exit;
     }
-
     // add/edit products
     if (isset($_POST['add_product'])) {
         // add a product
@@ -159,12 +158,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <td><?php echo htmlspecialchars($order['OrderDate']); ?></td>
                                 <td><?php echo htmlspecialchars($order['Status']); ?></td>
                                 <td id="table-buttons">
-                                    <button class="confirm-button" onclick="confirmAction('confirm', <?php echo $order['OrderID']; ?>)">Confirm</button>
-                                    <button class="decline-button" onclick="confirmAction('reject', <?php echo $order['OrderID']; ?>)">Decline</button>
+                                    <?php if ($order['Status'] !== 'Confirmed'): ?>
+                                        <button class="confirm-button" onclick="confirmAction('confirm', <?php echo $order['OrderID']; ?>)">Confirm</button>
+                                    <?php else: ?>
+                                        <button class="confirm-button" disabled style="background-color: grey; cursor: not-allowed;">Confirmed</button>
+
+                                    <?php if ($order['Status'] !== 'Cancelled'): ?>
+                                        <button class="decline-button" onclick="confirmAction('reject', <?php echo $order['OrderID']; ?>)">Decline</button>
+                                    <?php else: ?>
+                                        <button class="decline-button" disabled style="background-color: grey; cursor: not-allowed;">Cancelled</button>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
+
                 </table>
             </div>
             <br>
