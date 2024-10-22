@@ -241,6 +241,7 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
 
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function(event) {
+            
             if (!login_success) {
                 event.preventDefault(); 
                 showLoginForm();
@@ -261,7 +262,7 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
         loginForm.style.visibility = "hidden"; 
         loginForm.style.opacity = "0"; 
         formContainer.style.visibility = "hidden"; 
-        formContainer.style.opacity = "0"; 
+        formContainer.style.opacity = "0";
     });
 
     // Event for the signup cancel button 
