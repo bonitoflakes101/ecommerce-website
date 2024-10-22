@@ -907,30 +907,74 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
   </section>
 
+ 
   <!-- Cart Pop-up -->
   <section class="cart">
     <div class="cart-tab">
       <h1>My Cart</h1>
+
+      
       <div class="cart-list">
-        <div class="cart-item">
-          <div class="cart-item-image">
-            <img src="resources/images/pc1.png" alt="cart-pic">
-          </div>
-          <div class="cart-item-title">
-            <p>The Beast PC</p>
-          </div>
-          <div class="cart-item-price">
-            <p>P100,000.00</p>
-          </div>
-          <div class="cart-item-quantity">
-            <span class="minus">-</span>
-            <span class="amount">1</span>
-            <span class="Plus">+</span>
-          </div>
-        </div>
+
+
+        <?php 
+      
+          $customerID = $_SESSION['CustomerID'];
+
+
+          $cartItemsQuery = "SELECT a.CartItemID ,b.ProductImages, b.ProductName, b.Price, a.Quantity
+                              FROM cartitem as a
+                              JOIN product as b ON a.ProductID = b.ProductID
+                              JOIN cart as c ON a.CartID = c.CartID
+                              WHERE c.CartID = :customerID
+                              ORDER BY a.CartItemID DESC";
+          $cartItemsData = $pdo->prepare($cartItemsQuery);
+          $cartItemsData->execute([":customerID"=> $customerID]);
+
+          while ($row = $cartItemsData->fetch()) {
+            echo '<div class="cart-item">';
+              // cart item image
+
+              
+              // echo '<div class="cart-item-image">
+              // <img src="'.htmlspecialchars($row['ProductImages']).'">
+              // </div>';
+              // echo '';
+
+
+              echo '<div class="cart-item-image">
+                    <img src="resources/images/pc1.png" alt="cart-pic">
+                    </div>';
+
+              //cart item product name
+              echo '<div class="cart-item-title">
+              <p>'.htmlspecialchars($row['ProductName']).'</p>
+              </div>';
+
+              // cart item price
+              echo '<div class="cart-item-price">
+              <p>'.htmlspecialchars($row['Price']).'</p>
+              </div>';
+
+              // cart item quantity & buttons
+              echo '<div class="cart-item-quantity">
+                <span class="minus">-</span>
+                <span class="amount">'.htmlspecialchars($row['Quantity']).'</span>
+                <span class="Plus">+</span>
+              </div>';
+
+
+            echo  '</div>';
+
+          }
+        ?>
+
+        
 
 
       </div>
+
+      <!-- Cart Buttons -->
       <div class="cart-buttons">
         <button class="cart-close">Close</button>
         <br>
@@ -940,6 +984,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     </div>
 
   </section>
+
 
   <!-- Footer -->
   <footer>
