@@ -239,15 +239,48 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
         }
     });
 
+
+    //  ADD TO CART BUTTON
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             if (!login_success) {
                 event.preventDefault(); 
                 showLoginForm();
             } else {
+                let productID = this.value;
                 console.log("User is logged in, submitting the form for PHP processing.");
+                console.log("ProductID: ", productID);
+    
+                // Create a new XMLHttpRequest object
+                let postRequest = new XMLHttpRequest();
+    
+                // Initialize a POST request to your server endpoint
+                postRequest.open('POST', '../ecommerce-website/pages/cart.php', true);
+    
+                // Set the content type for sending form data
+                postRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+                // Define the onload function that runs when the request completes
+                postRequest.onload = function() {
+                    if (postRequest.status >= 200 && postRequest.status < 400) {
+                        // Success: Process the response if needed
+                        console.log("Product added to cart successfully:", postRequest.responseText);
+                    } else {
+                        // Error handling
+                        console.error("Error adding product to cart:", postRequest.statusText);
+                    }
+                };
+    
+                // Handle network errors
+                postRequest.onerror = function() {
+                    console.error("Request failed due to a network error.");
+                };
+    
+                // Send the request with the productID in the POST body
+                postRequest.send(`productID=${encodeURIComponent(productID)}`);
             }
         });
+
     });
 
 

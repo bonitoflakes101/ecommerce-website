@@ -42,6 +42,10 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 </head>
 
 <body>
+
+
+
+
   <!-- Main-->
   <section id="main">
     <!-- Header -->
@@ -509,7 +513,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
         while ($row = $stmtProductQuery->fetch()) {
         ?>
           <!-- Product Box 1-->
-          <form class="product-box" action="" method="POST">
+          <div class="product-box">
 
             <?php
             echo '<a class="product-box-img">';
@@ -530,7 +534,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
             echo '</div>';
             ?>
 
-          </form>
+          </div>
 
         <?php } ?>
       </div>
@@ -574,7 +578,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
         while ($row = $stmtProductQuery->fetch()) {
         ?>
           <!-- Product Box 1-->
-          <form class="product-box" action="" method="POST">
+          <div class="product-box">
 
             <?php
             echo '<a class="product-box-img">';
@@ -595,7 +599,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
             echo '</div>';
             ?>
 
-          </form>
+          </div>
 
         <?php } ?>
 
@@ -612,62 +616,62 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
   <!-- Add to cart functionality (scope is up until products sa recenlty added palang) -->
   <?php
-  // check muna if naka login si user/ else dont proceed
-  if ($login_success == true) {
+  // // check muna if naka login si user/ else dont proceed
+  // if ($login_success == true) {
 
 
-    // check if the add to cart button is clicked
-    if (isset($_POST['product-atc-btn'])) {
-      $productID = $_POST['product-atc-btn'];
-      $customerID = $_SESSION['CustomerID'];
+  //   // check if the add to cart button is clicked
+  //   if (isset($_POST['product-atc-btn'])) {
+  //     $productID = $_POST['product-atc-btn'];
+  //     $customerID = $_SESSION['CustomerID'];
 
-      $cartDataQuery = "SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
-                        FROM Cart as a
-                        JOIN CartItem as b ON a.CartID = b.CartID
-                        WHERE CustomerID = $customerID AND  ProductID = $productID";
-      $cartData = $pdo->query($cartDataQuery);
-      $cartData = $cartData->fetch();
-
-
-      // check if may existing product na sa cart
-      if (isset($cartData['Quantity'])) {
-        $cartID = $cartData['CartID'];
-        $itemQuantity = $cartData['Quantity'];
-        $cartItemID = $cartData['CartItemID'];
+  //     $cartDataQuery = "SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
+  //                       FROM Cart as a
+  //                       JOIN CartItem as b ON a.CartID = b.CartID
+  //                       WHERE CustomerID = $customerID AND  ProductID = $productID";
+  //     $cartData = $pdo->query($cartDataQuery);
+  //     $cartData = $cartData->fetch();
 
 
-        //checking lang if na ccapture yung data ng maayos
-        //echo 'ProductID: '.htmlspecialchars($productID).'  Customer ID: '. htmlspecialchars($customerID).'   CartID: '. htmlspecialchars($cartID).' Quantity: '.htmlspecialchars($itemQuantity). ' CartItemID: '.htmlspecialchars($cartItemID);
+  //     // check if may existing product na sa cart
+  //     if (isset($cartData['Quantity'])) {
+  //       $cartID = $cartData['CartID'];
+  //       $itemQuantity = $cartData['Quantity'];
+  //       $cartItemID = $cartData['CartItemID'];
 
 
-        // ADD Item Quantity if may Existing Product na sa Cart.
-        $itemQuantity++;
-        $updateQuery = "UPDATE cartitem SET Quantity = :itemQuantity WHERE CartItemID = :cartItemID;";
-        $prepareUpdateQuery = $pdo->prepare($updateQuery);
-        $prepareUpdateQuery->execute([
-          ":itemQuantity" => $itemQuantity,
-          ":cartItemID" => $cartItemID
-        ]);
+  //       //checking lang if na ccapture yung data ng maayos
+  //       //echo 'ProductID: '.htmlspecialchars($productID).'  Customer ID: '. htmlspecialchars($customerID).'   CartID: '. htmlspecialchars($cartID).' Quantity: '.htmlspecialchars($itemQuantity). ' CartItemID: '.htmlspecialchars($cartItemID);
 
-        // else if wala pang existing product sa cart
-      } else {
 
-        //capturing cart id muna
-        $cartIDQuery = "SELECT CartID FROM Cart WHERE CustomerID = $customerID";
-        $cartID = $pdo->query($cartIDQuery);
-        $cartID = $cartID->fetch();
-        $cartID = $cartID['CartID'];
+  //       // ADD Item Quantity if may Existing Product na sa Cart.
+  //       $itemQuantity++;
+  //       $updateQuery = "UPDATE cartitem SET Quantity = :itemQuantity WHERE CartItemID = :cartItemID;";
+  //       $prepareUpdateQuery = $pdo->prepare($updateQuery);
+  //       $prepareUpdateQuery->execute([
+  //         ":itemQuantity" => $itemQuantity,
+  //         ":cartItemID" => $cartItemID
+  //       ]);
 
-        // query for inserting the product na
-        $addToCartQuery = "INSERT INTO cartitem(CartID, ProductID, Quantity) VALUES(:cartID, :productID, 1)";
-        $addToCart = $pdo->prepare($addToCartQuery);
-        $addToCart->execute([
-          ":cartID" => $cartID,
-          ":productID" => $productID,
-        ]);
-      }
-    }
-  }
+  //       // else if wala pang existing product sa cart
+  //     } else {
+
+  //       //capturing cart id muna
+  //       $cartIDQuery = "SELECT CartID FROM Cart WHERE CustomerID = $customerID";
+  //       $cartID = $pdo->query($cartIDQuery);
+  //       $cartID = $cartID->fetch();
+  //       $cartID = $cartID['CartID'];
+
+  //       // query for inserting the product na
+  //       $addToCartQuery = "INSERT INTO cartitem(CartID, ProductID, Quantity) VALUES(:cartID, :productID, 1)";
+  //       $addToCart = $pdo->prepare($addToCartQuery);
+  //       $addToCart->execute([
+  //         ":cartID" => $cartID,
+  //         ":productID" => $productID,
+  //       ]);
+  //     }
+  //   }
+  // }
   ?>
 
 
@@ -918,7 +922,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
 
         <?php 
-      
+          
           $customerID = $_SESSION['CustomerID'];
 
 
