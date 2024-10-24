@@ -251,11 +251,11 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
                 console.log("User is logged in, submitting the form for PHP processing.");
                 console.log("ProductID: ", productID);
     
-                // Create a new XMLHttpRequest object
+                //  New XMLHttpRequest object
                 let postRequest = new XMLHttpRequest();
     
-                // Initialize a POST request to your server endpoint
-                postRequest.open('POST', '../ecommerce-website/pages/cart.php', true);
+                // Initialize ng POST request to server endpoint
+                postRequest.open('POST', '/ecommerce-website/pages/cart.php', true);
     
                 // Set the content type for sending form data
                 postRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -265,6 +265,9 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
                     if (postRequest.status >= 200 && postRequest.status < 400) {
                         // Success: Process the response if needed
                         console.log("Product added to cart successfully:", postRequest.responseText);
+                        console.log("Show Cart");
+                        // After successful sending ng data to the DB, show the cart
+                        showCartBox(); 
                     } else {
                         // Error handling
                         console.error("Error adding product to cart:", postRequest.statusText);
@@ -278,10 +281,16 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
     
                 // Send the request with the productID in the POST body
                 postRequest.send(`productID=${encodeURIComponent(productID)}`);
+
+                
             }
         });
 
     });
+
+
+    
+
 
 
     // Event for the Create Account button

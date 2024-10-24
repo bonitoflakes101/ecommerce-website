@@ -17,20 +17,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Process the productID (e.g., add to cart)
     //echo 'Product ' . htmlspecialchars($productID) . ' added to cart!';
-}
-?>
 
 
-<?php   
-  
+
+
+      // ADDING THE PRODUCT TO CART-ITEMS IN THE DB
+
         // get current users customer id
         $customerID = $_SESSION['CustomerID'];
   
         $cartDataQuery = "SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
                       FROM Cart as a
                       JOIN CartItem as b ON a.CartID = b.CartID
-                      WHERE CustomerID = $customerID AND  ProductID = $productID";
-        $cartData = $pdo->query($cartDataQuery);
+                      WHERE CustomerID = :customerID AND  ProductID = :productID";
+        $cartData = $pdo->prepare($cartDataQuery);
+        $cartData->execute([
+            ":customerID"=> $customerID,
+            ":productID"=> $productID
+          ]);
         $cartData = $cartData->fetch();
   
   
@@ -71,83 +75,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ":productID" => $productID,
           ]);
         }
-      
-?>
+}
 
 
-  <!-- Cart Pop-up -->
-  <section class="cart">
-    <div class="cart-tab">
-      <h1>My Cart</h1>
-
-      
-      <div class="cart-list">
 
 
-        <?php 
-          
-          $customerID = $_SESSION['CustomerID'];
+//  FETCHING THE DATA FOR THE CART 
 
 
-          $cartItemsQuery = "SELECT a.CartItemID ,b.ProductImages, b.ProductName, b.Price, a.Quantity
-                              FROM cartitem as a
-                              JOIN product as b ON a.ProductID = b.ProductID
-                              JOIN cart as c ON a.CartID = c.CartID
-                              WHERE c.CartID = :customerID
-                              ORDER BY a.CartItemID DESC";
-          $cartItemsData = $pdo->prepare($cartItemsQuery);
-          $cartItemsData->execute([":customerID"=> $customerID]);
-
-          while ($row = $cartItemsData->fetch()) {
-            echo '<div class="cart-item">';
-              // cart item image
-
-              
-              // echo '<div class="cart-item-image">
-              // <img src="'.htmlspecialchars($row['ProductImages']).'">
-              // </div>';
-              // echo '';
+$customerID = $_SESSION['CustomerID'];
 
 
-              echo '<div class="cart-item-image">
-                    <img src="resources/images/pc1.png" alt="cart-pic">
-                    </div>';
+$cartItemsQuery = "SELECT a.ProductID, a.CartItemID ,b.ProductImages, b.ProductName, b.Price, a.Quantity
+                    FROM cartitem as a
+                    JOIN product as b ON a.ProductID = b.ProductID
+                    JOIN cart as c ON a.CartID = c.CartID
+                    WHERE c.CartID = :customerID
+                     ORDER BY a.LastModified DESC";
+$cartItemsData = $pdo->prepare($cartItemsQuery);
+$cartItemsData->execute([":customerID"=> $customerID]);
 
-              //cart item product name
-              echo '<div class="cart-item-title">
-              <p>'.htmlspecialchars($row['ProductName']).'</p>
-              </div>';
+// Fetch all the rows
+$cartItems = $cartItemsData->fetchAll(PDO::FETCH_ASSOC);
 
-              // cart item price
-              echo '<div class="cart-item-price">
-              <p>'.htmlspecialchars($row['Price']).'</p>
-              </div>';
-
-              // cart item quantity & buttons
-              echo '<div class="cart-item-quantity">
-                <span class="minus">-</span>
-                <span class="amount">'.htmlspecialchars($row['Quantity']).'</span>
-                <span class="Plus">+</span>
-              </div>';
+// Return the data as JSON
+header('Content-Type: application/json'); // Set the content type to JSON
+echo json_encode($cartItems);
 
 
-            echo  '</div>';
 
-          }
-        ?>
-
-        
-
-
-      </div>
-
-      <!-- Cart Buttons -->
-      <div class="cart-buttons">
-        <button class="cart-close">Close</button>
-        <br>
-        <button class="cart-checkout">Checkout</button>
-
-      </div>
-    </div>
-
-  </section>
