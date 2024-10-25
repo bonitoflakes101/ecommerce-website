@@ -239,18 +239,57 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
         }
     });
 
+
+    //  ADD TO CART BUTTON
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function(event) {
-            
             if (!login_success) {
                 event.preventDefault(); 
                 showLoginForm();
             } else {
+                let productID = this.value;
                 console.log("User is logged in, submitting the form for PHP processing.");
+                console.log("ProductID: ", productID);
+    
+                //  New XMLHttpRequest object
+                let postRequest = new XMLHttpRequest();
+    
+                // Initialize ng POST request to server endpoint
+                postRequest.open('POST', '/ecommerce-website/pages/cart.php', true);
+    
+                // Set the content type for sending form data
+                postRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+                // runs after matapos ng request 
+                postRequest.onload = function() {
+                    if (postRequest.status >= 200 && postRequest.status < 400) {
+                        // Success: Process the response if needed
+                        console.log("Product added to cart successfully:", postRequest.responseText);
+                        console.log("Show Cart");
+                        // After successful sending ng data to the DB, show the cart
+                        showCartBox(); 
+                    } else {
+                        // Error handling
+                        console.error("Error adding product to cart:", postRequest.statusText);
+                    }
+                };
+    
+                // Handle network errors
+                postRequest.onerror = function() {
+                    console.error("Request failed due to a network error.");
+                };
+    
+                // Send the request with the productID in the POST body
+                postRequest.send(`productID=${encodeURIComponent(productID)}`);
+
+                
             }
         });
+
     });
 
+
+    
 
     // Event for the Create Account button
     createAccountButton.addEventListener('click', function() {
@@ -262,7 +301,7 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
         loginForm.style.visibility = "hidden"; 
         loginForm.style.opacity = "0"; 
         formContainer.style.visibility = "hidden"; 
-        formContainer.style.opacity = "0";
+        formContainer.style.opacity = "0"; 
     });
 
     // Event for the signup cancel button 

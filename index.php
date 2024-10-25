@@ -42,6 +42,10 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 </head>
 
 <body>
+
+
+
+
   <!-- Main-->
   <section id="main">
     <!-- Header -->
@@ -509,7 +513,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
         while ($row = $stmtProductQuery->fetch()) {
         ?>
           <!-- Product Box 1-->
-          <form class="product-box" action="" method="POST">
+          <div class="product-box">
 
             <?php
             echo '<a class="product-box-img">';
@@ -530,7 +534,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
             echo '</div>';
             ?>
 
-          </form>
+          </div>
 
         <?php } ?>
       </div>
@@ -574,7 +578,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
         while ($row = $stmtProductQuery->fetch()) {
         ?>
           <!-- Product Box 1-->
-          <form class="product-box" action="" method="POST">
+          <div class="product-box">
 
             <?php
             echo '<a class="product-box-img">';
@@ -595,7 +599,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
             echo '</div>';
             ?>
 
-          </form>
+          </div>
 
         <?php } ?>
 
@@ -610,66 +614,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
   </section>
 
-  <!-- Add to cart functionality (scope is up until products sa recenlty added palang) -->
-  <?php
-  // check muna if naka login si user/ else dont proceed
-  if ($login_success == true) {
-
-
-    // check if the add to cart button is clicked
-    if (isset($_POST['product-atc-btn'])) {
-      $productID = $_POST['product-atc-btn'];
-      $customerID = $_SESSION['CustomerID'];
-
-      $cartDataQuery = "SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
-                        FROM Cart as a
-                        JOIN CartItem as b ON a.CartID = b.CartID
-                        WHERE CustomerID = $customerID AND  ProductID = $productID";
-      $cartData = $pdo->query($cartDataQuery);
-      $cartData = $cartData->fetch();
-
-
-      // check if may existing product na sa cart
-      if (isset($cartData['Quantity'])) {
-        $cartID = $cartData['CartID'];
-        $itemQuantity = $cartData['Quantity'];
-        $cartItemID = $cartData['CartItemID'];
-
-
-        //checking lang if na ccapture yung data ng maayos
-        //echo 'ProductID: '.htmlspecialchars($productID).'  Customer ID: '. htmlspecialchars($customerID).'   CartID: '. htmlspecialchars($cartID).' Quantity: '.htmlspecialchars($itemQuantity). ' CartItemID: '.htmlspecialchars($cartItemID);
-
-
-        // ADD Item Quantity if may Existing Product na sa Cart.
-        $itemQuantity++;
-        $updateQuery = "UPDATE cartitem SET Quantity = :itemQuantity WHERE CartItemID = :cartItemID;";
-        $prepareUpdateQuery = $pdo->prepare($updateQuery);
-        $prepareUpdateQuery->execute([
-          ":itemQuantity" => $itemQuantity,
-          ":cartItemID" => $cartItemID
-        ]);
-
-        // else if wala pang existing product sa cart
-      } else {
-
-        //capturing cart id muna
-        $cartIDQuery = "SELECT CartID FROM Cart WHERE CustomerID = $customerID";
-        $cartID = $pdo->query($cartIDQuery);
-        $cartID = $cartID->fetch();
-        $cartID = $cartID['CartID'];
-
-        // query for inserting the product na
-        $addToCartQuery = "INSERT INTO cartitem(CartID, ProductID, Quantity) VALUES(:cartID, :productID, 1)";
-        $addToCart = $pdo->prepare($addToCartQuery);
-        $addToCart->execute([
-          ":cartID" => $cartID,
-          ":productID" => $productID,
-        ]);
-      }
-    }
-  }
-  ?>
-
+  
 
   <!-- Recommended added Section -->
   <section id="recommended-tech">
@@ -907,70 +852,15 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
   </section>
 
-
+ 
   <!-- Cart Pop-up -->
-  <section class="cart">
+  <section class="cart-container">
     <div class="cart-tab">
       <h1>My Cart</h1>
 
-
+      
       <div class="cart-list">
-
-
-        <?php
-
-        $customerID = $_SESSION['CustomerID'];
-
-
-        $cartItemsQuery = "SELECT a.CartItemID ,b.ProductImages, b.ProductName, b.Price, a.Quantity
-                              FROM cartitem as a
-                              JOIN product as b ON a.ProductID = b.ProductID
-                              JOIN cart as c ON a.CartID = c.CartID
-                              WHERE c.CustomerID = :customerID
-                              ORDER BY a.CartItemID DESC";
-        $cartItemsData = $pdo->prepare($cartItemsQuery);
-        $cartItemsData->execute([":customerID" => $customerID]);
-
-        while ($row = $cartItemsData->fetch()) {
-          echo '<div class="cart-item">';
-          // cart item image
-
-
-          // echo '<div class="cart-item-image">
-          // <img src="'.htmlspecialchars($row['ProductImages']).'">
-          // </div>';
-          // echo '';
-
-
-          echo '<div class="cart-item-image">
-                    <img src="resources/images/pc1.png" alt="cart-pic">
-                    </div>';
-
-          //cart item product name
-          echo '<div class="cart-item-title">
-              <p>' . htmlspecialchars($row['ProductName']) . '</p>
-              </div>';
-
-          // cart item price
-          echo '<div class="cart-item-price">
-              <p>' . htmlspecialchars($row['Price']) . '</p>
-              </div>';
-
-          // cart item quantity & buttons
-          echo '<div class="cart-item-quantity">
-                <span class="minus">-</span>
-                <span class="amount">' . htmlspecialchars($row['Quantity']) . '</span>
-                <span class="Plus">+</span>
-              </div>';
-
-
-          echo  '</div>';
-        }
-        ?>
-
-
-
-
+          <!-- DATA WILL BE GENERATED BY JS NA AFTER NG FETCHING-->
       </div>
 
       <!-- Cart Buttons -->
@@ -983,6 +873,11 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     </div>
 
   </section>
+
+
+
+
+
 
 
   <!-- Footer -->
