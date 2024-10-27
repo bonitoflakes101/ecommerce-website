@@ -67,12 +67,14 @@ CREATE TABLE Cart (
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID) ON DELETE CASCADE
 );
 
--- CartItem Table
+-- CartItem Table with LastModified column
 CREATE TABLE CartItem (
     CartItemID INT AUTO_INCREMENT PRIMARY KEY,
     CartID INT,
     ProductID INT,
     Quantity INT NOT NULL,
+    LastModified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (CartID) REFERENCES Cart(CartID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE
 );
+
