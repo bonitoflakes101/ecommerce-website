@@ -89,7 +89,7 @@ $cartItemsQuery = "SELECT a.ProductID, a.CartItemID ,b.ProductImages, b.ProductN
                     FROM cartitem as a
                     JOIN product as b ON a.ProductID = b.ProductID
                     JOIN cart as c ON a.CartID = c.CartID
-                    WHERE c.CartID = :customerID
+                    WHERE c.CustomerID = :customerID
                      ORDER BY a.LastModified DESC";
 $cartItemsData = $pdo->prepare($cartItemsQuery);
 $cartItemsData->execute([":customerID"=> $customerID]);
