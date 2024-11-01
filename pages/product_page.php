@@ -1,10 +1,36 @@
 <!-- SESSION START -->
 <?php session_start();
+require '../includes/db_config.php';
 
 $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
 // echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
 
+
+// Retrieve productID from the cookie
+$productID = isset($_COOKIE['productID']) ? htmlspecialchars($_COOKIE['productID']) : null;
+$productName = isset($_GET['productName']) ? htmlspecialchars($_GET['productName']) : '';
+
+
+// SQL query for product details
+$productDataQuery = "SELECT ProductName, Price, Category, Description FROM `product` WHERE ProductID = :productID";
+$productDataQuery = $pdo->prepare($productDataQuery);
+
+$productDataQuery->execute([":productID" => $productID]);
+
+// Fetch
+$productData = $productDataQuery->fetch(PDO::FETCH_ASSOC); // Use FETCH_ASSOC to get an associative array
+
+$productName = htmlspecialchars($productData['ProductName']);
+$price = htmlspecialchars($productData['Price']);
+$category = htmlspecialchars($productData['Category']);
+$description = htmlspecialchars($productData['Description']);
+
 ?>
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,12 +38,12 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Computers</title>
+  <title><?php echo htmlspecialchars($product['ProductName']); ?></title> <!-- Display product name as page title -->
 
   <!-- STYLES -->
   <link rel="stylesheet" href="../css/cartStyle.css" />
-  <link rel="stylesheet" href="../css/mainStyle.css" />
-  <link rel="stylesheet" href="../css/productsStyle.css" />
+  <!-- <link rel="stylesheet" href="../css/mainStyle.css" /> -->
+  <link rel="stylesheet" href="../css/products_page.css" />
 
 
 </head>
@@ -398,31 +424,29 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
   </section>
 
 
+  <!-- MAIN SECTION -->
+   <!-- Main Grid for Products -->
+   <div class="product-grid">
 
+  <?php
 
-  <!-- Main Grid for Products -->
-  <div class="product-grid">
-
-    <?php
-
-    require '../includes/db_config.php';
-
-    $category = isset($_GET['category']) ? $_GET['category'] : 'default_category';
+   if (isset($_GET['category'])) {
+    $categorySelected = $_GET['category'];
     $query = "";
 
-    if ($category === "laptops") {
+    if ($categorySelected === "laptops") {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Laptops'";
-    } elseif ($category === "desktops") {
+    } elseif ($categorySelected === "desktops") {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Desktops'";
-    } elseif ($category === "Processors") {
+    } elseif ($categorySelected === "Processors") {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Processors'";
-    } elseif ($category === "Motherboards") {
+    } elseif ($categorySelected === "Motherboards") {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Motherboards'";
-    } elseif ($category === "GraphicCards") {
+    } elseif ($categorySelected === "GraphicCards") {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Graphics Card'";
-    } elseif ($category === "MemoryStorage") {
+    } elseif ($categorySelected === "MemoryStorage") {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Memory & Storage'";
-    } elseif ($category === "Hardware") {
+    } elseif ($categorySelected === "Hardware") {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Hardware'";
     } else {
       $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product"; // default query
@@ -464,44 +488,91 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
         echo '</div>';
         ?>
 
-      
-
-    <?php
-    }
-    ?>
-
+      <?php
+        }
+      }   
+      ?>
+    
   </div>
 
 
+  <section class="main-section">
+            <div class="product-section">
+              <div class="product-image">
+                
+                
+                  <img src="../resources/images/pc1.png" alt="">
+               
+              </div>
 
-  <!-- Cart Pop-up -->
-  <section class="cart-container">
-    <div class="cart-tab">
-      <h1>My Cart</h1>
+              <!-- Product Infos -->
+              <div class="product-info">
+                <h2 class="product-title"><?php echo $productName; ?></h2>
+                <p class="product-price"><span class="price-label">Price: </span><?php echo $price; ?></p>
+                <p class="product-category"><span class="category-label">Category: </span><?php echo $category ?></p>
+                <p class="product-description">Description: <br><?php echo $description ?></p>
+              </div>
+              <div class="manufacturer-info"></div>
+            </div>
 
-      
-      <div class="cart-list">
+            <!-- RECOS -->
+            <div class="recommendations">
+              <h2>Recommendations</h2>
 
 
-      <div class="cart-list">
-          <!-- DATA WILL BE GENERATED BY JS NA AFTER NG FETCHING-->
-      </div>
 
-        
+              </div>
 
+            </div>
+            <h2>From the Same Category</h2>
 
-      </div>
+            <div class="same-category">
+             
+              <?php
+                $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = :category LIMIT 10";
 
-      <!-- Cart Buttons -->
-      <div class="cart-buttons">
-        <button class="cart-close">Close</button>
-        <br>
-        <button class="cart-checkout">Checkout</button>
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([":category" => $category]);
+                // Fetch  Use FETCH_ASSOC to get an associative array
 
-      </div>
-    </div>
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
 
+                    <?php
+                    //  action="/product-page.php" method="POST" - data-*
+                    echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+
+                    //hidden input para mapasa yung product id
+                    // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
+
+                    echo '<a class="product-box-img">';
+                    echo '<img src="..\resources\images\pc1.png" alt="">';
+                    echo '</a>';
+
+                    echo '<div class="product-box-text">';
+                    echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+                    echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+                    echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
+                      Add to Cart
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                        <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                      </svg>
+                    </button>';
+
+                    echo '</div>';
+
+                    echo '</div>';
+                    ?>
+
+                <?php
+                    }   
+                ?>
+
+            </div>
   </section>
+
+
+
 
   <!-- Footer -->
   <footer>

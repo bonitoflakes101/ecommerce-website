@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const formContainer = document.querySelector('.form'); 
     const closeButton = document.querySelector('.cart-close');
     const cartContainer = document.querySelector('.cart-container');
-    
-    window.cartTab = cartTab; // para global
+   
+    // para global
+    window.cartTab = cartTab; 
     window.cartContainer = cartContainer;
 
     if (closeButton) {

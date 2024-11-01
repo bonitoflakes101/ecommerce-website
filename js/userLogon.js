@@ -28,9 +28,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const cartElement = document.getElementById("cart");
     const chatbotElement = document.querySelector('[src="https://www.chatbase.co/embed.min.js"]');
 
-    
-const addToCartButtons = document.querySelectorAll('.product-cart-button');
-    
+    // Add to Cart Button
+    const addToCartButtons = document.querySelectorAll('.product-cart-button');
+
+    //  product box
+    const productForms = document.querySelectorAll(".product-box");
+
     console.log("Add to Cart buttons found:", addToCartButtons.length);
     
 
@@ -240,54 +243,71 @@ const addToCartButtons = document.querySelectorAll('.product-cart-button');
     });
 
 
-    //  ADD TO CART BUTTON
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            if (!login_success) {
-                event.preventDefault(); 
-                showLoginForm();
-            } else {
-                let productID = this.value;
-                console.log("User is logged in, submitting the form for PHP processing.");
-                console.log("ProductID: ", productID);
-    
-                //  New XMLHttpRequest object
-                let postRequest = new XMLHttpRequest();
-    
-                // Initialize ng POST request to server endpoint
-                postRequest.open('POST', '/ecommerce-website/pages/cart.php', true);
-    
-                // Set the content type for sending form data
-                postRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-                // runs after matapos ng request 
-                postRequest.onload = function() {
-                    if (postRequest.status >= 200 && postRequest.status < 400) {
-                        // Success: Process the response if needed
-                        console.log("Product added to cart successfully:", postRequest.responseText);
-                        console.log("Show Cart");
-                        // After successful sending ng data to the DB, show the cart
-                        showCartBox(); 
-                    } else {
-                        // Error handling
-                        console.error("Error adding product to cart:", postRequest.statusText);
-                    }
-                };
-    
-                // Handle network errors
-                postRequest.onerror = function() {
-                    console.error("Request failed due to a network error.");
-                };
-    
-                // Send the request with the productID in the POST body
-                postRequest.send(`productID=${encodeURIComponent(productID)}`);
+// ADD TO CART BUTTON: Executes only the add-to-cart functionality when clicked
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
 
-                
-            }
-        });
+        // Stop click event from bubbling up to the product box
+        event.stopPropagation();
+        event.preventDefault();
 
+        if (!login_success) {
+            event.preventDefault(); 
+            showLoginForm();
+        } else {
+            event.preventDefault(); 
+            let productID = this.value;
+            console.log("User is logged in, submitting the form for PHP processing.");
+            console.log("ProductID: ", productID);
+
+            // New XMLHttpRequest object
+            const postRequest = new XMLHttpRequest();
+
+            // Initialize POST request to server endpoint
+            postRequest.open('POST', '/ecommerce-website/pages/cart.php', true);
+
+            // Set the content type for sending form data
+            postRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Process request response
+            postRequest.onload = function() {
+                if (postRequest.status >= 200 && postRequest.status < 400) {
+                    console.log("Product added to cart successfully:", postRequest.responseText);
+                    showCartBox(); 
+                } else {
+                    console.error("Error adding product to cart:", postRequest.statusText);
+                }
+            };
+
+            // Handle network errors
+            postRequest.onerror = function() {
+                console.error("Request failed due to a network error.");
+            };
+
+            // Send the request with the productID in the POST body
+            postRequest.send(`productID=${encodeURIComponent(productID)}`);
+        }
     });
+});
 
+// PRODUCT BOX: Executes the redirection functionality to product page when product box is clicked
+productForms.forEach(form => {
+    form.addEventListener("click", event => {
+        // if (!login_success) {
+        //     showLoginForm();
+        // } else {
+            const productBox = form.closest('.product-box');
+            const boxProductID = productBox.getAttribute("data-boxProductID");
+            const boxProductName = productBox.getAttribute("data-productName");
+
+            // Set productID in a cookie
+            document.cookie = `productID=${encodeURIComponent(boxProductID)}; path=/;`;
+
+            // Redirect to product page with product name in the URL only
+            window.location.href = `../pages/product_page.php?productName=${encodeURIComponent(boxProductName)}`;
+        // }
+    });
+});
 
     
 
