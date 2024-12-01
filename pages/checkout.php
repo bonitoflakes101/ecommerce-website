@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'includes/db_config.php';
+require '../includes/db_config.php';
 
 $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
 
