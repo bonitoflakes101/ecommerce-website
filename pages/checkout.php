@@ -6,7 +6,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
 
 if (!isset($_SESSION['CustomerID'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 $customerId = $_SESSION['CustomerID'];
