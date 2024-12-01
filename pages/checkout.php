@@ -9,7 +9,7 @@ if (!isset($_SESSION['CustomerID'])) {
     header("Location: index.php");
     exit();
 }
-
+$customerId = $_SESSION['CustomerID'];
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +20,6 @@ if (!isset($_SESSION['CustomerID'])) {
     <title>Document</title>
 </head>
 <body>
-    <!-- <?php print_r($_SESSION) ?> -->
-
-
     <table class="table">
     <thead>
         <tr>
@@ -36,15 +33,51 @@ if (!isset($_SESSION['CustomerID'])) {
         </tr>
     </thead>
     <tbody>
-        <tr>
-        <th scope="row">1</th>
-        <td>Dell XPS 13</td>
-        <td>2024-12-01 17:33:08</td>
-        <td>2024-12-04</td>
-        <td>1</td>
-        <td>1200.00</td>
-        <td>Pending</td>
-        </tr>
+        <?php 
+            $sql = "SELECT 
+                        oi.OrderItemID,
+                        p.ProductName,
+                        o.OrderDate,
+                        o.EstimatedDeliveryDate,
+                        oi.Quantity,
+                        oi.Price,
+                        o.Status
+                    FROM 
+                        `Order` o
+                    JOIN 
+                        Customer c ON o.CustomerID = c.CustomerID
+                    JOIN 
+                        OrderItem oi ON o.OrderID = oi.OrderID
+                    JOIN 
+                        Product p ON oi.ProductID = p.ProductID
+                    WHERE 
+                        c.CustomerID = {$customerId}
+                    ORDER BY 
+                        o.OrderDate DESC,
+                        oi.OrderItemID ASC";
+            $result = mysqli_query($db_conn, $sql);
+            if ($result) {
+                while ($row=mysqli_fetch_assoc($result)) {
+                    $orderItemID = $row['OrderItemID'];
+                    $productName = $row['ProductName'];
+                    $orderDate = $row['OrderDate'];
+                    $estimatedDeliveryDate = $row['EstimatedDeliveryDate'];
+                    $quantity = $row['Quantity'];
+                    $price = $row['Price'];
+                    $status = $row['Status'];
+
+                    echo '<tr>
+                            <th scope="row">'.$orderItemID.'</th>
+                            <td>'.$productName.'</td>
+                            <td>'.$orderDate.'</td>
+                            <td>'.$estimatedDeliveryDate.'</td>
+                            <td>'.$quantity.'</td>
+                            <td>'.$price.'</td>
+                            <td>'.$status.'</td>
+                        </tr>';
+                }
+            }
+        ?>
     </tbody>
     </table>
 </body>
