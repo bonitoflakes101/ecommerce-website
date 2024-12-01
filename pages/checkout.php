@@ -20,7 +20,50 @@ $customerId = $_SESSION['CustomerID'];
     <title>Document</title>
 </head>
 <body>
+    <!-- Cart Table -->
     <table class="table">
+    <caption>Current Cart</caption>
+    <thead>
+        <tr>
+        <th scope="col">Cart Item ID</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+            $sql = "SELECT a.CartItemID , b.ProductName, b.Price, a.Quantity
+                    FROM cartitem as a
+                    JOIN product as b ON a.ProductID = b.ProductID
+                    JOIN cart as c ON a.CartID = c.CartID
+                    WHERE c.CustomerID = {$customerId}
+					ORDER BY a.LastModified DESC";
+            $result = mysqli_query($db_conn, $sql);
+            if ($result) {
+                while ($row=mysqli_fetch_assoc($result)) {
+                    $cartItemID = $row['CartItemID'];
+                    $productName = $row['ProductName'];
+                    $price = $row['Price'];
+                    $quantity = $row['Quantity'];
+                    echo '<tr>
+                            <th scope="row">'.$cartItemID.'</th>
+                            <td>'.$productName.'</td>
+                            <td>'.$price.'</td>
+                            <td>'.$quantity.'</td>
+                        </tr>';
+                }
+            }
+        ?>
+    </tbody>
+    </table>
+
+    <!-- Submit Button: Process Cart to be Orders -->
+    <button type="submit">Process Cart to Order</button>
+
+    <!-- Orders Table -->
+    <table class="table">
+    <caption>Current Orders</caption>
     <thead>
         <tr>
         <th scope="col">Order Item ID</th>
