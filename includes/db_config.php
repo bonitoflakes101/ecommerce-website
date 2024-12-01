@@ -29,8 +29,8 @@ $db_port = $port;
 $db_conn = null;
 try {
     $db_conn = mysqli_connect($db_hostname, $db_username, $db_password, $db_database, $db_port);
-    date_default_timezone_set("Asia/Hong_Kong");
-    echo '<script>console.log("DB connected at ' . date('h:i:s A \, l \, F  jS \,  Y') . '")</script>';
+    //date_default_timezone_set("Asia/Hong_Kong");
+    //echo '<script>console.log("DB connected at ' . date('h:i:s A \, l \, F  jS \,  Y') . '")</script>';
     
 } catch (mysqli_sql_exception $e) {
     echo "DB not connected";
