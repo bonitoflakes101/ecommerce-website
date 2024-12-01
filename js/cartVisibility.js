@@ -71,7 +71,7 @@ function displayCartItems(cartItems) {
         cartItemElement.innerHTML = `
             
             <div class="cart-item-image">
-                <img src="../resources/images/pc1.png" alt="cart-pic">
+                <img src="/resources/images/pc1.png" alt="cart-pic">
             </div>
             
             <div id ="${item.ProductID}" class="cart-item-title">

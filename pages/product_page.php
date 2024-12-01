@@ -12,7 +12,7 @@ $productName = isset($_GET['productName']) ? htmlspecialchars($_GET['productName
 
 
 // SQL query for product details
-$productDataQuery = "SELECT ProductName, Price, Category, Description FROM `product` WHERE ProductID = :productID";
+$productDataQuery = "SELECT ProductID, ProductName, Price, Category, Description FROM `product` WHERE ProductID = :productID";
 $productDataQuery = $pdo->prepare($productDataQuery);
 
 $productDataQuery->execute([":productID" => $productID]);
@@ -20,10 +20,12 @@ $productDataQuery->execute([":productID" => $productID]);
 // Fetch
 $productData = $productDataQuery->fetch(PDO::FETCH_ASSOC); // Use FETCH_ASSOC to get an associative array
 
+$globalProductID = $productData['ProductID'];
 $productName = htmlspecialchars($productData['ProductName']);
 $price = htmlspecialchars($productData['Price']);
-$category = htmlspecialchars($productData['Category']);
+$category = $productData['Category'];
 $description = htmlspecialchars($productData['Description']);
+
 
 ?>
 
@@ -38,7 +40,7 @@ $description = htmlspecialchars($productData['Description']);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo htmlspecialchars($product['ProductName']); ?></title> <!-- Display product name as page title -->
+  <title><?php echo $productName ?></title> <!-- Display product name as page title -->
 
   <!-- STYLES -->
   <link rel="stylesheet" href="../css/cartStyle.css" />
@@ -512,34 +514,106 @@ $description = htmlspecialchars($productData['Description']);
                 <p class="product-category"><span class="category-label">Category: </span><?php echo $category ?></p>
                 <p class="product-description">Description: <br><?php echo $description ?></p>
               </div>
-              <div class="manufacturer-info"></div>
+
+              <!-- Manufacturer Info -->
+              <div class="manufacturer-info">
+                <div class="manufacturer-box">
+                  <div class="manufacturer-image">
+                    <img src="../resources/images/asus_logo.png" alt="" class="manufacturer-logo">
+                  </div>
+                  
+                  <p class="manufacturer-name">ASUS</p>
+                  <div class="manufacturer-buttons">
+
+                    <!-- ADD TO CART BUTTON IN PRODUCT INFO -->
+                    <?php
+                    echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($globalProductID) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($productName))) . '">
+                          Add to Cart
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                          </svg>
+                        </button>
+
+                        <!-- BUY NOW BUTTON IN PRODUCT INFO -->
+                        <button name="product-atc-btn"  value ="' . htmlspecialchars($globalProductID) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($productName))) . '">
+                          Buy Now
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                          </svg>
+                        </button>'
+                        ?> 
+
+
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- RECOS -->
-            <div class="recommendations">
+            <div class="recommendations-section">
               <h2>Recommendations</h2>
 
+              <div class="recommendations-grid-container">
+                    <?php
+              
 
+              $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 4";
+              $stmtProductQuery = $pdo->query($productQuery);
+
+              while ($row = $stmtProductQuery->fetch()) {
+              ?>
+                <!-- Product Box 1-->
+              
+
+                  <?php
+                   echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
+
+                  echo '<a class="product-box-img">';
+                  echo '<img src="..\resources\images\pc1.png" alt="">';
+                  echo '</a>';
+
+                  echo '<div class="product-box-text">';
+                  echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+                  echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+                  echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
+                        Add to Cart
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                          <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                        </svg>
+                      </button>';
+
+                  echo '</div>';
+                  echo '</div>'
+                  ?>
+
+              
+
+              <?php } ?>                 
+              </div>
 
               </div>
 
             </div>
+            
+            <div class="same-category-section">
+
             <h2>From the Same Category</h2>
-
             <div class="same-category">
-             
-              <?php
-                $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = :category LIMIT 10";
 
+              <?php
+
+                $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = :category LIMIT 8";
                 $stmt = $pdo->prepare($query);
                 $stmt->execute([":category" => $category]);
-                // Fetch  Use FETCH_ASSOC to get an associative array
 
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                // Fetch  Use FETCH_ASSOC to get an associative array
+                while ($row = $stmt->fetch()) { ?>
 
                     <?php
                     //  action="/product-page.php" method="POST" - data-*
-                    echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+                    echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
+
 
                     //hidden input para mapasa yung product id
                     // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
@@ -569,9 +643,43 @@ $description = htmlspecialchars($productData['Description']);
                 ?>
 
             </div>
+
+            </div>
+
   </section>
 
 
+
+  <!-- CART POP UP -->
+    <!-- Cart Pop-up -->
+    <section class="cart-container">
+    <div class="cart-tab">
+      <h1>My Cart</h1>
+
+      
+      <div class="cart-list">
+
+
+      <div class="cart-list">
+          <!-- DATA WILL BE GENERATED BY JS NA AFTER NG FETCHING-->
+      </div>
+
+        
+
+
+      </div>
+
+      <!-- Cart Buttons -->
+      <div class="cart-buttons">
+        <button class="cart-close">Close</button>
+        <br>
+        <button class="cart-checkout">Checkout</button>
+
+      </div>
+    </div>
+
+  </section>
+                
 
 
   <!-- Footer -->

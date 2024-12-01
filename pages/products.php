@@ -432,12 +432,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     $stmt = $pdo->query($query);
 
 
-
-    while ($row = $stmt->fetch()) { ?>
-
-      
-
-        <?php
+        while ($row = $stmt->fetch()) {
         //  action="/product-page.php" method="POST" - data-*
         echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
 
@@ -462,13 +457,10 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
         echo '</div>';
 
         echo '</div>';
+
+      }
         ?>
 
-      
-
-    <?php
-    }
-    ?>
 
   </div>
 

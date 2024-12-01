@@ -839,14 +839,14 @@ ul{
 
     .main-section {
       /* height: 1000px; */
-      padding-left: 25px;
+      padding: 5px 25px;
       
     }
 
 
     .product-section {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr ;
+        grid-template-columns: 1fr 1fr 0.5fr ;
         gap: 10px;
         height: 500px;
         padding: 26px;
@@ -868,11 +868,13 @@ ul{
       object-position: center;
     }
 
+
+    /* PRODUCT INFO DIV */
+
     .product-info {
         padding: 15px;
         display: flex;
         flex-direction: column;
-        
 
     }
 
@@ -895,7 +897,7 @@ ul{
     color: #121212;
       font-size: 1.25rem;
       font-weight: 500;
-      margin-bottom: 7px;
+      margin-bottom: 20px;
       padding: 5px;
     }
 
@@ -907,27 +909,81 @@ ul{
       padding: 5px;
     }
 
+
+    /* MANUFACTURER INFO DIV */
+    .manufacturer-info {
+        
+        display: flex;
+        flex-direction: column;
+    }
+
+    .manufacturer-box {
+        height: 90%;
+        padding: 20px;
+        border-radius: 12px;
+        background-color: var(--product-bg-color);
+        
+    }
+
+    .manufacturer-image {
+        width: 100%;
+        max-height: 160px;
+        background-color: var(--text-color);
+        padding: 10px;
+        position: relative;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .manufacturer-image img {
+      width: 80%;
+      height: 100px;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .manufacturer-name {
+      color: #121212;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 90px;
+      text-align: center;
+      padding: 12px;
+    }
+
+
+
     
-    .recommendations h2, .same-category h2 {
+    .recommendations-section h2, .same-category-section h2 {
       /* color: #121212; */
       font-size: 2rem;
       font-weight: 500;
       text-align: left;
+      padding: 10px;
+      padding-left: 30px;
     }
 
-    .recommendations {
-        padding: 15px;
+    .recommendations-section {
+       
+        margin-bottom: 50px;
     
+    }
+
+    .recommendations-grid-container {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        display: grid;
+        grid-gap: 40px;
+        padding: 30px;
     }
 
 
     /* same-category styles (same as the main for products) */
     .same-category {
         padding: 30px;
-        margin-top: 50px;
         margin-bottom: 30px;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-gap: 30px;
         height: 90%;
         position :relative;

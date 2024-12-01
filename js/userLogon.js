@@ -293,9 +293,6 @@ addToCartButtons.forEach(button => {
 // PRODUCT BOX: Executes the redirection functionality to product page when product box is clicked
 productForms.forEach(form => {
     form.addEventListener("click", event => {
-        // if (!login_success) {
-        //     showLoginForm();
-        // } else {
             const productBox = form.closest('.product-box');
             const boxProductID = productBox.getAttribute("data-boxProductID");
             const boxProductName = productBox.getAttribute("data-productName");
@@ -304,8 +301,7 @@ productForms.forEach(form => {
             document.cookie = `productID=${encodeURIComponent(boxProductID)}; path=/;`;
 
             // Redirect to product page with product name in the URL only
-            window.location.href = `../pages/product_page.php?productName=${encodeURIComponent(boxProductName)}`;
-        // }
+            window.location.href = `/ecommerce-website/pages/product_page.php?productName=${encodeURIComponent(boxProductName)}`;
     });
 });
 
