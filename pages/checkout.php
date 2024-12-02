@@ -17,6 +17,17 @@ if (isset($_POST['cartItemID'])) {
     mysqli_query($db_conn, $sql);
     /* echo "Deleted {$post_cartItemID}"; */
 }
+
+function nextAutoIncrement($tablename, $db_conn) {
+    $next_auto_increment_sql = "SHOW TABLE STATUS LIKE '{$tablename}'";
+    $next_auto_increment_result = mysqli_query($db_conn, $next_auto_increment_sql);
+    if ($next_auto_increment_result) {
+        $row=mysqli_fetch_assoc($next_auto_increment_result);
+        $next_auto_increment = $row['Auto_increment'];
+        return $next_auto_increment;
+    }
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +68,11 @@ if (isset($_POST['cartItemID'])) {
                 document.body.appendChild(form);
                 form.submit();
             }
+        }
+
+        /* Add Cart Items to Order Table */
+        function addCartToOrder() {
+            console.log("Test Test Test");
         }
     </script>
 </head>
@@ -104,7 +120,7 @@ if (isset($_POST['cartItemID'])) {
     </table>
 
     <!-- Submit Button: Process Cart to be Orders -->
-    <button type="submit">Process Cart to Order</button>
+    <button onclick="addCartToOrder()">Process Cart to Order</button>
 
     <!-- Orders Table -->
     <table class="table">
