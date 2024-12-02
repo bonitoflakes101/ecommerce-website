@@ -18,6 +18,14 @@ $customerId = $_SESSION['CustomerID'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- <script src="../js/checkout.js"></script> -->
+    <script>
+        function confirmDelete(cartItemID) {
+            if (confirm("Are you sure you want to cancel ordering this product?")) {
+                console.log("Deleted "+cartItemID);
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Cart Table -->
@@ -29,6 +37,7 @@ $customerId = $_SESSION['CustomerID'];
         <th scope="col">Product Name</th>
         <th scope="col">Price</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -51,6 +60,9 @@ $customerId = $_SESSION['CustomerID'];
                             <td>'.$productName.'</td>
                             <td>'.$price.'</td>
                             <td>'.$quantity.'</td>
+                            <td>
+                                <button onclick="confirmDelete('.$cartItemID.')">Cancel</button>
+                            </td>
                         </tr>';
                 }
             }
