@@ -10,6 +10,13 @@ if (!isset($_SESSION['CustomerID'])) {
     exit();
 }
 $customerId = $_SESSION['CustomerID'];
+
+if (isset($_POST['cartItemID'])) {
+    $post_cartItemID = $_POST['cartItemID'];
+    $sql = "DELETE FROM cartitem WHERE CartItemID = {$post_cartItemID}";
+    mysqli_query($db_conn, $sql);
+    /* echo "Deleted {$post_cartItemID}"; */
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +30,19 @@ $customerId = $_SESSION['CustomerID'];
         function confirmDelete(cartItemID) {
             if (confirm("Are you sure you want to cancel ordering this product?")) {
                 console.log("Deleted "+cartItemID);
+
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "checkout.php";
+
+                const inputCartItemID = document.createElement("input");
+                inputCartItemID.type = "hidden";
+                inputCartItemID.name = "cartItemID";
+                inputCartItemID.value = cartItemID;
+
+                form.appendChild(inputCartItemID);
+                document.body.appendChild(form);
+                form.submit();
             }
         }
     </script>
@@ -48,9 +68,9 @@ $customerId = $_SESSION['CustomerID'];
                     JOIN cart as c ON a.CartID = c.CartID
                     WHERE c.CustomerID = {$customerId}
 					ORDER BY a.LastModified DESC";
-            $result = mysqli_query($db_conn, $sql);
-            if ($result) {
-                while ($row=mysqli_fetch_assoc($result)) {
+            $cart_result = mysqli_query($db_conn, $sql);
+            if ($cart_result) {
+                while ($row=mysqli_fetch_assoc($cart_result)) {
                     $cartItemID = $row['CartItemID'];
                     $productName = $row['ProductName'];
                     $price = $row['Price'];
