@@ -10,13 +10,8 @@ if (!isset($_SESSION['CustomerID'])) {
     exit();
 }
 $customerId = $_SESSION['CustomerID'];
+$arrayCartItemID = array();
 
-if (isset($_POST['cartItemID'])) {
-    $post_cartItemID = $_POST['cartItemID'];
-    $sql = "DELETE FROM cartitem WHERE CartItemID = {$post_cartItemID}";
-    mysqli_query($db_conn, $sql);
-    /* echo "Deleted {$post_cartItemID}"; */
-}
 
 function nextAutoIncrement($tablename, $db_conn) {
     $next_auto_increment_sql = "SHOW TABLE STATUS LIKE '{$tablename}'";
@@ -27,6 +22,49 @@ function nextAutoIncrement($tablename, $db_conn) {
         return $next_auto_increment;
     }
   }
+
+
+if (isset($_POST['cartItemID'])) {
+    $post_cartItemID = $_POST['cartItemID'];
+    $sql = "DELETE FROM cartitem WHERE CartItemID = {$post_cartItemID}";
+    mysqli_query($db_conn, $sql);
+    /* echo "Deleted {$post_cartItemID}"; */
+}
+
+if (isset($_POST['AddingCartToOrder'])) {
+    $aOrderID = nextAutoIncrement('order', $db_conn);
+    $createOrder = "INSERT INTO `Order` (OrderDate, Status, EstimatedDeliveryDate, CustomerID, AdminID) VALUES (NOW(), 'Pending', DATE_ADD(NOW(), INTERVAL 3 DAY), {$customerId}, 1)";
+    mysqli_query($db_conn, $createOrder);
+
+    $addCart_sql = "SELECT a.CartID, a.CartItemID, a.ProductID, a.Quantity, b.Price
+                    FROM cartitem as a
+                    JOIN product as b ON a.ProductID = b.ProductID
+                    JOIN cart as c ON a.CartID = c.CartID
+                    WHERE c.CustomerID = {$customerId}";
+    $addCart_result = mysqli_query($db_conn, $addCart_sql);
+    if (mysqli_num_rows($addCart_result) > 0) {
+
+        while ($row=mysqli_fetch_assoc($addCart_result)) {
+            $aCartID = $row['CartID'];
+            $aCartItemID = $row['CartItemID'];
+            $aProductID = $row['ProductID'];
+            $aQuantity = $row['Quantity'];
+            $aPrice = $row['Price'] * $row['Quantity'];
+
+            array_push($arrayCartItemID, $aCartItemID);
+
+            $createOrderItem = "INSERT INTO OrderItem (OrderID, ProductID, Quantity, Price) VALUES ($aOrderID, $aProductID, $aQuantity, $aPrice)";
+            mysqli_query($db_conn, $createOrderItem);
+        }
+    }
+    foreach ($arrayCartItemID as $id) {
+        $deleteCartItem_sql = "DELETE FROM cartitem WHERE CartItemID = {$id}";
+        mysqli_query($db_conn, $deleteCartItem_sql);
+    }
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +109,20 @@ function nextAutoIncrement($tablename, $db_conn) {
 
         /* Add Cart Items to Order Table */
         function addCartToOrder() {
-            console.log("Test Test Test");
+            if (confirm("Are you sure you want to order all of these?")) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "checkout.php";
+
+                const inputAddingCartToOrder = document.createElement("input");
+                inputAddingCartToOrder.type = "hidden";
+                inputAddingCartToOrder.name = "AddingCartToOrder";
+                inputAddingCartToOrder.value = 1;
+
+                form.appendChild(inputAddingCartToOrder);
+                document.body.appendChild(form);
+                form.submit();
+            }
         }
     </script>
 </head>
@@ -119,7 +170,15 @@ function nextAutoIncrement($tablename, $db_conn) {
     </table>
 
     <!-- Submit Button: Process Cart to be Orders -->
-    <button onclick="addCartToOrder()">Process Cart to Order</button>
+    
+    <?php 
+    if (mysqli_num_rows($cart_result) > 0) {
+        echo '<button onclick="addCartToOrder()">Process Cart to Order</button>';
+    }
+    else {
+        echo '<button>No Cart to Order</button>';
+    }
+    ?>
 
     <!-- Orders Table -->
     <table class="table">
@@ -156,8 +215,8 @@ function nextAutoIncrement($tablename, $db_conn) {
                     WHERE 
                         c.CustomerID = {$customerId}
                     ORDER BY 
-                        o.OrderDate DESC,
-                        oi.OrderItemID ASC";
+                        oi.OrderItemID ASC,
+                        o.OrderDate DESC";
             $result = mysqli_query($db_conn, $sql);
             if (mysqli_num_rows($result) > 0) {
                 while ($row=mysqli_fetch_assoc($result)) {
