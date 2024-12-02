@@ -21,13 +21,12 @@ if (isset($_POST['cartItemID'])) {
 function nextAutoIncrement($tablename, $db_conn) {
     $next_auto_increment_sql = "SHOW TABLE STATUS LIKE '{$tablename}'";
     $next_auto_increment_result = mysqli_query($db_conn, $next_auto_increment_sql);
-    if ($next_auto_increment_result) {
+    if (mysqli_num_rows($next_auto_increment_result) > 0) {
         $row=mysqli_fetch_assoc($next_auto_increment_result);
         $next_auto_increment = $row['Auto_increment'];
         return $next_auto_increment;
     }
   }
-
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +97,7 @@ function nextAutoIncrement($tablename, $db_conn) {
                     WHERE c.CustomerID = {$customerId}
 					ORDER BY a.CartItemID ASC";
             $cart_result = mysqli_query($db_conn, $sql);
-            if ($cart_result) {
+            if (mysqli_num_rows($cart_result) > 0) {
                 while ($row=mysqli_fetch_assoc($cart_result)) {
                     $cartItemID = $row['CartItemID'];
                     $productName = $row['ProductName'];
@@ -160,7 +159,7 @@ function nextAutoIncrement($tablename, $db_conn) {
                         o.OrderDate DESC,
                         oi.OrderItemID ASC";
             $result = mysqli_query($db_conn, $sql);
-            if ($result) {
+            if (mysqli_num_rows($result) > 0) {
                 while ($row=mysqli_fetch_assoc($result)) {
                     $orderItemID = $row['OrderItemID'];
                     $productName = $row['ProductName'];
