@@ -27,6 +27,19 @@ if (isset($_POST['cartItemID'])) {
     <title>Document</title>
     <!-- <script src="../js/checkout.js"></script> -->
     <script>
+        /* Preserves the Scroll of the Page to the Local Session */
+        window.addEventListener('scroll', () => {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        });
+
+        window.addEventListener('load', () => {
+            const scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                window.scrollTo(0, parseInt(scrollPosition, 10));
+            }
+        });
+
+        /* Delete Button */
         function confirmDelete(cartItemID) {
             if (confirm("Are you sure you want to cancel ordering this product?")) {
                 console.log("Deleted "+cartItemID);
@@ -67,13 +80,13 @@ if (isset($_POST['cartItemID'])) {
                     JOIN product as b ON a.ProductID = b.ProductID
                     JOIN cart as c ON a.CartID = c.CartID
                     WHERE c.CustomerID = {$customerId}
-					ORDER BY a.LastModified DESC";
+					ORDER BY a.CartItemID ASC";
             $cart_result = mysqli_query($db_conn, $sql);
             if ($cart_result) {
                 while ($row=mysqli_fetch_assoc($cart_result)) {
                     $cartItemID = $row['CartItemID'];
                     $productName = $row['ProductName'];
-                    $price = $row['Price'];
+                    $price = $row['Price'] * $row['Quantity'];
                     $quantity = $row['Quantity'];
                     echo '<tr>
                             <th scope="row">'.$cartItemID.'</th>
