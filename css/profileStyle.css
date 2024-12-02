@@ -345,5 +345,29 @@ ul{
     color: var(--price-color);
 }
 
+#order-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    height: 100vh;         
+    width: 90%;            
+    max-width: 1200px;      
+    margin: 0 auto;         
+}
+
+.button-holder {
+    display: flex;
+    gap: 50px;
+}
+
+button {
+    padding: 10px 60px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #3BBECD;
+}
+
 
 

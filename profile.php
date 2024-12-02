@@ -235,6 +235,13 @@ $orders = $stmtOrders->fetchAll();
             </div>
         </section>
 
+        <section id="order-buttons">
+            <div class="button-holder">
+                <button class="button-current">Current Orders</button>
+                <button class="button-history">Order History</button>
+            </div>
+        </section>
+
         <!-- Order history -->
         <section class="order-profile">
             <div class="order-page-title">
