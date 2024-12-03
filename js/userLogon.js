@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
     //  product box
     const productForms = document.querySelectorAll(".product-box");
 
+    const cartTabEdit = document.querySelector('.cart-tab-edit');
+    window.cartTabEdit = cartTabEdit;
+
     console.log("Add to Cart buttons found:", addToCartButtons.length);
     
 
@@ -297,14 +300,13 @@ productForms.forEach(form => {
             const boxProductID = productBox.getAttribute("data-boxProductID");
             const boxProductName = productBox.getAttribute("data-productName");
 
-            // Set productID in a cookie
+            // Store productID in a cookie
             document.cookie = `productID=${encodeURIComponent(boxProductID)}; path=/;`;
 
             // Redirect to product page with product name in the URL only
             window.location.href = `/ecommerce-website/pages/product_page.php?productName=${encodeURIComponent(boxProductName)}`;
     });
 });
-
     
 
     // Event for the Create Account button
@@ -374,3 +376,4 @@ productForms.forEach(form => {
         showLoginForm();
     });
 });
+

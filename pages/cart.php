@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $customerID = $_SESSION['CustomerID'];
 
 
-$cartItemsQuery = "SELECT a.ProductID, a.CartItemID ,b.ProductImages, b.ProductName, b.Price, a.Quantity
+$cartItemsQuery = "SELECT a.CartItemID, a.ProductID, a.CartItemID ,b.ProductImages, b.ProductName, b.Price, a.Quantity
                     FROM cartitem as a
                     JOIN product as b ON a.ProductID = b.ProductID
                     JOIN cart as c ON a.CartID = c.CartID
