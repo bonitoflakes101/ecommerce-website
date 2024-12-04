@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
     }
-});
+}); 
 
 // Function to show the cart
 function showCartBox() {

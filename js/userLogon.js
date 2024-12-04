@@ -245,53 +245,52 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-
-// ADD TO CART BUTTON: Executes only the add-to-cart functionality when clicked
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', function(event) {
-
-        // Stop click event from bubbling up to the product box
-        event.stopPropagation();
-        event.preventDefault();
-
-        if (!login_success) {
-            event.preventDefault(); 
-            showLoginForm();
-        } else {
-            event.preventDefault(); 
-            let productID = this.value;
-            console.log("User is logged in, submitting the form for PHP processing.");
-            console.log("ProductID: ", productID);
-
-            // New XMLHttpRequest object
-            const postRequest = new XMLHttpRequest();
-
-            // Initialize POST request to server endpoint
-            postRequest.open('POST', '/ecommerce-website/pages/cart.php', true);
-
-            // Set the content type for sending form data
-            postRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            // Process request response
-            postRequest.onload = function() {
-                if (postRequest.status >= 200 && postRequest.status < 400) {
-                    console.log("Product added to cart successfully:", postRequest.responseText);
-                    showCartBox(); 
-                } else {
-                    console.error("Error adding product to cart:", postRequest.statusText);
-                }
-            };
-
-            // Handle network errors
-            postRequest.onerror = function() {
-                console.error("Request failed due to a network error.");
-            };
-
-            // Send the request with the productID in the POST body
-            postRequest.send(`productID=${encodeURIComponent(productID)}`);
-        }
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+    
+            if (!login_success) {
+                event.preventDefault();
+                showLoginForm();
+            } else {
+                let productID = this.value;
+                console.log("User is logged in, submitting the form for PHP processing.");
+                console.log("ProductID: ", productID);
+    
+                // Use fetch to send POST request
+                fetch('/ecommerce-website/pages/cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `productID=${encodeURIComponent(productID)}`
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network error: ${response.statusText}`);
+                    }
+                    return response.json(); // Parse the response as JSON
+                })
+                .then(data => {
+                    console.log("Response Data:", data); // Debug the data
+                    if (data.status === 'success') {
+                        console.log("Product added to cart successfully:", data.message);
+                        showCartBox(); // Show the updated cart UI
+                    } else if (data.status === 'error') {
+                        console.error("Error:", data.message);
+                        alert(data.message); // Display error message
+                    }
+                })
+                .catch(error => {
+                    console.error("Request failed:", error); // Debug error
+                    alert("An unexpected error occurred. Please try again later.");
+                });
+            }
+        });
     });
-});
+
+
 
 // PRODUCT BOX: Executes the redirection functionality to product page when product box is clicked
 productForms.forEach(form => {

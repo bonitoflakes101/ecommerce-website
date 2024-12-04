@@ -1,86 +1,105 @@
 <?php
 session_start();
 require '../includes/db_config.php';
+
 // Allow requests from 'http://localhost' 
-header("Access-Control-Allow-Origin: http://localhost:3000"); // Change the port if necessary
+header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 // Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200); // Send a 200 OK response
-    exit(); // Terminate the script for OPTIONS requests
+    http_response_code(200);
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $productID = $_POST['productID'];
+  try {
+      // Validate product ID
+      if (!isset($_POST['productID']) || empty($_POST['productID'])) {
+          echo json_encode(['status' => 'error', 'message' => 'Product ID is missing or invalid']);
+          exit();
+      }
 
-    // Process the productID (e.g., add to cart)
-    //echo 'Product ' . htmlspecialchars($productID) . ' added to cart!';
+      $productID = htmlspecialchars($_POST['productID']);
+      $customerID = $_SESSION['CustomerID'];
 
+      // Check product stock
+      $stockQuery = "SELECT ProductID, Stock FROM product WHERE ProductID = :productID AND Stock > 0";
+      $stockStmt = $pdo->prepare($stockQuery);
+      $stockStmt->execute([":productID" => $productID]);
+      $stock = $stockStmt->fetch();
 
+      if (!$stock) {
+          echo json_encode(['status' => 'error', 'message' => 'Product is out of stock']);
+          exit();
+      }
 
-      // ADDING THE PRODUCT TO CART-ITEMS IN THE DB
+      // Check if product already exists in the cart
+      $cartDataQuery = "
+          SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
+          FROM Cart as a
+          JOIN CartItem as b ON a.CartID = b.CartID
+          WHERE a.CustomerID = :customerID AND b.ProductID = :productID
+      ";
+      $cartDataStmt = $pdo->prepare($cartDataQuery);
+      $cartDataStmt->execute([
+          ":customerID" => $customerID,
+          ":productID" => $productID,
+      ]);
+      $cartData = $cartDataStmt->fetch();
 
-        // get current users customer id
-        $customerID = $_SESSION['CustomerID'];
-  
-        $cartDataQuery = "SELECT a.CartID, b.CartItemID, b.ProductID, b.Quantity 
-                      FROM Cart as a
-                      JOIN CartItem as b ON a.CartID = b.CartID
-                      WHERE CustomerID = :customerID AND  ProductID = :productID";
-        $cartData = $pdo->prepare($cartDataQuery);
-        $cartData->execute([
-            ":customerID"=> $customerID,
-            ":productID"=> $productID
-          ]);
-        $cartData = $cartData->fetch();
-  
-  
-        // check if may existing product na sa cart
-        if (isset($cartData['Quantity'])) {
-          $cartID = $cartData['CartID'];
-          $itemQuantity = $cartData['Quantity'];
+      if (isset($cartData['Quantity'])) {
           $cartItemID = $cartData['CartItemID'];
-  
-  
-          //checking lang if na ccapture yung data ng maayos
-          //echo 'ProductID: '.htmlspecialchars($productID).'  Customer ID: '. htmlspecialchars($customerID).'   CartID: '. htmlspecialchars($cartID).' Quantity: '.htmlspecialchars($itemQuantity). ' CartItemID: '.htmlspecialchars($cartItemID);
-  
-  
-          // ADD Item Quantity if may Existing Product na sa Cart.
-          $itemQuantity++;
-          $updateQuery = "UPDATE cartitem SET Quantity = :itemQuantity WHERE CartItemID = :cartItemID;";
-          $prepareUpdateQuery = $pdo->prepare($updateQuery);
-          $prepareUpdateQuery->execute([
-            ":itemQuantity" => $itemQuantity,
-            ":cartItemID" => $cartItemID
+          $currentQuantity = $cartData['Quantity'];
+
+          // Check if the maximum quantity is reached
+          if ($currentQuantity >= 3) {
+              echo json_encode(['status' => 'error', 'message' => 'Maximum quantity of this product in the cart is already reached']);
+              exit();
+          }
+
+          // Update quantity if below the maximum limit
+          $newQuantity = $currentQuantity + 1;
+
+          $updateQuery = "UPDATE CartItem SET Quantity = :newQuantity WHERE CartItemID = :cartItemID";
+          $updateStmt = $pdo->prepare($updateQuery);
+          $updateStmt->execute([
+              ":newQuantity" => $newQuantity,
+              ":cartItemID" => $cartItemID,
           ]);
-  
-          // else if wala pang existing product sa cart
-        } else {
-  
-          //capturing cart id muna
-          $cartIDQuery = "SELECT CartID FROM Cart WHERE CustomerID = $customerID";
-          $cartID = $pdo->query($cartIDQuery);
-          $cartID = $cartID->fetch();
-          $cartID = $cartID['CartID'];
-  
-          // query for inserting the product na
-          $addToCartQuery = "INSERT INTO cartitem(CartID, ProductID, Quantity) VALUES(:cartID, :productID, 1)";
-          $addToCart = $pdo->prepare($addToCartQuery);
-          $addToCart->execute([
-            ":cartID" => $cartID,
-            ":productID" => $productID,
+      } else {
+          // Insert new product into the cart
+          $cartIDQuery = "SELECT CartID FROM Cart WHERE CustomerID = :customerID";
+          $cartIDStmt = $pdo->prepare($cartIDQuery);
+          $cartIDStmt->execute([':customerID' => $customerID]);
+          $cartID = $cartIDStmt->fetch()['CartID'];
+
+          $insertQuery = "INSERT INTO CartItem (CartID, ProductID, Quantity) VALUES (:cartID, :productID, 1)";
+          $insertStmt = $pdo->prepare($insertQuery);
+          $insertStmt->execute([
+              ":cartID" => $cartID,
+              ":productID" => $productID,
           ]);
-        }
+      }
+
+      // Reduce stock after successful cart addition
+      $reduceStockQuery = "UPDATE product SET Stock = Stock - 1 WHERE ProductID = :productID";
+      $reduceStockStmt = $pdo->prepare($reduceStockQuery);
+      $reduceStockStmt->execute([":productID" => $productID]);
+
+      // Return success response
+      echo json_encode(['status' => 'success', 'message' => 'Product added to cart successfully']);
+      exit();
+  } catch (Exception $e) {
+      // Handle errors
+      echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+      exit();
+  }
 }
 
 
-
-
 //  FETCHING THE DATA FOR THE CART 
-
 
 $customerID = $_SESSION['CustomerID'];
 
