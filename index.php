@@ -514,7 +514,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
           echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
           echo '<a class="product-box-img">';
-          echo '<img src="resources/images/pc1.png" alt="">';
+          echo '<img src="resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
           echo '</a>';
 
           echo '<div class="product-box-text">';
@@ -851,9 +851,9 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
   <!-- Cart Pop-up -->
   <section class="cart-container">
     <div class="cart-tab">
-    <div class="cart-tab-header">
+    
         <h1>My Cart</h1>
-      </div>
+     
 
       
       <div class="cart-list">

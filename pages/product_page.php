@@ -12,7 +12,7 @@ $productName = isset($_GET['productName']) ? htmlspecialchars($_GET['productName
 
 
 // SQL query for product details
-$productDataQuery = "SELECT ProductID, ProductName, Price, Category, Description FROM `product` WHERE ProductID = :productID";
+$productDataQuery = "SELECT ProductID, ProductName, Price, Category, ProductImages, Description FROM `product` WHERE ProductID = :productID";
 $productDataQuery = $pdo->prepare($productDataQuery);
 
 $productDataQuery->execute([":productID" => $productID]);
@@ -25,6 +25,7 @@ $productName = htmlspecialchars($productData['ProductName']);
 $price = htmlspecialchars($productData['Price']);
 $category = $productData['Category'];
 $description = htmlspecialchars($productData['Description']);
+$productImages = htmlspecialchars($productData['ProductImages']);
 
 
 ?>
@@ -503,7 +504,7 @@ $description = htmlspecialchars($productData['Description']);
               <div class="product-image">
                 
                 
-                  <img src="../resources/images/pc1.png" alt="">
+             <?php echo '<img src="../resources/products/'.$productImages.'.png" alt="">';?>
                
               </div>
 
@@ -569,7 +570,7 @@ $description = htmlspecialchars($productData['Description']);
                    echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
 
                   echo '<a class="product-box-img">';
-                  echo '<img src="..\resources\images\pc1.png" alt="">';
+                  echo '<img src="../resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
                   echo '</a>';
 
                   echo '<div class="product-box-text">';
@@ -619,7 +620,7 @@ $description = htmlspecialchars($productData['Description']);
                     // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
 
                     echo '<a class="product-box-img">';
-                    echo '<img src="..\resources\images\pc1.png" alt="">';
+                    echo '<img src="../resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
                     echo '</a>';
 
                     echo '<div class="product-box-text">';

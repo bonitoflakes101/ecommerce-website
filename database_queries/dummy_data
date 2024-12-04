@@ -9,102 +9,102 @@ VALUES
 
 -- Product Table
 -- Insert products for Laptops
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category)
+INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
 VALUES
-('Dell XPS 13', 'Dell', '13-inch laptop with high-performance specs', 999.99, 10, 'Laptops'),
-('MacBook Pro 16', 'Apple', '16-inch Apple MacBook with M1 chip', 2499.99, 5, 'Laptops'),
-('HP Spectre x360', 'HP', 'Convertible laptop with touch screen', 1199.99, 8, 'Laptops'),
-('Lenovo ThinkPad X1', 'Lenovo', 'Business laptop with durable design', 1499.99, 12, 'Laptops'),
-('Acer Swift 3', 'Acer', 'Affordable laptop with Ryzen processor', 699.99, 20, 'Laptops'),
-('Asus ZenBook 14', 'Asus', 'Slim laptop with long battery life', 1099.99, 15, 'Laptops'),
-('Microsoft Surface Laptop 4', 'Microsoft', 'Sleek design with powerful performance', 1299.99, 6, 'Laptops'),
-('LG Gram 17', 'LG', 'Ultra-light 17-inch laptop with long battery', 1699.99, 4, 'Laptops'),
-('Razer Blade 15', 'Razer', 'Gaming laptop with high-end graphics', 2199.99, 7, 'Laptops'),
-('Samsung Galaxy Book Pro', 'Samsung', 'Lightweight laptop with AMOLED display', 999.99, 10, 'Laptops');
+('Dell XPS 13', 'Dell', '13-inch laptop with high-performance specs', 999.99, 10, 'Laptops', 'laptops/dell-xps-13'),
+('MacBook Pro 16', 'Apple', '16-inch Apple MacBook with M1 chip', 2499.99, 5, 'Laptops', 'laptops/macbook-pro-16'),
+('HP Spectre x360', 'HP', 'Convertible laptop with touch screen', 1199.99, 8, 'Laptops', 'laptops/hp-spectre-x360'),
+('Lenovo ThinkPad X1', 'Lenovo', 'Business laptop with durable design', 1499.99, 12, 'Laptops', 'laptops/lenovo-thinkpad-x1'),
+('Acer Swift 3', 'Acer', 'Affordable laptop with Ryzen processor', 699.99, 20, 'Laptops', 'laptops/acer-swift-3'),
+('Asus ZenBook 14', 'Asus', 'Slim laptop with long battery life', 1099.99, 15, 'Laptops', 'laptops/asus-zenbook-14'),
+('Microsoft Surface Laptop 4', 'Microsoft', 'Sleek design with powerful performance', 1299.99, 6, 'Laptops', 'laptops/microsoft-surface-laptop-4'),
+('LG Gram 17', 'LG', 'Ultra-light 17-inch laptop with long battery', 1699.99, 4, 'Laptops', 'laptops/lg-gram-17'),
+('Razer Blade 15', 'Razer', 'Gaming laptop with high-end graphics', 2199.99, 7, 'Laptops', 'laptops/razer-blade-15-2'),
+('Samsung Galaxy Book Pro', 'Samsung', 'Lightweight laptop with AMOLED display', 999.99, 10, 'Laptops', 'laptops/samsung-galaxy-book-pro');
 
 -- Insert products for Desktops
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category)
+INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
 VALUES
-('Dell Inspiron Desktop', 'Dell', 'Affordable desktop for everyday use', 499.99, 15, 'Desktops'),
-('Apple iMac 27-inch', 'Apple', 'All-in-one desktop with Retina display', 1799.99, 7, 'Desktops'),
-('HP Omen 30L', 'HP', 'High-performance gaming desktop', 1999.99, 5, 'Desktops'),
-('Lenovo Legion Tower 5', 'Lenovo', 'Gaming desktop with powerful graphics', 1599.99, 10, 'Desktops'),
-('Acer Aspire TC', 'Acer', 'Compact desktop for home and office', 649.99, 12, 'Desktops'),
-('ASUS ROG Strix GA15', 'Asus', 'Gaming desktop with customizable RGB', 1299.99, 8, 'Desktops'),
-('CyberPowerPC Gamer Xtreme', 'CyberPowerPC', 'High-speed gaming desktop', 999.99, 9, 'Desktops'),
-('MSI Trident 3', 'MSI', 'Slim gaming desktop with VR-ready specs', 1299.99, 6, 'Desktops'),
-('HP Pavilion Desktop', 'HP', 'Versatile desktop for everyday tasks', 699.99, 14, 'Desktops'),
-('Gateway Desktop', 'Gateway', 'Budget-friendly desktop for basic needs', 399.99, 20, 'Desktops');
+('Dell Inspiron Desktop', 'Dell', 'Affordable desktop for everyday use', 499.99, 15, 'Desktops', 'desktops/dell-inspiron-desktop'),
+('Apple iMac 27-inch', 'Apple', 'All-in-one desktop with Retina display', 1799.99, 7, 'Desktops', 'desktops/apple-imac-27 inch'),
+('HP Omen 30L', 'HP', 'High-performance gaming desktop', 1999.99, 5, 'Desktops', 'desktops/hp-omen-30L'),
+('Lenovo Legion Tower 5', 'Lenovo', 'Gaming desktop with powerful graphics', 1599.99, 10, 'Desktops', 'desktops/lenovo-legion-tower-5'),
+('Acer Aspire TC', 'Acer', 'Compact desktop for home and office', 649.99, 12, 'Desktops', 'desktops/acer-aspire-tc'),
+('ASUS ROG Strix GA15', 'Asus', 'Gaming desktop with customizable RGB', 1299.99, 8, 'Desktops', 'desktops/asus-rog-strix-ga15-2'),
+('CyberPowerPC Gamer Xtreme', 'CyberPowerPC', 'High-speed gaming desktop', 999.99, 9, 'Desktops', 'desktops/cyberpowerpc-gamer-xtreme-2'),
+('MSI Trident 3', 'MSI', 'Slim gaming desktop with VR-ready specs', 1299.99, 6, 'Desktops', 'desktops/msi-trident-3'),
+('HP Pavilion Desktop', 'HP', 'Versatile desktop for everyday tasks', 699.99, 14, 'Desktops', 'desktops/hp-pavilion-desktop'),
+('Gateway Desktop', 'Gateway', 'Budget-friendly desktop for basic needs', 399.99, 20, 'Desktops', 'desktops/gateway-desktop');
 
 -- Insert products for Processors
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category)
+INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
 VALUES
-('Intel Core i9-12900K', 'Intel', 'High-end processor for gaming and productivity', 589.99, 8, 'Processors'),
-('AMD Ryzen 9 5900X', 'AMD', '12-core processor for high performance', 499.99, 10, 'Processors'),
-('Intel Core i7-12700K', 'Intel', 'Powerful processor for gaming and content creation', 399.99, 15, 'Processors'),
-('AMD Ryzen 7 5800X', 'AMD', '8-core processor for gamers and creators', 329.99, 12, 'Processors'),
-('Intel Core i5-12600K', 'Intel', 'Mid-range processor with great performance', 289.99, 14, 'Processors'),
-('AMD Ryzen 5 5600X', 'AMD', '6-core processor for efficient multitasking', 259.99, 20, 'Processors'),
-('Intel Core i3-12100', 'Intel', 'Budget-friendly processor for basic tasks', 169.99, 18, 'Processors'),
-('AMD Athlon 3000G', 'AMD', 'Affordable dual-core processor for entry-level PCs', 49.99, 25, 'Processors'),
-('Intel Pentium Gold G6400', 'Intel', 'Dual-core processor for everyday computing', 89.99, 30, 'Processors'),
-('AMD Ryzen 3 3300X', 'AMD', 'Quad-core processor for budget gaming', 199.99, 15, 'Processors');
+('Intel Core i9-12900K', 'Intel', 'High-end processor for gaming and productivity', 589.99, 8, 'Processors', 'processors/intel-core-i9-12900k-2'),
+('AMD Ryzen 9 5900X', 'AMD', '12-core processor for high performance', 499.99, 10, 'Processors', 'processors/amd-ryzen-9-5900x-2'),
+('Intel Core i7-12700K', 'Intel', 'Powerful processor for gaming and content creation', 399.99, 15, 'Processors', 'processors/intel-core-i7-12700k-2'),
+('AMD Ryzen 7 5800X', 'AMD', '8-core processor for gamers and creators', 329.99, 12, 'Processors', 'processors/amd-ryzen-7-5800x'),
+('Intel Core i5-12600K', 'Intel', 'Mid-range processor with great performance', 289.99, 14, 'Processors', 'processors/intel-core-i5-12600k-2'),
+('AMD Ryzen 5 5600X', 'AMD', '6-core processor for efficient multitasking', 259.99, 20, 'Processors', 'processors/amd-ryzen-5-5600x'),
+('Intel Core i3-12100', 'Intel', 'Budget-friendly processor for basic tasks', 169.99, 18, 'Processors', 'processors/intel-core-i3-12100-2'),
+('AMD Athlon 3000G', 'AMD', 'Affordable dual-core processor for entry-level PCs', 49.99, 25, 'Processors', 'processors/amd-athlon-3000g'),
+('Intel Pentium Gold G6400', 'Intel', 'Dual-core processor for everyday computing', 89.99, 30, 'Processors', 'processors/intel-pentium-gold-g6400-2'),
+('AMD Ryzen 3 3300X', 'AMD', 'Quad-core processor for budget gaming', 199.99, 15, 'Processors', 'processors/amd-ryzen-3-3300x');
 
 -- Insert products for Motherboards
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category)
+INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
 VALUES
-('ASUS ROG Strix Z590-E', 'Asus', 'High-performance motherboard for gaming', 299.99, 10, 'Motherboards'),
-('MSI MAG B550M Mortar', 'MSI', 'Micro ATX motherboard for AMD CPUs', 159.99, 15, 'Motherboards'),
-('Gigabyte B450 AORUS Elite', 'Gigabyte', 'Reliable motherboard for Ryzen processors', 109.99, 12, 'Motherboards'),
-('ASRock Z490 Taichi', 'ASRock', 'Feature-rich motherboard for Intel CPUs', 249.99, 8, 'Motherboards'),
-('Biostar B550GTQ', 'Biostar', 'Affordable motherboard for budget builds', 89.99, 18, 'Motherboards'),
-('EVGA Z490 Dark', 'EVGA', 'High-end motherboard for extreme overclocking', 399.99, 5, 'Motherboards'),
-('ASUS Prime B560-PLUS', 'Asus', 'Versatile motherboard for Intel 10th/11th Gen', 139.99, 20, 'Motherboards'),
-('Gigabyte Z590 AORUS Master', 'Gigabyte', 'Premium motherboard for gamers', 349.99, 7, 'Motherboards'),
-('MSI B550-A PRO', 'MSI', 'Reliable motherboard for productivity', 119.99, 14, 'Motherboards'),
-('ASRock H510M-HDV', 'ASRock', 'Budget-friendly motherboard for Intel CPUs', 69.99, 22, 'Motherboards');
+('ASUS ROG Strix Z590-E', 'Asus', 'High-performance motherboard for gaming', 299.99, 10, 'Motherboards', 'motherboards/asus-rog-strix-z590-e'),
+('MSI MAG B550M Mortar', 'MSI', 'Micro ATX motherboard for AMD CPUs', 159.99, 15, 'Motherboards', 'motherboards/msi-mag-b550m-mortar'),
+('Gigabyte B450 AORUS Elite', 'Gigabyte', 'Reliable motherboard for Ryzen processors', 109.99, 12, 'Motherboards', 'motherboards/gigabyte-b450-aorus-elite-2'),
+('ASRock Z490 Taichi', 'ASRock', 'Feature-rich motherboard for Intel CPUs', 249.99, 8, 'Motherboards', 'motherboards/asrock-z490-taichi'),
+('Biostar B550GTQ', 'Biostar', 'Affordable motherboard for budget builds', 89.99, 18, 'Motherboards', 'motherboards/biostar-b550gtq'),
+('EVGA Z490 Dark', 'EVGA', 'High-end motherboard for extreme overclocking', 399.99, 5, 'Motherboards', 'motherboards/EVGA Z490 Dark-36'),
+('ASUS Prime B560-PLUS', 'Asus', 'Versatile motherboard for Intel 10th/11th Gen', 139.99, 20, 'Motherboards', 'motherboards/ASUS Prime B560-PLUS-37'),
+('Gigabyte Z590 AORUS Master', 'Gigabyte', 'Premium motherboard for gamers', 349.99, 7, 'Motherboards', 'motherboards/Gigabyte_Z590_AORUS_Master-38'),
+('MSI B550-A PRO', 'MSI', 'Reliable motherboard for productivity', 119.99, 14, 'Motherboards', 'motherboards/MSI B550-A PRO-39'),
+('ASRock H510M-HDV', 'ASRock', 'Budget-friendly motherboard for Intel CPUs', 69.99, 22, 'Motherboards', 'motherboards/ASRock H510M-HDV-40');
 
 -- Insert products for Graphics Cards
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category)
+INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
 VALUES
-('NVIDIA GeForce RTX 3080', 'NVIDIA', 'High-end graphics card for gaming and AI', 699.99, 6, 'Graphics Card'),
-('AMD Radeon RX 6800 XT', 'AMD', 'Powerful graphics card for 4K gaming', 649.99, 5, 'Graphics Card'),
-('NVIDIA GeForce RTX 3070', 'NVIDIA', 'Great performance for 1440p gaming', 499.99, 10, 'Graphics Card'),
-('AMD Radeon RX 6700 XT', 'AMD', 'Mid-range graphics card for gamers', 479.99, 8, 'Graphics Card'),
-('NVIDIA GeForce GTX 1660 Super', 'NVIDIA', 'Affordable graphics card for 1080p gaming', 249.99, 15, 'Graphics Card'),
-('ASUS TUF Gaming RX 6900 XT', 'Asus', 'Premium gaming graphics card', 999.99, 4, 'Graphics Card'),
-('EVGA GeForce GTX 1650 SC Ultra', 'EVGA', 'Budget-friendly graphics card', 199.99, 12, 'Graphics Card'),
-('MSI GeForce RTX 3060 Ti', 'MSI', 'Excellent performance for esports', 399.99, 9, 'Graphics Card'),
-('Gigabyte Radeon RX 580 Gaming', 'Gigabyte', 'Solid performance for mid-range builds', 219.99, 14, 'Graphics Card'),
-('ZOTAC GeForce RTX 3090 Trinity', 'ZOTAC', 'Top-tier graphics card for gaming enthusiasts', 1499.99, 3, 'Graphics Card');
+('NVIDIA GeForce RTX 3080', 'NVIDIA', 'High-end graphics card for gaming and AI', 699.99, 6, 'Graphics Card', 'graphics card/NVIDIA GeForce RTX 3080-41'),
+('AMD Radeon RX 6800 XT', 'AMD', 'Powerful graphics card for 4K gaming', 649.99, 5, 'Graphics Card', 'graphics card/AMD_Radeon_RX_6800_XT-42'),
+('NVIDIA GeForce RTX 3070', 'NVIDIA', 'Great performance for 1440p gaming', 499.99, 10, 'Graphics Card', 'graphics card/NVIDIA GeForce RTX 3070-43'),
+('AMD Radeon RX 6700 XT', 'AMD', 'Mid-range graphics card for gamers', 479.99, 8, 'Graphics Card', 'graphics card/AMD Radeon RX 6700 XT-44'),
+('NVIDIA GeForce GTX 1660 Super', 'NVIDIA', 'Affordable graphics card for 1080p gaming', 249.99, 15, 'Graphics Card', 'graphics card/NVIDIA GeForce GTX 1660 Super-45'),
+('ASUS TUF Gaming RX 6900 XT', 'Asus', 'Premium gaming graphics card', 999.99, 4, 'Graphics Card', 'graphics card/ASUS TUF Gaming RX 6900 XT-46'),
+('EVGA GeForce GTX 1650 SC Ultra', 'EVGA', 'Budget-friendly graphics card', 199.99, 12, 'Graphics Card', 'graphics card/EVGA GeForce GTX 1650 SC Ultra-47'),
+('MSI GeForce RTX 3060 Ti', 'MSI', 'Excellent performance for esports', 399.99, 9, 'Graphics Card', 'graphics card/MSI GeForce RTX 3060 Ti-48'),
+('Gigabyte Radeon RX 580 Gaming', 'Gigabyte', 'Solid performance for mid-range builds', 219.99, 14, 'Graphics Card', 'graphics card/Gigabyte Radeon RX 580 Gaming-49'),
+('ZOTAC GeForce RTX 3090 Trinity', 'ZOTAC', 'Top-tier graphics card for gaming enthusiasts', 1499.99, 3, 'Graphics Card', 'graphics card/ZOTAC_GeForce_RTX_3090_Trinity-50');
 
 -- Insert products for Memory & Storage
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category)
+INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
 VALUES
-('Corsair Vengeance LPX 16GB', 'Corsair', 'High-performance DDR4 RAM', 79.99, 20, 'Memory & Storage'),
-('G.Skill Ripjaws V 16GB', 'G.Skill', 'Reliable DDR4 RAM for gaming', 69.99, 15, 'Memory & Storage'),
-('Kingston A2000 1TB NVMe SSD', 'Kingston', 'Fast storage for your PC', 109.99, 10, 'Memory & Storage'),
-('Samsung 970 EVO Plus 500GB', 'Samsung', 'High-speed NVMe SSD', 89.99, 12, 'Memory & Storage'),
-('Crucial Ballistix 32GB', 'Crucial', 'Gaming memory with great performance', 139.99, 8, 'Memory & Storage'),
-('WD Blue 2TB HDD', 'Western Digital', 'Reliable storage for your data', 59.99, 18, 'Memory & Storage'),
-('Seagate Barracuda 1TB HDD', 'Seagate', 'Affordable storage for files', 49.99, 25, 'Memory & Storage'),
-('Samsung 860 EVO 1TB SSD', 'Samsung', 'SATA SSD for fast performance', 99.99, 15, 'Memory & Storage'),
-('ADATA XPG SX8200 Pro 1TB', 'ADATA', 'NVMe SSD with high speeds', 119.99, 10, 'Memory & Storage'),
-('Teamgroup T-Force Vulcan Z 16GB', 'Teamgroup', 'Budget-friendly RAM for everyday use', 59.99, 30, 'Memory & Storage');
+('Corsair Vengeance LPX 16GB', 'Corsair', 'High-performance DDR4 RAM', 79.99, 20, 'Memory & Storage', 'memory & storage/Corsair_Vengeance_LPX_16GB-51'),
+('G.Skill Ripjaws V 16GB', 'G.Skill', 'Reliable DDR4 RAM for gaming', 69.99, 15, 'Memory & Storage', 'memory & storage/G.Skill Ripjaws V 16GB-52'),
+('Kingston A2000 1TB NVMe SSD', 'Kingston', 'Fast storage for your PC', 109.99, 10, 'Memory & Storage', 'memory & storage/Kingston_A2000_1TB_NVMe_SSD-53'),
+('Samsung 970 EVO Plus 500GB', 'Samsung', 'High-speed NVMe SSD', 89.99, 12, 'Memory & Storage', 'memory & storage/Samsung 970 EVO Plus 500GB-54'),
+('Crucial Ballistix 32GB', 'Crucial', 'Gaming memory with great performance', 139.99, 8, 'Memory & Storage', 'memory & storage/Crucial Ballistix 32GB-55'),
+('WD Blue 2TB HDD', 'Western Digital', 'Reliable storage for your data', 59.99, 18, 'Memory & Storage', 'memory & storage/WD Blue 2TB HDD-56'),
+('Seagate Barracuda 1TB HDD', 'Seagate', 'Affordable storage for files', 49.99, 25, 'Memory & Storage', 'memory & storage/Seagate Barracuda 1TB HDD-57'),
+('Samsung 860 EVO 1TB SSD', 'Samsung', 'SATA SSD for fast performance', 99.99, 15, 'Memory & Storage', 'memory & storage/Samsung 860 EVO 1TB SSD-58'),
+('ADATA XPG SX8200 Pro 1TB', 'ADATA', 'NVMe SSD with high speeds', 119.99, 10, 'Memory & Storage', 'memory & storage/ADATA_XPG_SX8200_Pro_1TB-59'),
+('Teamgroup T-Force Vulcan Z 16GB', 'Teamgroup', 'Budget-friendly RAM for everyday use', 59.99, 30, 'Memory & Storage', 'memory & storage/Teamgroup T-Force Vulcan Z 16GB-60');
 
 -- Insert products for Hardware
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category)
+INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
 VALUES
-('Logitech G502 HERO', 'Logitech', 'Gaming mouse with customizable buttons', 49.99, 20, 'Hardware'),
-('Razer BlackWidow V3', 'Razer', 'Mechanical gaming keyboard', 139.99, 10, 'Hardware'),
-('Corsair HS50 Pro', 'Corsair', 'Durable gaming headset with great sound', 69.99, 15, 'Hardware'),
-('HyperX Cloud II', 'HyperX', 'Comfortable gaming headset', 99.99, 12, 'Hardware'),
-('ASUS TUF Gaming H3', 'Asus', 'Gaming headset with 7.1 surround sound', 89.99, 8, 'Hardware'),
-('Logitech G Pro X', 'Logitech', 'Customizable mechanical gaming keyboard', 149.99, 5, 'Hardware'),
-('Razer DeathAdder V2', 'Razer', 'High-precision gaming mouse', 69.99, 18, 'Hardware'),
-('SteelSeries Arctis 7', 'SteelSeries', 'Wireless gaming headset', 149.99, 7, 'Hardware'),
-('Cooler Master MasterMouse MM710', 'Cooler Master', 'Lightweight gaming mouse', 49.99, 15, 'Hardware'),
-('Corsair K95 RGB Platinum', 'Corsair', 'High-end mechanical gaming keyboard', 199.99, 6, 'Hardware');
+('Logitech G502 HERO', 'Logitech', 'Gaming mouse with customizable buttons', 49.99, 20, 'Hardware', 'hardware/Logitech G502 HERO-61'),
+('Razer BlackWidow V3', 'Razer', 'Mechanical gaming keyboard', 139.99, 10, 'Hardware', 'hardware/Razer BlackWidow V3-62'),
+('Corsair HS50 Pro', 'Corsair', 'Durable gaming headset with great sound', 69.99, 15, 'Hardware', 'hardware/Corsair_HS50_Pro-63'),
+('HyperX Cloud II', 'HyperX', 'Comfortable gaming headset', 99.99, 12, 'Hardware', 'hardware/HyperX_Cloud_II-64'),
+('ASUS TUF Gaming H3', 'Asus', 'Gaming headset with 7.1 surround sound', 89.99, 8, 'Hardware', 'hardware/ASUS TUF Gaming H3-65'),
+('Logitech G Pro X', 'Logitech', 'Customizable mechanical gaming keyboard', 149.99, 5, 'Hardware', 'hardware/Logitech G Pro X-66'),
+('Razer DeathAdder V2', 'Razer', 'High-precision gaming mouse', 69.99, 18, 'Hardware', 'hardware/Razer DeathAdder V2-67'),
+('SteelSeries Arctis 7', 'SteelSeries', 'Wireless gaming headset', 149.99, 7, 'Hardware', 'hardware/SteelSeries Arctis 7-68'),
+('Cooler Master MasterMouse MM710', 'Cooler Master', 'Lightweight gaming mouse', 49.99, 15, 'hardware/Hardware', 'Cooler Master MasterMouse MM710-69'),
+('Corsair K95 RGB Platinum', 'Corsair', 'High-end mechanical gaming keyboard', 199.99, 6, 'Hardware', 'hardware/Corsair K95 RGB Platinum-70');
 
 
 -- Admin Table
