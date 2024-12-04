@@ -346,18 +346,25 @@ ul{
 }
 
 #order-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    height: 100vh;         
+    height: 15vh;         
     width: 90%;            
     max-width: 1200px;      
-    margin: 0 auto;         
+    margin: 40px auto;         
 }
 
-.button-holder {
-    display: flex;
+.button-holders {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
+    margin: 10px 60px;
+}
+
+.order-btn:hover {
+    background-color: var(--tertiary-color);
+}
+
+.no-orders-found {
+    margin: auto;
 }
 
 button {

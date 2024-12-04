@@ -41,7 +41,7 @@ CREATE TABLE Admin (
 CREATE TABLE `Order` (
     OrderID INT AUTO_INCREMENT PRIMARY KEY,
     OrderDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Status ENUM('Pending', 'Confirmed', 'Cancelled') NOT NULL,
+    Status ENUM('Pending', 'In Progress', 'Confirmed') NOT NULL,
     EstimatedDeliveryDate DATE,
     CustomerID INT,
     AdminID INT,

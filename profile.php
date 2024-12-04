@@ -30,31 +30,9 @@ if ($user) {
     exit();
 }
 
-// Fetch order history
-$sqlOrders = "
-    SELECT 
-        o.OrderID,
-        o.OrderDate,
-        o.Status,
-        o.EstimatedDeliveryDate,
-        oi.Quantity,
-        oi.Price,
-        p.ProductName,
-        p.Category AS ProductCategory,
-        p.ProductImages
-    FROM 
-        `Order` o
-    JOIN 
-        OrderItem oi ON o.OrderID = oi.OrderID
-    JOIN 
-        Product p ON oi.ProductID = p.ProductID
-    WHERE 
-        o.CustomerID = :customerID
-";
+$status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending';
 
-$stmtOrders = $pdo->prepare($sqlOrders);
-$stmtOrders->execute(['customerID' => $customerID]);
-$orders = $stmtOrders->fetchAll();
+
 ?>
 
 
@@ -236,17 +214,47 @@ $orders = $stmtOrders->fetchAll();
         </section>
 
         <section id="order-buttons">
+            <div class="order-page-title">
+                <h1>Order History</h1>
+            </div>
             <div class="button-holder">
-                <button class="button-current">Current Orders</button>
-                <button class="button-history">Order History</button>
+                <form class="button-holders" ="" method="GET">
+                    <button class="order-btn" name="status" value="Pending" <?php echo ($status === 'Pending' ? 'style="background-color: var(--tertiary-color);"' : ''); ?>>Pending Orders</button>
+                    <button class="order-btn" name="status" value="Confirmed" <?php echo ($status === 'Confirmed' ? 'style="background-color: var(--tertiary-color);"' : ''); ?>>Orders in Progress</button>
+                    <button class="order-btn" name="status" value="Completed" <?php echo ($status === 'Completed' ? 'style="background-color: var(--tertiary-color);"' : ''); ?>>Completed</button>
+                </form>
             </div>
         </section>
 
         <!-- Order history -->
         <section class="order-profile">
-            <div class="order-page-title">
-                <h1>Order History</h1>
-            </div>
+            <?php 
+            // Set the default status to 'Pending' if none is set
+           
+
+                // Fetch orders based on the status
+                $query = "
+                SELECT 
+                    o.OrderID,
+                    o.OrderDate,
+                    o.Status,
+                    o.EstimatedDeliveryDate,
+                    oi.Quantity,
+                    oi.Price,
+                    p.ProductName,
+                    p.Category AS ProductCategory,
+                    p.ProductImages
+                FROM `order` AS o
+                JOIN OrderItem AS oi ON o.OrderID = oi.OrderID
+                JOIN Product AS p ON oi.ProductID = p.ProductID
+                WHERE o.CustomerID = :customerID AND o.Status = :status
+                ";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([':customerID' => $customerID, ':status' => $status]);
+
+                // Fetch the results
+                $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            ?>
 
 
             <?php if (count($orders) > 0): ?>
@@ -275,7 +283,7 @@ $orders = $stmtOrders->fetchAll();
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div>No orders found.</div>
+                <div class="no-orders-found">No orders found.</div>
             <?php endif; ?>
         </section>
 
