@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Afacad Flux", sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+:root{
+    --text-color:#f8f8f8;
+    --main-color:#bdbdbd;
+    --main-dark:#212121;
+    --secondary-color:#3BBECD;
+    --tertiary-color:#5edbe9;
+    --product-bg-color:#e2e2e2;
+    --price-color:#20919e;
+}
+
+body{
+    background-color: #212121;
+}
+
+#main-popup{
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
+    width: 90%; 
+    height: 91vh;
+    margin: 50px auto;
+    background-color: #f8f8f8;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.main-container{
+    padding: 50px;
+    overflow: hidden;
+}
+
+.title-container h1{
+    text-transform: uppercase;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.customer-info{
+    margin-bottom: 20px;
+}
+
+.general-container{
+    height: 100%;
+    height: 68vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scrollbar-color: gray transparent;
+    scrollbar-width: thin;
+}
+
+.item-container{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: #ececec;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    
+}
+
+.image-container{
+    max-width: 160px;
+    max-height: 80px;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.image-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    max-height: 80px;  
+}
+
+.bottom-container{
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content:space-between;
+}
+
+.bottom-container button{
+    border: none; 
+    padding: 10px 50px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.cancel-button{
+    background-color: #dbdbdb;
+}
+
+.confirm-button{
+    background-color: #2aa2af;
+}
+
+.cancel-button:hover{
+    background-color: #c4c4c4;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.confirm-button:hover{
+    background-color: var(--secondary-color);
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.total-container h1{
+    font-size: 1.5rem;
+}
+
+.total-container span{
+    color: var(--price-color);
+}
