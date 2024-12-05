@@ -54,7 +54,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
       <div class="header-top">
         <!-- Logo -->
         <a href="#" class="logo">
-          <img src="resources/images/logo-with-icon.png" alt="logo" />
+          <img src="./resources/images/logo-with-icon.png" alt="logo" />
         </a>
 
         <div class="full-search-bar">
@@ -851,8 +851,9 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
   <!-- Cart Pop-up -->
   <section class="cart-container">
     <div class="cart-tab">
-    
-        <h1>My Cart</h1>
+      <div class="cart-tab-header">
+          <h1>My Cart</h1>
+        </div>
      
 
       

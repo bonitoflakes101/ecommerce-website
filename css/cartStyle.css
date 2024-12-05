@@ -44,15 +44,15 @@
 }
 
 .cart-tab-header {
-    display: flex;
-    justify-content: space-between; /* Ensure items are spaced apart */
-    align-items: center; /* Vertically center the items */
+    /* display: flex; */
+    /* justify-content: space-between; Ensure items are spaced apart */
+    /* align-items: center; Vertically center the items */
     border-bottom: 1px solid #cfcfcf;
 }
 
 
-.cart-tab-header h1{
-    flex: 1;
+.cart-tab h1{
+    margin-left: 50px;
     padding: 20px 20px;
     margin: 0;
     font-weight: 600;
@@ -121,6 +121,7 @@
 
 .cart-item-image img{
     width: 100%;
+    z-index: 110;
 }
 
 .cart-item{
@@ -128,7 +129,7 @@
     margin: 5px;
     padding: 20px;
     display: grid;
-    grid-template-columns: .3fr 1fr 100px 100px 50px;
+    grid-template-columns: .5fr 1fr 100px 100px 50px;
     gap: 15px;
     text-align: center;
     align-items: center;

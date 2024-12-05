@@ -133,7 +133,7 @@ function displayCartItems(cartItems) {
         // Creating the content with the item data
         cartItemElement.innerHTML = `
             <div class="cart-item-image">
-                <img src="../resources/products/${item.ProductImages}.png" alt="">
+                <img src="/ecommerce-website/resources/products/${item.ProductImages}.png" alt="">
             </div>
             
             <div id="${item.ProductID}" class="cart-item-title">
