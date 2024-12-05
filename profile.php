@@ -290,8 +290,10 @@ $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending'
   <!-- Cart Pop-up -->
   <section class="cart-container">
     <div class="cart-tab">
-      <h1>My Cart</h1>
 
+        <div class="cart-tab-header">
+            <h1>My Cart</h1>
+        </div>
       
       <div class="cart-list">
 
