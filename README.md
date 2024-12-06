@@ -71,10 +71,25 @@
 
 ## Setting Up PHPMailer for Email Sending
 
-1. **Install PHPMailer:**
-   - Open a terminal in the project root directory (where the composer.json file is located).
-   - Run the following command to install PHPMailer:
-     `composer require phpmailer/phpmailer`
+### 1. Install Composer
+- Download Composer from [getcomposer.org](https://getcomposer.org/Composer-Setup.exe).
+- Run the installer and follow the instructions.
+- Ensure the installation path (e.g., `C:\ProgramData\ComposerSetup\bin`) is added to your system’s environment variables.
+
+### 2. Verify Composer Installation
+- Open a terminal and run:
+  ```bash
+  composer --version
+  ```
+- If Composer is installed correctly, it will display the installed version.
+
+### 3. Install PHPMailer
+- Navigate to the project root directory (where `composer.json` is located).
+- Run the following command to install PHPMailer:
+  ```bash
+  composer require phpmailer/phpmailer
+  ```
+
 
 ## Running the Application
 
