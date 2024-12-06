@@ -261,7 +261,7 @@ if (isset($_POST['btnProfileClicked'])) {
                         }
                         else {
                             echo '<a href="#"><button onclick="backToIndex()" class="cancel-button">Back to Main Page</button></a>';
-                            echo '<a href="#"><button onclick="goToProfile()" class="confirm-button">Confirm</button></a>';
+                            echo '<a href="#"><button onclick="goToProfile()" class="confirm-button">Go to Profile</button></a>';
                         }
                     ?>
                 </div>
