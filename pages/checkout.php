@@ -11,6 +11,18 @@ if (!isset($_SESSION['CustomerID'])) {
 }
 $customerId = $_SESSION['CustomerID'];
 
+
+function nextAutoIncrement($tablename, $db_conn) {
+    $next_auto_increment_sql = "SHOW TABLE STATUS LIKE '{$tablename}'";
+    $next_auto_increment_result = mysqli_query($db_conn, $next_auto_increment_sql);
+    if (mysqli_num_rows($next_auto_increment_result) > 0) {
+        $row=mysqli_fetch_assoc($next_auto_increment_result);
+        $next_auto_increment = $row['Auto_increment'];
+        return $next_auto_increment;
+    }
+}
+
+
 /* Customer Details: Start */
 $customerDetailsSql = "SELECT FirstName, LastName, FullAddress FROM ecommerce_db.customer WHERE CustomerID = {$customerId}";
 $customerDetailsResult = mysqli_query($db_conn, $customerDetailsSql);
@@ -34,9 +46,15 @@ $show_cart_sql = "SELECT b.ProductImages, b.ProductName, a.Quantity, b.Price
                     WHERE c.CustomerID = {$customerId}
 					ORDER BY a.LastModified DESC";
 $show_cart_result = mysqli_query($db_conn, $show_cart_sql);
-
-
 /* Cart Item Details: End */
+
+/* crc32          */
+
+if (isset($_POST['btnConfirmClicked'])) {
+    
+    /* header("Location: ../profile.php");
+    exit(); */
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +64,24 @@ $show_cart_result = mysqli_query($db_conn, $show_cart_sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechVault Checkout</title>
     <link rel="stylesheet" href="../css/checkoutStyle.css" />
+    <script>
+        function addCartToOrder() {
+            if (confirm("Are you sure you want to order all of these?")) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "checkout.php";
+
+                const inputAddingCartToOrder = document.createElement("input");
+                inputAddingCartToOrder.type = "hidden";
+                inputAddingCartToOrder.name = "btnConfirmClicked";
+                inputAddingCartToOrder.value = 1;
+
+                form.appendChild(inputAddingCartToOrder);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+</script>
 </head>
 <body>
 
@@ -108,15 +144,12 @@ $show_cart_result = mysqli_query($db_conn, $show_cart_sql);
                 </div>
                 <div class="button-container">
                     <a href="#"><button class="cancel-button">Cancel</button></a>
-                    <a href="#"><button class="confirm-button">Confirm</button></a>
+                    <a href="#"><button onclick="addCartToOrder()" class="confirm-button">Confirm</button></a>
                 </div>
             </div>
 
         </div>
 
     </section>
-
-
-    
 </body>
 </html>
