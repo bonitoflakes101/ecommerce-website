@@ -6,10 +6,48 @@ VALUES
 ('Alice', 'Johnson', 'alice.johnson@example.com', 'alicej', 'password789', '789 Aguinaldo Highway, Imus, Cavite', '09298765432'),
 ('Bob', 'Brown', 'bob.brown@example.com', 'bobb', 'password101', '101 Gen. Luna St, San Juan City, Metro Manila', '09354678901');
 
+-- Manufacturer Table
+INSERT INTO Manufacturer (ManufacturerName, ManufacturerImages)
+VALUES
+('ADATA', 'ADATA-logo'),
+('AMD', 'AMD-logo'),
+('ASRock', 'ASRock-logo'),
+('Asus', 'Asus-logo'),
+('Acer', 'Acer-logo'),
+('Apple', 'Apple-logo'),
+('Biostar', 'Biostar-logo'),
+('Corsair', 'Corsair-logo'),
+('Cooler Master', 'Cooler Master-logo'),
+('Crucial', 'crucial-logo'),
+('CyberPowerPC', 'CyberPowerPC-logo'),
+('Dell', 'Dell-logo'),
+('EVGA', 'EVGA-logo'),
+('Gateway', 'Gateway-logo-2006'),
+('Gigabyte', 'Gigabyte-logo'),
+('G.Skill', 'GSkill-logo'),
+('HP', 'HP-logo'),
+('HyperX', 'HyperX-logo'),
+('Intel', 'Intel-logo-2022'),
+('Kingston', 'Kingston-logo'),
+('LG', 'LG-logo'),
+('Lenovo', 'Lenovo-logo-2015'),
+('Logitech', 'Logitech-logo'),
+('Microsoft', 'Microsoft-logo'),
+('MSI', 'MSI-logo-2021'),
+('NVIDIA', 'NVIDIA-logo'),
+('Razer', 'Razer-logo'),
+('Samsung', 'Samsung-logo-2005'),
+('Seagate', 'Seagate-logo'),
+('SteelSeries', 'SteelSeries-logo'),
+('Teamgroup', 'Teamgroup-logo'),
+('Western Digital', 'WD-logo-2022'),
+('Zotac', 'zotac-logo');
+
+
 
 -- Product Table
 -- Insert products for Laptops
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
+INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category, ProductImages)
 VALUES
 ('Dell XPS 13', 'Dell', '13-inch laptop with high-performance specs', 999.99, 10, 'Laptops', 'laptops/dell-xps-13'),
 ('MacBook Pro 16', 'Apple', '16-inch Apple MacBook with M1 chip', 2499.99, 5, 'Laptops', 'laptops/macbook-pro-16'),
@@ -23,7 +61,7 @@ VALUES
 ('Samsung Galaxy Book Pro', 'Samsung', 'Lightweight laptop with AMOLED display', 999.99, 10, 'Laptops', 'laptops/samsung-galaxy-book-pro');
 
 -- Insert products for Desktops
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
+INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category, ProductImages)
 VALUES
 ('Dell Inspiron Desktop', 'Dell', 'Affordable desktop for everyday use', 499.99, 15, 'Desktops', 'desktops/dell-inspiron-desktop'),
 ('Apple iMac 27-inch', 'Apple', 'All-in-one desktop with Retina display', 1799.99, 7, 'Desktops', 'desktops/apple-imac-27 inch'),
@@ -37,7 +75,7 @@ VALUES
 ('Gateway Desktop', 'Gateway', 'Budget-friendly desktop for basic needs', 399.99, 20, 'Desktops', 'desktops/gateway-desktop');
 
 -- Insert products for Processors
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
+INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category, ProductImages)
 VALUES
 ('Intel Core i9-12900K', 'Intel', 'High-end processor for gaming and productivity', 589.99, 8, 'Processors', 'processors/intel-core-i9-12900k-2'),
 ('AMD Ryzen 9 5900X', 'AMD', '12-core processor for high performance', 499.99, 10, 'Processors', 'processors/amd-ryzen-9-5900x-2'),
@@ -51,7 +89,7 @@ VALUES
 ('AMD Ryzen 3 3300X', 'AMD', 'Quad-core processor for budget gaming', 199.99, 15, 'Processors', 'processors/amd-ryzen-3-3300x');
 
 -- Insert products for Motherboards
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
+INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category, ProductImages)
 VALUES
 ('ASUS ROG Strix Z590-E', 'Asus', 'High-performance motherboard for gaming', 299.99, 10, 'Motherboards', 'motherboards/asus-rog-strix-z590-e'),
 ('MSI MAG B550M Mortar', 'MSI', 'Micro ATX motherboard for AMD CPUs', 159.99, 15, 'Motherboards', 'motherboards/msi-mag-b550m-mortar'),
@@ -65,7 +103,7 @@ VALUES
 ('ASRock H510M-HDV', 'ASRock', 'Budget-friendly motherboard for Intel CPUs', 69.99, 22, 'Motherboards', 'motherboards/ASRock H510M-HDV-40');
 
 -- Insert products for Graphics Cards
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
+INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category, ProductImages)
 VALUES
 ('NVIDIA GeForce RTX 3080', 'NVIDIA', 'High-end graphics card for gaming and AI', 699.99, 6, 'Graphics Card', 'graphics card/NVIDIA GeForce RTX 3080-41'),
 ('AMD Radeon RX 6800 XT', 'AMD', 'Powerful graphics card for 4K gaming', 649.99, 5, 'Graphics Card', 'graphics card/AMD_Radeon_RX_6800_XT-42'),
@@ -79,7 +117,7 @@ VALUES
 ('ZOTAC GeForce RTX 3090 Trinity', 'ZOTAC', 'Top-tier graphics card for gaming enthusiasts', 1499.99, 3, 'Graphics Card', 'graphics card/ZOTAC_GeForce_RTX_3090_Trinity-50');
 
 -- Insert products for Memory & Storage
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
+INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category, ProductImages)
 VALUES
 ('Corsair Vengeance LPX 16GB', 'Corsair', 'High-performance DDR4 RAM', 79.99, 20, 'Memory & Storage', 'memory & storage/Corsair_Vengeance_LPX_16GB-51'),
 ('G.Skill Ripjaws V 16GB', 'G.Skill', 'Reliable DDR4 RAM for gaming', 69.99, 15, 'Memory & Storage', 'memory & storage/G.Skill Ripjaws V 16GB-52'),
@@ -93,7 +131,7 @@ VALUES
 ('Teamgroup T-Force Vulcan Z 16GB', 'Teamgroup', 'Budget-friendly RAM for everyday use', 59.99, 30, 'Memory & Storage', 'memory & storage/Teamgroup T-Force Vulcan Z 16GB-60');
 
 -- Insert products for Hardware
-INSERT INTO Product (ProductName, Manufacturer, Description, Price, Stock, Category, ProductImages)
+INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category, ProductImages)
 VALUES
 ('Logitech G502 HERO', 'Logitech', 'Gaming mouse with customizable buttons', 49.99, 20, 'Hardware', 'hardware/Logitech G502 HERO-61'),
 ('Razer BlackWidow V3', 'Razer', 'Mechanical gaming keyboard', 139.99, 10, 'Hardware', 'hardware/Razer BlackWidow V3-62'),
@@ -138,3 +176,4 @@ INSERT INTO CartItem (CartID, ProductID, Quantity) VALUES
 (1, 4, 1),  -- John Doe has 1 Monitor in his cart
 (2, 1, 2),  -- Jane Smith has 2 Laptops in her cart
 (3, 3, 3);  -- Alice Johnson has 3 Headphones in her cart
+

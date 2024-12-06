@@ -14,21 +14,27 @@ CREATE TABLE Customer (
 );
 
 
+-- Manufacturer Table
+CREATE TABLE Manufacturer (
+    ManufacturerName VARCHAR(255) PRIMARY KEY,
+    ManufacturerImages VARCHAR(255)
+);
 
--- Product Table
+
+-- Updated Product Table
 CREATE TABLE Product (
     ProductID INT AUTO_INCREMENT PRIMARY KEY,
     ProductName VARCHAR(100) NOT NULL,
-    Manufacturer VARCHAR(100),  
+    ManufacturerName VARCHAR(100),  -- Renamed to match the Manufacturer table
     Description TEXT,
     Price DECIMAL(10, 2) NOT NULL,
     Stock INT NOT NULL,
     Category VARCHAR(100),
     ProductImages VARCHAR(255),  
     Sales INT DEFAULT 0,          
-    DateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+    DateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ManufacturerName) REFERENCES Manufacturer(ManufacturerName) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- Admin Table
 CREATE TABLE Admin (
@@ -41,7 +47,7 @@ CREATE TABLE Admin (
 CREATE TABLE `Order` (
     OrderID INT AUTO_INCREMENT PRIMARY KEY,
     OrderDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Status ENUM('Pending', 'In Progress', 'Confirmed') NOT NULL,
+    Status ENUM('Pending', 'Confirmed', 'Completed') NOT NULL,
     EstimatedDeliveryDate DATE,
     CustomerID INT,
     AdminID INT,
@@ -77,4 +83,3 @@ CREATE TABLE CartItem (
     FOREIGN KEY (CartID) REFERENCES Cart(CartID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE
 );
-
