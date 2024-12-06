@@ -4,6 +4,10 @@
 $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
 // echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
 
+if (isset($_POST['btnCheckoutClicked'])) {
+  header('Location: checkout.php');
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -495,7 +499,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
       <div class="cart-buttons">
         <button class="cart-close">Close</button>
         <br>
-        <button class="cart-checkout">Checkout</button>
+        <button onclick="goToCheckout()" class="cart-checkout">Checkout</button>
 
       </div>        
 
@@ -609,6 +613,23 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
   <script src="../js/products.js"></script>
   <script src="../js/userLogon.js"></script>
   <script src="../js/cartVisibility.js"></script>
+  <script>
+    function goToCheckout() {
+    console.log("I am clicked");
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "products.php";
+
+    const inputCheckout = document.createElement("input");
+    inputCheckout.type = "hidden";
+    inputCheckout.name = "btnCheckoutClicked";
+    inputCheckout.value = 1;
+
+    form.appendChild(inputCheckout);
+    document.body.appendChild(form);
+    form.submit();
+    }
+  </script>
 </body>
 
 </html>
