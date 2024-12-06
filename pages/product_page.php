@@ -506,6 +506,8 @@ $ManufacturerName = htmlspecialchars($productData['ManufacturerName']);
 
 
   <section class="main-section">
+
+
             <div class="product-section">
               <div class="product-image">
                 
@@ -654,6 +656,24 @@ $ManufacturerName = htmlspecialchars($productData['ManufacturerName']);
             </div>
 
   </section>
+
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+<!-- Modal content -->
+<div class="main-modal">
+  <div class="modal-content-header">
+    <span class="close-modal">&times;</span>
+  </div>
+  <div class="main-modal-content">
+    <p class="modal-text"></p>
+  </div>
+  
+  
+</div>
+
+</div>
 
 
 

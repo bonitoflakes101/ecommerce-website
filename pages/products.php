@@ -465,6 +465,20 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
   </div>
 
 
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="main-modal">
+        <div class="modal-content-header">
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="main-modal-content">
+          <p class="modal-text"></p>
+        </div>
+      </div>
+    </div> 
+
+
 
   <!-- Cart Pop-up -->
   <section class="cart-container">

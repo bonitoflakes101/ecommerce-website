@@ -279,7 +279,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         showCartBox(); // Show the updated cart UI
                     } else if (data.status === 'error') {
                         console.error("Error:", data.message);
-                        alert(data.message); // Display error message
+                        //alert(data.message); // Display error message
+                        showModalAlert(data.message);
                     }
                 })
                 .catch(error => {

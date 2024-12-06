@@ -47,7 +47,6 @@ $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending'
     <link rel="stylesheet" href="css/cartStyle.css" />
     <link rel="stylesheet" href="css/profileStyle.css" />
     <link rel="stylesheet" href="css/productsStyle.css" />
-
     <title>TechVault Profile</title>
     <link rel="icon" type="image/x-icon" href="resources/images/logo-icon.png" />
     <script
@@ -183,8 +182,28 @@ $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending'
 
     </section>
 
+
+
     <<!-- Profile Section -->
         <section class="main-profile">
+            
+                <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="main-modal">
+    <div class="modal-content-header">
+        <span class="close-modal">&times;</span>
+    </div>
+    <div class="main-modal-content">
+        <p class="modal-text"></p>
+    </div>
+
+
+    </div>
+
+    </div>
+
             <div class="page-title">
                 <h1>Profile</h1>
                 <strong>Welcome to your Techvault Profile!</strong>

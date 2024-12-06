@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newQuantity = $currentQuantity + $change;
 
             if ($newQuantity > 3) {
-                echo json_encode(['status' => 'error', 'message' => 'Maximum quantity of 3 per item exceeded']);
+                echo json_encode(['status' => 'error', 'message' => 'Maximum quantity of 3 per item reached']);
             } elseif ($newQuantity < 1) {
                 echo json_encode(['status' => 'error', 'message' => 'Quantity cannot be less than 1']);
             } elseif ($change > 0 && $stock < $change) {

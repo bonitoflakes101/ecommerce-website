@@ -182,6 +182,26 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     </div>
   </section>
 
+  <!-- MODEL ALERTS -->
+ 
+
+<!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="main-modal">
+      <div class="modal-content-header">
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="main-modal-content">
+        <p class="modal-text"></p>
+      </div>
+      
+      
+    </div>
+
+  </div>
+
   <!-- Login / Signup -->
   <div class="form">
     <!-- Main Login Form -->
@@ -619,7 +639,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     <!-- collection Container -->
     <div class="recommended-collection-container">
       <!-- Product Box Container -->
-      <div class="product-container">
+      <div class="recommended-collection-product-container">
 
       <?php
 

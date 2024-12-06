@@ -4,10 +4,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const closeButton = document.querySelector('.cart-close');
     const cartContainer = document.querySelector('.cart-container');
     const cartList = document.querySelector('.cart-list'); // Parent container for cart items
+    const modalCloseBtn = document.querySelector('close');
 
     // para global
     window.cartTab = cartTab;
     window.cartContainer = cartContainer;
+    window.modalCloseBtn = modalCloseBtn;
+
+
+    // const modalCloseBtn = document.querySelector('.close');
+    //let span = document.getElementsByClassName("close")[0];
+   
 
     if (closeButton) {
         closeButton.addEventListener('click', function() {
@@ -47,6 +54,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
 }); 
+
+
+function showModalAlert(message) {
+    const modal = document.getElementById('myModal');
+    const modalText = document.querySelector('.modal-text')
+    const modalCloseBtn = document.querySelector('.close-modal');
+    if(modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', function (){
+            modal.style.display = "none";
+        })    
+    }
+
+    modal.style.display = "block";
+    modalText.textContent = message
+
+    
+    
+        
+    
+}
 
 // Function to show the cart
 function showCartBox() {
@@ -104,7 +131,9 @@ function updateQuantity(cartitemID, change) {
     })
     .then(result => {
         if(result.status === 'error') {
-            alert(result.message); // Display error message from the server
+     
+            console.log(result.message);
+            showModalAlert(result.message) // Display error message from the server
         } else {
             console.log("Quantity updated:", result);
             fetchCartItems(); // Refresh the cart after successful update

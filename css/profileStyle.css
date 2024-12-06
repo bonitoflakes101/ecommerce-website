@@ -378,3 +378,64 @@ button {
 
 
 
+/* MODAL WARNING/ALERT */
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+   
+  }
+  
+  /* Modal Content/Box */
+  .main-modal {
+    display: grid;
+    grid-row: 1fr 1fr;
+    background-color: #fefefe;
+    border-radius: 12px;
+    margin: 15% auto; /* 15% from the top and centered */
+    /* padding: 10px; */
+    border: 0 solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+  }
+
+  .modal-content-header{
+  
+    background-color: var(--secondary-color);
+    border-radius: 12px 12px 0 0; 
+  }
+  
+  /* The Close Button */
+  .close-modal {
+    color: whitesmoke;
+    float: right;
+    font-size: 38px;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  .close-modal:hover,
+  .close-modal:focus {
+    color: var(--product-bg-color);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .main-modal-content {
+    padding: 15px;
+  }
+
+  .modal-text {
+    text-align: center;
+    color: var(--main-dark);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
