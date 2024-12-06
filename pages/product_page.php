@@ -719,7 +719,7 @@ if (isset($_POST['btnCheckoutClicked'])) {
       <div class="cart-buttons">
         <button class="cart-close">Close</button>
         <br>
-        <button class="cart-checkout">Checkout</button>
+        <button onclick="goToCheckout()" class="cart-checkout">Checkout</button>
 
       </div>
     </div>
