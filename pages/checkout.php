@@ -10,61 +10,33 @@ if (!isset($_SESSION['CustomerID'])) {
     exit();
 }
 $customerId = $_SESSION['CustomerID'];
-$arrayCartItemID = array();
 
-
-function nextAutoIncrement($tablename, $db_conn) {
-    $next_auto_increment_sql = "SHOW TABLE STATUS LIKE '{$tablename}'";
-    $next_auto_increment_result = mysqli_query($db_conn, $next_auto_increment_sql);
-    if (mysqli_num_rows($next_auto_increment_result) > 0) {
-        $row=mysqli_fetch_assoc($next_auto_increment_result);
-        $next_auto_increment = $row['Auto_increment'];
-        return $next_auto_increment;
-    }
-  }
-
-
-if (isset($_POST['cartItemID'])) {
-    $post_cartItemID = $_POST['cartItemID'];
-    $sql = "DELETE FROM cartitem WHERE CartItemID = {$post_cartItemID}";
-    mysqli_query($db_conn, $sql);
-    /* echo "Deleted {$post_cartItemID}"; */
+/* Customer Details: Start */
+$customerDetailsSql = "SELECT FirstName, LastName, FullAddress FROM ecommerce_db.customer WHERE CustomerID = {$customerId}";
+$customerDetailsResult = mysqli_query($db_conn, $customerDetailsSql);
+$firstName = "";
+$lastName = "";
+$address = "";
+if (mysqli_num_rows($customerDetailsResult) > 0) {
+    $row=mysqli_fetch_assoc($customerDetailsResult);
+    $firstName = $row['FirstName'];
+    $lastName = $row['LastName'];
+    $address = $row['FullAddress'];
 }
+/* Customer Details: End */
 
-if (isset($_POST['AddingCartToOrder'])) {
-    $aOrderID = nextAutoIncrement('order', $db_conn);
-    $createOrder = "INSERT INTO `Order` (OrderDate, Status, EstimatedDeliveryDate, CustomerID, AdminID) VALUES (NOW(), 'Pending', DATE_ADD(NOW(), INTERVAL 3 DAY), {$customerId}, 1)";
-    mysqli_query($db_conn, $createOrder);
-
-    $addCart_sql = "SELECT a.CartID, a.CartItemID, a.ProductID, a.Quantity, b.Price
+/* Cart Item Details: Start */
+$totalPrice = 0.00;
+$show_cart_sql = "SELECT b.ProductImages, b.ProductName, a.Quantity, b.Price
                     FROM cartitem as a
                     JOIN product as b ON a.ProductID = b.ProductID
                     JOIN cart as c ON a.CartID = c.CartID
-                    WHERE c.CustomerID = {$customerId}";
-    $addCart_result = mysqli_query($db_conn, $addCart_sql);
-    if (mysqli_num_rows($addCart_result) > 0) {
-
-        while ($row=mysqli_fetch_assoc($addCart_result)) {
-            $aCartID = $row['CartID'];
-            $aCartItemID = $row['CartItemID'];
-            $aProductID = $row['ProductID'];
-            $aQuantity = $row['Quantity'];
-            $aPrice = $row['Price'] * $row['Quantity'];
-
-            array_push($arrayCartItemID, $aCartItemID);
-
-            $createOrderItem = "INSERT INTO OrderItem (OrderID, ProductID, Quantity, Price) VALUES ($aOrderID, $aProductID, $aQuantity, $aPrice)";
-            mysqli_query($db_conn, $createOrderItem);
-        }
-    }
-    foreach ($arrayCartItemID as $id) {
-        $deleteCartItem_sql = "DELETE FROM cartitem WHERE CartItemID = {$id}";
-        mysqli_query($db_conn, $deleteCartItem_sql);
-    }
-}
+                    WHERE c.CustomerID = {$customerId}
+					ORDER BY a.LastModified DESC";
+$show_cart_result = mysqli_query($db_conn, $show_cart_sql);
 
 
-
+/* Cart Item Details: End */
 ?>
 
 <!DOCTYPE html>
@@ -72,175 +44,66 @@ if (isset($_POST['AddingCartToOrder'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <script src="../js/checkout.js"></script> -->
-    <script>
-        /* Preserves the Scroll of the Page to the Local Session */
-        window.addEventListener('scroll', () => {
-            sessionStorage.setItem('scrollPosition', window.scrollY);
-        });
-
-        window.addEventListener('load', () => {
-            const scrollPosition = sessionStorage.getItem('scrollPosition');
-            if (scrollPosition) {
-                window.scrollTo(0, parseInt(scrollPosition, 10));
-            }
-        });
-
-        /* Delete Button */
-        function confirmDelete(cartItemID) {
-            if (confirm("Are you sure you want to cancel ordering this product?")) {
-                console.log("Deleted "+cartItemID);
-
-                const form = document.createElement("form");
-                form.method = "POST";
-                form.action = "checkout.php";
-
-                const inputCartItemID = document.createElement("input");
-                inputCartItemID.type = "hidden";
-                inputCartItemID.name = "cartItemID";
-                inputCartItemID.value = cartItemID;
-
-                form.appendChild(inputCartItemID);
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-
-        /* Add Cart Items to Order Table */
-        function addCartToOrder() {
-            if (confirm("Are you sure you want to order all of these?")) {
-                const form = document.createElement("form");
-                form.method = "POST";
-                form.action = "checkout.php";
-
-                const inputAddingCartToOrder = document.createElement("input");
-                inputAddingCartToOrder.type = "hidden";
-                inputAddingCartToOrder.name = "AddingCartToOrder";
-                inputAddingCartToOrder.value = 1;
-
-                form.appendChild(inputAddingCartToOrder);
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-    </script>
+    <title>TechVault Checkout</title>
+    <link rel="stylesheet" href="../css/checkoutStyle.css" />
 </head>
 <body>
-    <!-- Cart Table -->
-    <table class="table">
-    <caption>Current Cart</caption>
-    <thead>
-        <tr>
-        <th scope="col">Cart Item ID</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
-            $sql = "SELECT a.CartItemID , b.ProductName, b.Price, a.Quantity
-                    FROM cartitem as a
-                    JOIN product as b ON a.ProductID = b.ProductID
-                    JOIN cart as c ON a.CartID = c.CartID
-                    WHERE c.CustomerID = {$customerId}
-					ORDER BY a.CartItemID ASC";
-            $cart_result = mysqli_query($db_conn, $sql);
-            if (mysqli_num_rows($cart_result) > 0) {
-                while ($row=mysqli_fetch_assoc($cart_result)) {
-                    $cartItemID = $row['CartItemID'];
-                    $productName = $row['ProductName'];
-                    $price = $row['Price'] * $row['Quantity'];
-                    $quantity = $row['Quantity'];
-                    echo '<tr>
-                            <th scope="row">'.$cartItemID.'</th>
-                            <td>'.$productName.'</td>
-                            <td>'.$price.'</td>
-                            <td>'.$quantity.'</td>
-                            <td>
-                                <button onclick="confirmDelete('.$cartItemID.')">Cancel</button>
-                            </td>
-                        </tr>';
-                }
-            }
-        ?>
-    </tbody>
-    </table>
 
-    <!-- Submit Button: Process Cart to be Orders -->
+    <section id="main-popup">
+
+        <div class="main-container">
+            <div class="title-container">
+                <h1>Order Summary</h1>
+                <div class="customer-info">
+                    <h2><?php echo $firstName . " " . $lastName; ?></h2>
+                    <h3><?php echo $address; ?></h3>
+                </div>
+
+            </div>
+            <div class="general-container">
+                <div class="item-container">
+                    <div class="image-container">
+                        <img src="resources/images/pc1.png" alt="item-image">
+                    </div>
+                    <div class="name-container">
+                        <h1>item Name</h1>
+                    </div>
+                    <div class="quantity-container">
+                        <h1>Quantity</h1>
+                    </div>
+                    <div class="price-container">
+                        <h1>Price</h1>
+                    </div>
+                </div>
+
+
+<!-- <div class="item-container">
+    <h1>No Items to Show</h1>
+    Set Total to 0.00 Pesos
+</div> -->
+                
+            </div>
+
+            <div class="bottom-container">
+                <div class="total-container">
+                    <h1><?php if (mysqli_num_rows($show_cart_result) > 0) {
+                            echo "Total: <span>P{$totalPrice}</span>";
+                        }
+                        else {
+                            /* echo "Total: <span>P0.00</span>"; */
+                        }?></h1>
+                </div>
+                <div class="button-container">
+                    <a href="#"><button class="cancel-button">Cancel</button></a>
+                    <a href="#"><button class="confirm-button">Confirm</button></a>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
     
-    <?php 
-    if (mysqli_num_rows($cart_result) > 0) {
-        echo '<button onclick="addCartToOrder()">Process Cart to Order</button>';
-    }
-    else {
-        echo '<button>No Cart to Order</button>';
-    }
-    ?>
-
-    <!-- Orders Table -->
-    <table class="table">
-    <caption>Current Orders</caption>
-    <thead>
-        <tr>
-        <th scope="col">Order Item ID</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Order Date</th>
-        <th scope="col">Estimated Delivery Date</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th scope="col">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
-            $sql = "SELECT 
-                        oi.OrderItemID,
-                        p.ProductName,
-                        o.OrderDate,
-                        o.EstimatedDeliveryDate,
-                        oi.Quantity,
-                        oi.Price,
-                        o.Status
-                    FROM 
-                        `Order` o
-                    JOIN 
-                        Customer c ON o.CustomerID = c.CustomerID
-                    JOIN 
-                        OrderItem oi ON o.OrderID = oi.OrderID
-                    JOIN 
-                        Product p ON oi.ProductID = p.ProductID
-                    WHERE 
-                        c.CustomerID = {$customerId}
-                    ORDER BY 
-                        oi.OrderItemID ASC,
-                        o.OrderDate DESC";
-            $result = mysqli_query($db_conn, $sql);
-            if (mysqli_num_rows($result) > 0) {
-                while ($row=mysqli_fetch_assoc($result)) {
-                    $orderItemID = $row['OrderItemID'];
-                    $productName = $row['ProductName'];
-                    $orderDate = $row['OrderDate'];
-                    $estimatedDeliveryDate = $row['EstimatedDeliveryDate'];
-                    $quantity = $row['Quantity'];
-                    $price = $row['Price'];
-                    $status = $row['Status'];
-
-                    echo '<tr>
-                            <th scope="row">'.$orderItemID.'</th>
-                            <td>'.$productName.'</td>
-                            <td>'.$orderDate.'</td>
-                            <td>'.$estimatedDeliveryDate.'</td>
-                            <td>'.$quantity.'</td>
-                            <td>'.$price.'</td>
-                            <td>'.$status.'</td>
-                        </tr>';
-                }
-            }
-        ?>
-    </tbody>
-    </table>
 </body>
 </html>
