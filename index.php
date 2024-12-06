@@ -44,6 +44,23 @@ if (isset($_POST['btnCheckoutClicked'])) {
     domain="www.chatbase.co"
     defer>
   </script>
+  <script>
+    function goToCheckout() {
+    console.log("I am clicked");
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "index.php";
+
+    const inputCheckout = document.createElement("input");
+    inputCheckout.type = "hidden";
+    inputCheckout.name = "btnCheckoutClicked";
+    inputCheckout.value = 1;
+
+    form.appendChild(inputCheckout);
+    document.body.appendChild(form);
+    form.submit();
+  }
+  </script>
 </head>
 
 <body>
@@ -873,7 +890,6 @@ if (isset($_POST['btnCheckoutClicked'])) {
 
   <script src="js/userLogon.js"></script>
   <script src="js/cartVisibility.js"></script>
-  <script src="js/checkout.js"></script>
   <script>
     // pass php session to js
     const login_success = <?php echo json_encode($login_success); ?>;
