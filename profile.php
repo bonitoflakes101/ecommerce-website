@@ -242,6 +242,7 @@ $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending'
                     oi.Quantity,
                     oi.Price,
                     p.ProductName,
+                    p.ProductImages,
                     p.Category AS ProductCategory,
                     p.ProductImages
                 FROM `order` AS o
@@ -262,7 +263,7 @@ $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending'
                     <div class="order-container">
                         <div class="product-order">
                             <div class="product-order-image">
-                                <img src="<?php echo htmlspecialchars($order['ProductImages']); ?>" alt="order-image">
+                                <?php  echo '<img src="resources/products/'.htmlspecialchars($order['ProductImages']).'.png" alt="">'; ?>
                             </div>
                             <div class="product-order-details">
                                 <strong><?php echo htmlspecialchars($order['ProductName']); ?></strong>
