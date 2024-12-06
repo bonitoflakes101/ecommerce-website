@@ -61,33 +61,46 @@ $show_cart_result = mysqli_query($db_conn, $show_cart_sql);
 
             </div>
             <div class="general-container">
-                <div class="item-container">
-                    <div class="image-container">
-                        <img src="resources/images/pc1.png" alt="item-image">
-                    </div>
-                    <div class="name-container">
-                        <h1>item Name</h1>
-                    </div>
-                    <div class="quantity-container">
-                        <h1>Quantity</h1>
-                    </div>
-                    <div class="price-container">
-                        <h1>Price</h1>
-                    </div>
-                </div>
+                <?php
+                    if (mysqli_num_rows($show_cart_result) > 0) {
+                        while ($row=mysqli_fetch_assoc($show_cart_result)) {
+                            $image = $row['ProductImages'];
+                            $productName = $row['ProductName'];
+                            $quantity = $row['Quantity'];
+                            $price = $row['Price'] * $row['Quantity'];
+                            $priceFormat = number_format($price, 2);
+                            $totalPrice += $price;
 
-
-<!-- <div class="item-container">
-    <h1>No Items to Show</h1>
-    Set Total to 0.00 Pesos
-</div> -->
+                            echo '<div class="item-container">';
+                                echo '<div class="image-container">';
+                                    echo '<img src="../resources/products/'.$image.  '.png" alt="item-image">';
+                                echo '</div>';
+                                echo '<div class="name-container">';
+                                    echo "<h1>{$productName}</h1>";
+                                echo '</div>';
+                                echo '<div class="quantity-container">';
+                                    echo "<h1>{$quantity}</h1>";
+                                echo '</div>';
+                                echo '<div class="price-container">';
+                                    echo "<h1>₱{$priceFormat}</h1>";
+                                echo '</div>';
+                            echo '</div>';
+                        }
+                    }
+                    else {
+                        echo '<div class="item-container">';
+                            echo "<h1>No Items to Show</h1>";
+                        echo '</div>';
+                    }
+                ?>
                 
             </div>
 
             <div class="bottom-container">
                 <div class="total-container">
                     <h1><?php if (mysqli_num_rows($show_cart_result) > 0) {
-                            echo "Total: <span>P{$totalPrice}</span>";
+                            $totalPriceFormat = number_format($totalPrice, 3);
+                            echo "Total: <span>₱{$totalPriceFormat}</span>";
                         }
                         else {
                             /* echo "Total: <span>P0.00</span>"; */
