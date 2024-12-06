@@ -3,6 +3,11 @@ session_start();
 
 $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
 // echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
+
+if (isset($_POST['btnCheckoutClicked'])) {
+  header('Location: ./pages/checkout.php');
+  exit;
+}
 ?>
 
 
@@ -757,7 +762,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
       <div class="cart-buttons">
         <button class="cart-close">Close</button>
         <br>
-        <button class="cart-checkout">Checkout</button>
+        <button onclick="goToCheckout()" class="cart-checkout">Checkout</button>
 
       </div>
     </div>
@@ -868,6 +873,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
   <script src="js/userLogon.js"></script>
   <script src="js/cartVisibility.js"></script>
+  <script src="js/checkout.js"></script>
   <script>
     // pass php session to js
     const login_success = <?php echo json_encode($login_success); ?>;
