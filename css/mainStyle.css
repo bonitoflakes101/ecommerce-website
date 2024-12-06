@@ -712,6 +712,15 @@ ul{
     grid-gap: 40px;
 }
 
+/* recommended product container */
+.recommended-collection-product-container{
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 40px;
+}
+
+
 .product-box{
     display: flex;
     flex-direction: column;

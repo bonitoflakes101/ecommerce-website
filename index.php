@@ -567,6 +567,8 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
       <div class="product-container">
 
         <?php
+
+        // QUERY FOR RECENTLY ADDED
         require '../ecommerce-website/includes/db_config.php';
 
         $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 5";
@@ -576,7 +578,7 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
 
             echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
             echo '<a class="product-box-img">';
-            echo '<img src="resources/images/pc1.png" alt="">';
+            echo '<img src="resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
             echo '</a>';
 
             echo '<div class="product-box-text">';
@@ -618,181 +620,51 @@ $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] 
     <div class="recommended-collection-container">
       <!-- Product Box Container -->
       <div class="product-container">
-        <!-- Product Box 1-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
 
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
+      <?php
+
+        // QUERY FOR RECENTLY ADDED
+        require '../ecommerce-website/includes/db_config.php';
+
+        $productQuery = "SELECT 
+                          ProductName,
+                          ProductID, 
+                          ManufacturerName, 
+                          Category, 
+                          Price, 
+                          ProductImages
+                      FROM 
+                          Product
+                      ORDER BY 
+                          RAND()
+                      LIMIT 10;";
+        $stmtProductQuery = $pdo->query($productQuery);
+
+        while ($row = $stmtProductQuery->fetch()) {
+
+            echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+            echo '<a class="product-box-img">';
+            echo '<img src="resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
+            echo '</a>';
+
+            echo '<div class="product-box-text">';
+            echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+            echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+            echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
               Add to Cart
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
                 <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
               </svg>
-            </a>
-          </div>
-        </div>
+            </button>';
+
+            echo '</div>';
+
+            echo '</div>';
 
 
-
-
-
-        <!-- Product Box 2-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 3-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 4-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 5-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 6-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 7-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 8-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 9-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        <!-- Product Box 10-->
-        <div class="product-box">
-          <a href="#" class="product-box-img">
-            <img src="resources/images/rx7700.png" alt="product-photo">
-
-          </a>
-          <div class="product-box-text">
-            <a href="#" class="product-text-title">The Beast PC</a>
-            <span>P 10,000.00</span>
-            <a href="#" class="product-cart-button">
-              Add to Cart
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-              </svg>
-            </a>
-          </div>
-        </div>
+            } 
+          ?>
 
       </div>
 
