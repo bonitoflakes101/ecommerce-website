@@ -1,73 +1,82 @@
-<!-- SESSION START -->
-<?php session_start();
-require '../includes/db_config.php';
+<?php
+session_start();
 
 $login_success = isset($_SESSION['login_success']) ? $_SESSION['login_success'] : false;
 // echo "Login success: " . ($login_success); // indicator if naka login, tanggaling nalang
 
-
-// Retrieve productID from the cookie
-$productID = isset($_COOKIE['productID']) ? htmlspecialchars($_COOKIE['productID']) : null;
-$productName = isset($_GET['productName']) ? htmlspecialchars($_GET['productName']) : '';
-
-
-// SQL query for product details
-$productDataQuery = "SELECT p.ProductID, p.ProductName, p.Price, p.Category, p.ProductImages, p.Description, m.ManufacturerImages, m.ManufacturerName
-                     FROM `product` AS p
-                     JOIN manufacturer AS m
-                     ON p.ManufacturerName = m.ManufacturerName
-                     WHERE p.ProductID = :productID";
-$productDataQuery = $pdo->prepare($productDataQuery);
-
-$productDataQuery->execute([":productID" => $productID]);
-
-// Fetch
-$productData = $productDataQuery->fetch(PDO::FETCH_ASSOC); // Use FETCH_ASSOC to get an associative array
-
-$globalProductID = $productData['ProductID'];
-$productName = htmlspecialchars($productData['ProductName']);
-$price = htmlspecialchars($productData['Price']);
-$category = $productData['Category'];
-$description = htmlspecialchars($productData['Description']);
-$productImages = htmlspecialchars($productData['ProductImages']);
-$ManufacturerImage = htmlspecialchars($productData['ManufacturerImages']);
-$ManufacturerName = htmlspecialchars($productData['ManufacturerName']);
-
-
+if (isset($_POST['btnCheckoutClicked'])) {
+  header('Location: ./pages/checkout.php');
+  exit;
+}
 ?>
 
 
-
-
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo $productName ?></title> <!-- Display product name as page title -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width-device-width, initial-scale=1.0" />
 
-  <!-- STYLES -->
-  <link rel="stylesheet" href="../css/cartStyle.css" />
-  <!-- <link rel="stylesheet" href="../css/mainStyle.css" /> -->
-  <link rel="stylesheet" href="../css/products_page.css" />
+  <!-- Stylesheet for CSS -->
+  <link rel="stylesheet" href="css/mainStyle.css" />
+  <link rel="stylesheet" href="css/cartStyle.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
+  <!-- Title for Website -->
+  <title>TechVault</title>
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="resources/images/logo-icon.png" />
+  <script type="text/javascript"></script>
+  <script>
+    window.embeddedChatbotConfig = {
+      chatbotId: "ctNklf3sTWQ7H8tDU6Xp5",
+      domain: "www.chatbase.co"
+    }
+  </script>
+  <script
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="ctNklf3sTWQ7H8tDU6Xp5"
+    domain="www.chatbase.co"
+    defer>
+  </script>
+  <script>
+    function goToCheckout() {
+    console.log("I am clicked");
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "index.php";
 
+    const inputCheckout = document.createElement("input");
+    inputCheckout.type = "hidden";
+    inputCheckout.name = "btnCheckoutClicked";
+    inputCheckout.value = 1;
+
+    form.appendChild(inputCheckout);
+    document.body.appendChild(form);
+    form.submit();
+  }
+  </script>
 </head>
 
 <body>
 
-  <!-- Main Header -->
+
+
+
+  <!-- Main-->
   <section id="main">
     <!-- Header -->
     <header>
       <!-- Top Header / Logo Bar -->
       <div class="header-top">
         <!-- Logo -->
-        <a href="../index.php" class="logo">
-          <img src="../resources/images/logo-with-icon.png" alt="logo" />
+        <a href="#" class="logo">
+          <img src="./resources/images/logo-with-icon.png" alt="logo" />
         </a>
 
         <div class="full-search-bar">
@@ -164,549 +173,623 @@ $ManufacturerName = htmlspecialchars($productData['ManufacturerName']);
       <!-- Navigation Bar -->
       <nav class="navigation">
         <ul class="menu">
-          <li><a data-category="laptops">Laptops</a></li>
-          <li><a data-category="desktops">Desktops</a></li>
-          <li><a data-category="Processors">Processors</a></li>
-          <li><a data-category="Motherboards">Motherboards</a></li>
-          <li><a data-category="GraphicCards">Graphics Cards</a></li>
-          <li><a data-category="MemoryStorage">Memory & Storage</a></li>
-          <li><a data-category="Hardware">Hardware</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=laptops">Laptops</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=desktops">Desktops</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=processors">Processors</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=motherboards">Motherboards</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=GraphicCards">Graphics Cards</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=MemoryStorage">Memory & Storage</a></li>
+          <li><a href="../ecommerce-website/pages/products.php?category=Hardware">Hardware</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- Login / Signup -->
-    <div class="form">
-      <!-- Main Login Form -->
-      <div class="login-form">
-        <a href="#" class="form-cancel">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em">
-            <path
-              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
-          </svg>
-        </a>
-        <img src="../resources/images/logo.png" alt="black_icon" />
-        <strong>Account</strong>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Welcome Text -->
+      <div class="mc-text">
+        <strong>Unleash the Ultimate Performance</strong>
+        <h1>The Beast</h1>
+        <p>
+          Experience lightning-fast speeds and seamless performance with our
+          cutting-edge PC.
+        </p>
+        <a href="#">Check out now</a>
+      </div>
 
-        <!-- LOGIN ERROR -->
-        <?php if (isset($_GET['login_error'])): ?>
+      <!-- Welcome Image -->
+      <div class="mc-image">
+        <img src="resources/images/pc1half.png" alt="pc" />
+      </div>
+    </div>
+  </section>
+
+  <!-- MODEL ALERTS -->
+ 
+
+<!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="main-modal">
+      <div class="modal-content-header">
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="main-modal-content">
+        <p class="modal-text"></p>
+      </div>
+      
+      
+    </div>
+
+  </div>
+
+  <!-- Login / Signup -->
+  <div class="form">
+    <!-- Main Login Form -->
+    <div class="login-form">
+      <a href="#" class="form-cancel">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          height="1em"
+          width="1em">
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+        </svg>
+      </a>
+      <img src="resources/images/logo.png" alt="black_icon" />
+      <strong>Account</strong>
+
+      <!-- LOGIN ERROR -->
+      <?php if (isset($_GET['login_error'])): ?>
+        <div class="error-message" style="color: red;">
+          <?php echo htmlspecialchars($_GET['login_error']); ?>
+        </div>
+      <?php endif; ?>
+
+
+      <!-- Forms to Fill-up -->
+      <form action="pages/login.php" method="POST">
+        <input
+          type="text"
+          placeholder="Enter Username"
+          name="username"
+          required />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          required />
+        <input type="submit" value="Sign In" />
+      </form>
+
+      <!-- MiscButtons -->
+      <div class="form-buttons">
+        <a href="#" class="forget">Forgot Your Password?</a>
+        <a href="#" class="Sign-up-button">Create Account</a>
+      </div>
+    </div>
+
+    <!-- Main SignUp Form -->
+    <div class="signup-form">
+      <a href="#" class="Signup-cancel">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          height="1em"
+          width="1em">
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+        </svg>
+      </a>
+
+      <p>Join TechVault Today!</p>
+      <strong>Create an Account</strong>
+
+      <!-- Forms to Fill-up -->
+      <form action="pages/register.php" method="POST">
+
+        <!-- REGISTER ERROR -->
+        <?php if (isset($_GET['register_error'])): ?>
           <div class="error-message" style="color: red;">
-            <?php echo htmlspecialchars($_GET['login_error']); ?>
+            <?php echo htmlspecialchars($_GET['register_error']); ?>
           </div>
         <?php endif; ?>
 
+        <input type="text" placeholder="John" name="first_name" required />
+        <input type="text" placeholder="Doe" name="last_name" required />
+        <input type="email" placeholder="example@gmail.com" name="email" required />
+        <input
+          type="text"
+          placeholder="Enter Full Address"
+          name="full_address"
+          required
+          pattern=".+"
+          title="Please enter your full address." />
 
-        <!-- Forms to Fill-up -->
-        <form action="login.php" method="POST">
-          <input
-            type="text"
-            placeholder="Enter Username"
-            name="username"
-            required />
-          <input
-            type="password"
-            placeholder="Enter Password"
-            name="password"
-            required />
-          <input type="submit" value="Sign In" />
-        </form>
+        <input
+          type="tel"
+          placeholder="09XXXXXXXXX"
+          name="contact_number"
+          required
+          pattern="^09\d{9}$"
+          title="Contact number must start with '09' and be followed by 9 digits." />
 
-        <!-- MiscButtons -->
-        <div class="form-buttons">
-          <a href="#" class="forget">Forgot Your Password?</a>
-          <a href="#" class="Sign-up-button">Create Account</a>
-        </div>
+        <input type="text" placeholder="Enter Username here" name="username" required />
+        <input
+          type="password"
+          placeholder="Enter Password here"
+          name="password"
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
+
+        <input type="submit" value="Create Account" />
+      </form>
+
+
+      <!-- MiscButtons -->
+      <div class="signup-form-buttons">
+        <a href="#" class="already-account">Already have an Account?</a>
       </div>
+    </div>
 
-      <!-- Main SignUp Form -->
-      <div class="signup-form">
-        <a href="#" class="Signup-cancel">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em">
-            <path
-              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
-          </svg>
-        </a>
+    <!-- VERIFY EMAIL OTP-->
+    <div class="verify-email-form">
 
-        <p>Join TechVault Today!</p>
-        <strong>Create an Account</strong>
+      <a href="#" class="verify-pass-cancel">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          height="1em"
+          width="1em">
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+        </svg>
+      </a>
+      <img src="resources/images/logo.png" alt="black_icon" />
+      <strong>Verify Your Email</strong>
 
-        <!-- Forms to Fill-up -->
-        <form action="register.php" method="POST">
+      <!-- Forms to Fill-up -->
+      <form action="pages/verify_otp.php" method="POST">
+        <!-- VERIFY PASS ERROR -->
+        <?php if (isset($_GET['verify_email_error'])): ?>
+          <div class="error-message" style="color: red;">
+            <?php echo htmlspecialchars($_GET['verify_email_error']); ?>
+          </div>
+        <?php endif; ?>
 
-          <!-- REGISTER ERROR -->
-          <?php if (isset($_GET['register_error'])): ?>
-            <div class="error-message" style="color: red;">
-              <?php echo htmlspecialchars($_GET['register_error']); ?>
-            </div>
-          <?php endif; ?>
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          name="otp"
+          required />
+        <input type="submit" value="Verify OTP" />
+      </form>
 
-          <input type="text" placeholder="John" name="first_name" required />
-          <input type="text" placeholder="Doe" name="last_name" required />
-          <input type="email" placeholder="example@gmail.com" name="email" required />
-          <input
-            type="text"
-            placeholder="Enter Full Address"
-            name="full_address"
-            required
-            pattern=".+"
-            title="Please enter your full address." />
-
-          <input
-            type="tel"
-            placeholder="09XXXXXXXXX"
-            name="contact_number"
-            required
-            pattern="^09\d{9}$"
-            title="Contact number must start with '09' and be followed by 9 digits." />
-
-          <input type="text" placeholder="Enter Username here" name="username" required />
-          <input
-            type="password"
-            placeholder="Enter Password here"
-            name="password"
-            required
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
-            title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
-
-          <input type="submit" value="Create Account" />
-        </form>
-
-
-        <!-- MiscButtons -->
-        <div class="signup-form-buttons">
-          <a href="#" class="already-account">Already have an Account?</a>
-        </div>
+      <!-- MiscButtons -->
+      <div class="form-buttons">
+        <a href="#" class="to-login-button2">Login with another account</a>
       </div>
+    </div>
 
-      <!-- VERIFY EMAIL OTP-->
-      <div class="verify-email-form">
 
-        <a href="#" class="verify-pass-cancel">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em">
-            <path
-              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
-          </svg>
-        </a>
-        <img src="../resources/images/logo.png" alt="black_icon" />
-        <strong>Verify Your Email</strong>
+    <!-- FORGOT PASS-->
+    <div class="forgot-pass-form">
 
-        <!-- Forms to Fill-up -->
-        <form action="verify_otp.php" method="POST">
-          <!-- VERIFY PASS ERROR -->
-          <?php if (isset($_GET['verify_email_error'])): ?>
-            <div class="error-message" style="color: red;">
-              <?php echo htmlspecialchars($_GET['verify_email_error']); ?>
-            </div>
-          <?php endif; ?>
+      <a href="#" class="forgot-pass-cancel">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          height="1em"
+          width="1em">
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+        </svg>
+      </a>
+      <img src="resources/images/logo.png" alt="black_icon" />
+      <strong>Reset Password</strong>
 
-          <input
-            type="text"
-            placeholder="Enter OTP"
-            name="otp"
-            required />
-          <input type="submit" value="Verify OTP" />
-        </form>
 
-        <!-- MiscButtons -->
-        <div class="form-buttons">
-          <a href="#" class="to-login-button2">Login with another account</a>
-        </div>
+      <!-- Forms to Fill-up -->
+      <form action="pages/forgot_password.php" method="POST">
+
+        <!-- FORGOT PASS ERROR -->
+        <?php if (isset($_GET['forgot_pass_error'])): ?>
+          <div class="error-message" style="color: red;">
+            <?php echo htmlspecialchars($_GET['forgot_pass_error']); ?>
+          </div>
+        <?php endif; ?>
+
+        <input
+          type="email"
+          placeholder="Enter Email Address"
+          name="email"
+          required />
+
+        <input type="submit" value="Reset Password" />
+      </form>
+
+      <!-- MiscButtons -->
+      <div class="form-buttons">
+        <a href="#" class="to-login-button">Back to Login</a>
       </div>
+    </div>
 
 
-      <!-- FORGOT PASS-->
-      <div class="forgot-pass-form">
+    <!-- VERIFY FORGOT PASS OTP-->
+    <div class="verify-pass-form">
 
-        <a href="#" class="forgot-pass-cancel">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em">
-            <path
-              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
-          </svg>
-        </a>
-        <img src="../resources/images/logo.png" alt="black_icon" />
-        <strong>Reset Password</strong>
+      <a href="#" class="verify-pass-cancel">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          height="1em"
+          width="1em">
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+        </svg>
+      </a>
+      <img src="resources/images/logo.png" alt="black_icon" />
+      <strong>Change Password</strong>
 
+      <!-- Forms to Fill-up -->
+      <form action="pages/verify_pass_otp.php" method="POST">
+        <!-- VERIFY PASS ERROR -->
+        <?php if (isset($_GET['verify_pass_error'])): ?>
+          <div class="error-message" style="color: red;">
+            <?php echo htmlspecialchars($_GET['verify_pass_error']); ?>
+          </div>
+        <?php endif; ?>
 
-        <!-- Forms to Fill-up -->
-        <form action="forgot_password.php" method="POST">
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          name="otp"
+          required />
+        <input
+          type="password"
+          placeholder="Enter New Password"
+          name="new_password"
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          name="repeat_password"
+          required
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
+          title="Passwords must match and meet the complexity requirements." />
+        <input type="submit" value="Verify OTP" />
+      </form>
 
-          <!-- FORGOT PASS ERROR -->
-          <?php if (isset($_GET['forgot_pass_error'])): ?>
-            <div class="error-message" style="color: red;">
-              <?php echo htmlspecialchars($_GET['forgot_pass_error']); ?>
-            </div>
-          <?php endif; ?>
-
-          <input
-            type="email"
-            placeholder="Enter Email Address"
-            name="email"
-            required />
-
-          <input type="submit" value="Reset Password" />
-        </form>
-
-        <!-- MiscButtons -->
-        <div class="form-buttons">
-          <a href="#" class="to-login-button">Back to Login</a>
-        </div>
+      <!-- MiscButtons -->
+      <div class="form-buttons">
+        <a href="#" class="to-login-button1">Back to Login</a>
       </div>
+    </div>
 
 
-      <!-- VERIFY FORGOT PASS OTP-->
-      <div class="verify-pass-form">
 
-        <a href="#" class="verify-pass-cancel">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            height="1em"
-            width="1em">
-            <path
-              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
-          </svg>
-        </a>
-        <img src="../resources/images/logo.png" alt="black_icon" />
-        <strong>Change Password</strong>
 
-        <!-- Forms to Fill-up -->
-        <form action="verify_pass_otp.php" method="POST">
-          <!-- VERIFY PASS ERROR -->
-          <?php if (isset($_GET['verify_pass_error'])): ?>
-            <div class="error-message" style="color: red;">
-              <?php echo htmlspecialchars($_GET['verify_pass_error']); ?>
-            </div>
-          <?php endif; ?>
+    <!-- Notifications -->
+    <div class="notification" id="otpNotification">OTP has been sent to your e-mail!</div>
+    <div class="notification" id="emailNotification">Your email was successfully verified!</div>
+    <div class="notification" id="passNotification">Your password was successfully updated!</div>
 
-          <input
-            type="text"
-            placeholder="Enter OTP"
-            name="otp"
-            required />
-          <input
-            type="password"
-            placeholder="Enter New Password"
-            name="new_password"
-            required
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
-            title="Password must be between 8 and 20 characters long, contain at least one number, one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)." />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="repeat_password"
-            required
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}"
-            title="Passwords must match and meet the complexity requirements." />
-          <input type="submit" value="Verify OTP" />
-        </form>
 
-        <!-- MiscButtons -->
-        <div class="form-buttons">
-          <a href="#" class="to-login-button1">Back to Login</a>
-        </div>
+
+  </div>
+
+  <!-- Category Section -->
+  <section id="category">
+    <!-- Box -->
+    <a href="" class="category-box">
+      <div class="category-box-img">
+        <img src="resources/images/pc2.png" alt="pc1" />
       </div>
-
-
-
-
-      <!-- Notifications -->
-      <div class="notification" id="otpNotification">OTP has been sent to your e-mail!</div>
-      <div class="notification" id="emailNotification">Your email was successfully verified!</div>
-      <div class="notification" id="passNotification">Your password was successfully updated!</div>
-
+      <strong>Laptops</strong>
+    </a>
+    <!-- Box -->
+    <a href="" class="category-box">
+      <div class="category-box-img">
+        <img src="resources/images/pc1.png" alt="pc2" />
+      </div>
+      <strong>Desktops</strong>
+    </a>
+    <!-- Box -->
+    <a href="" class="category-box">
+      <div class="category-box-img">
+        <img src="resources/images/pc3.png" alt="pc3" />
+      </div>
+      <strong>Processors</strong>
+    </a>
+    <!-- Box -->
+    <a href="" class="category-box">
+      <div class="category-box-img">
+        <img src="resources/images/pc4.png" alt="pc4" />
+      </div>
+      <strong>Motherboards</strong>
+    </a>
+    <!-- Box -->
+    <a href="" class="category-box">
+      <div class="category-box-img">
+        <img src="resources/images/pc5.png" alt="pc5" />
+      </div>
+      <strong>Graphics Card</strong>
+    </a>
+    <!-- Box -->
+    <a href="" class="category-box">
+      <div class="category-box-img">
+        <img src="resources/images/pc6.png" alt="pc6" />
+      </div>
+      <strong>Memory & Storage</strong>
+    </a>
+    <!-- Box -->
+    <a href="" class="category-box">
+      <div class="category-box-img">
+        <img src="resources/images/pc7.png" alt="pc7" />
+      </div>
+      <strong>Hardware</strong>
+    </a>
   </section>
 
+  <!-- Popular / Highest sales Section -->
+  <section id="popular-tech">
+    <h2>Popular Tech of the Month</h2>
+    <!-- collection Container -->
+    <div class="popular-collection-container">
+      <!-- Product Box Container -->
+      <div class="product-container">
 
-  <!-- MAIN SECTION -->
-   <!-- Main Grid for Products -->
-   <div class="product-grid">
-
-  <?php
-
-   if (isset($_GET['category'])) {
-    $categorySelected = $_GET['category'];
-    $query = "";
-
-    if ($categorySelected === "laptops") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Laptops'";
-    } elseif ($categorySelected === "desktops") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Desktops'";
-    } elseif ($categorySelected === "Processors") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Processors'";
-    } elseif ($categorySelected === "Motherboards") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Motherboards'";
-    } elseif ($categorySelected === "GraphicCards") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Graphics Card'";
-    } elseif ($categorySelected === "MemoryStorage") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Memory & Storage'";
-    } elseif ($categorySelected === "Hardware") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Hardware'";
-    } else {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product"; // default query
-    }
-
-
-    $stmt = $pdo->query($query);
-
-
-
-    while ($row = $stmt->fetch()) { ?>
-
-      
+        <!-- query setup for popular tech of the month (top sales) -->
 
         <?php
-        //  action="/product-page.php" method="POST" - data-*
-        echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+        require '../ecommerce-website/includes/db_config.php';
 
-        //hidden input para mapasa yung product id
-        // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
+        $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY Sales DESC LIMIT 5";
+        $stmtProductQuery = $pdo->query($productQuery);
 
-        echo '<a class="product-box-img">';
-        echo '<img src="..\resources\images\pc1.png" alt="">';
-        echo '</a>';
+        while ($row = $stmtProductQuery->fetch()) {
 
-        echo '<div class="product-box-text">';
-        echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
-        echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+          echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+          echo '<a class="product-box-img">';
+          echo '<img src="resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
+          echo '</a>';
 
-        echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
-          Add to Cart
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-          </svg>
-        </button>';
+          echo '<div class="product-box-text">';
+          echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+          echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
 
-        echo '</div>';
+          echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
+            Add to Cart
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+              <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+            </svg>
+          </button>';
 
-        echo '</div>';
+          echo '</div>';
+
+          echo '</div>';
+
+
+          } 
         ?>
 
-      <?php
-        }
-      }   
-      ?>
-    
-  </div>
+    </div>
 
-
-  <section class="main-section">
-
-
-            <div class="product-section">
-              <div class="product-image">
-                
-                
-             <?php echo '<img src="../resources/products/'.$productImages.'.png" alt="">';?>
-               
-              </div>
-
-              <!-- Product Infos -->
-              <div class="product-info">
-                <h2 class="product-title"><?php echo $productName; ?></h2>
-                <p class="product-price"><span class="price-label">Price: </span><?php echo $price; ?></p>
-                <p class="product-category"><span class="category-label">Category: </span><?php echo $category ?></p>
-                <p class="product-description">Description: <br><?php echo $description ?></p>
-              </div>
-
-              <!-- Manufacturer Info -->
-              <div class="manufacturer-info">
-                <div class="manufacturer-box">
-                  <div class="manufacturer-image">
-                  <?php echo '<img src="../resources/Brand-Logos/'.$ManufacturerImage.'.png" alt="">';?>
-                  </div>
-                  
-                  <p class="manufacturer-name"><?php echo $ManufacturerName; ?></p>
-                  <div class="manufacturer-buttons">
-
-                    <!-- ADD TO CART BUTTON IN PRODUCT INFO -->
-                    <?php
-                    echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($globalProductID) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($productName))) . '">
-                          Add to Cart
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                          </svg>
-                        </button>
-
-                        <!-- BUY NOW BUTTON IN PRODUCT INFO -->
-                        <button name="product-atc-btn"  value ="' . htmlspecialchars($globalProductID) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($productName))) . '">
-                          Buy Now
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                          </svg>
-                        </button>'
-                        ?> 
-
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- RECOS -->
-            <div class="recommendations-section">
-              <h2>Recommendations</h2>
-
-              <div class="recommendations-grid-container">
-                    <?php
-              
-
-              $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 4";
-              $stmtProductQuery = $pdo->query($productQuery);
-
-              while ($row = $stmtProductQuery->fetch()) {
-              ?>
-                <!-- Product Box 1-->
-              
-
-                  <?php
-                   echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
-
-                  echo '<a class="product-box-img">';
-                  echo '<img src="../resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
-                  echo '</a>';
-
-                  echo '<div class="product-box-text">';
-                  echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
-                  echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
-
-                  echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
-                        Add to Cart
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                          <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                        </svg>
-                      </button>';
-
-                  echo '</div>';
-                  echo '</div>'
-                  ?>
-
-              
-
-              <?php } ?>                 
-              </div>
-
-              </div>
-
-            </div>
-            
-            <div class="same-category-section">
-
-            <h2>From the Same Category</h2>
-            <div class="same-category">
-
-              <?php
-
-                $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = :category LIMIT 8";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute([":category" => $category]);
-
-                // Fetch  Use FETCH_ASSOC to get an associative array
-                while ($row = $stmt->fetch()) { ?>
-
-                    <?php
-                    //  action="/product-page.php" method="POST" - data-*
-                    echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
-
-
-                    //hidden input para mapasa yung product id
-                    // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
-
-                    echo '<a class="product-box-img">';
-                    echo '<img src="../resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
-                    echo '</a>';
-
-                    echo '<div class="product-box-text">';
-                    echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
-                    echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
-
-                    echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
-                      Add to Cart
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                        <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                      </svg>
-                    </button>';
-
-                    echo '</div>';
-
-                    echo '</div>';
-                    ?>
-
-                <?php
-                    }   
-                ?>
-
-            </div>
-
-            </div>
 
   </section>
 
+  <!-- Shopping Banner Section -->
+  <section id="shopping-banner">
+    <div class="shopping-banner-container">
+      <div class="shopping-banner-text">
+        <strong>NVidia RTX 4090</strong>
+        <h3>Most Powerful Graphics Card in the World</h3>
+        <p>The GeForce RTX 4090 is an enthusiast-class graphics card by NVIDIA. Built on the 5 nm process, and based on the AD102 graphics processor, the card supports DirectX 12 Ultimate.</p>
+        <a href="#" class="check-out-button">Check out now</a>
+      </div>
+      <div class="shopping-banner-img">
+        <img src="resources/images/rtx4090.png" alt="rtx4090">
 
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
+      </div>
 
-<!-- Modal content -->
-<div class="main-modal">
-  <div class="modal-content-header">
-    <span class="close-modal">&times;</span>
-  </div>
-  <div class="main-modal-content">
-    <p class="modal-text"></p>
-  </div>
+    </div>
+  </section>
+
+  <!-- Recently added Section -->
+  <section id="recent-tech">
+    <h2>Recently Added</h2>
+    <!-- collection Container -->
+    <div class="recent-collection-container">
+      <!-- Product Box Container -->
+      <div class="product-container">
+
+        <?php
+
+        // QUERY FOR RECENTLY ADDED
+        require '../ecommerce-website/includes/db_config.php';
+
+        $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 5";
+        $stmtProductQuery = $pdo->query($productQuery);
+
+        while ($row = $stmtProductQuery->fetch()) {
+
+            echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+            echo '<a class="product-box-img">';
+            echo '<img src="resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
+            echo '</a>';
+
+            echo '<div class="product-box-text">';
+            echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+            echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+            echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </button>';
+
+            echo '</div>';
+
+            echo '</div>';
+
+
+            } 
+          ?>
+
+      </div>
+
+
+
+
+
+    </div>
+
+
+  </section>
+
   
-  
-</div>
 
-</div>
+  <!-- Recommended added Section -->
+  <section id="recommended-tech">
+    <h2>Recommended for you</h2>
+    <!-- collection Container -->
+    <div class="recommended-collection-container">
+      <!-- Product Box Container -->
+      <div class="recommended-collection-product-container">
+
+      <?php
+
+        // QUERY FOR RECENTLY ADDED
+        require '../ecommerce-website/includes/db_config.php';
+
+        $productQuery = "SELECT 
+                          ProductName,
+                          ProductID, 
+                          ManufacturerName, 
+                          Category, 
+                          Price, 
+                          ProductImages
+                      FROM 
+                          Product
+                      ORDER BY 
+                          RAND()
+                      LIMIT 10;";
+        $stmtProductQuery = $pdo->query($productQuery);
+
+        while ($row = $stmtProductQuery->fetch()) {
+
+            echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+            echo '<a class="product-box-img">';
+            echo '<img src="resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
+            echo '</a>';
+
+            echo '<div class="product-box-text">';
+            echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+            echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+            echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
+              Add to Cart
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+              </svg>
+            </button>';
+
+            echo '</div>';
+
+            echo '</div>';
+
+
+            } 
+          ?>
+
+      </div>
 
 
 
-  <!-- CART POP UP -->
-    <!-- Cart Pop-up -->
-    <section class="cart-container">
+
+
+    </div>
+
+
+  </section>
+
+  <!-- Services -->
+  <section class="services">
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="1em" width="1em">
+        <path d="M48 0C21.5 0 0 21.5 0 48L0 368c0 26.5 21.5 48 48 48l16 0c0 53 43 96 96 96s96-43 96-96l128 0c0 53 43 96 96 96s96-43 96-96l32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l0-64 0-32 0-18.7c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7L416 96l0-48c0-26.5-21.5-48-48-48L48 0zM416 160l50.7 0L544 237.3l0 18.7-128 0 0-96zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+      </svg>
+      <span>Free Shipping</span>
+      <p>Free Shipping for Selected Products</p>
+    </div>
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1em" width="1em">
+        <path d="M256 0c53 0 96 43 96 96l0 3.6c0 15.7-12.7 28.4-28.4 28.4l-135.1 0c-15.7 0-28.4-12.7-28.4-28.4l0-3.6c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4l112 0c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5l64.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6L272 240c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 239.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64.3 0c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z" />
+      </svg>
+      <span>Technical Support</span>
+      <p>Product & Technical Support 24/7</p>
+    </div>
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1em" width="1em">
+        <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z" />
+      </svg>
+      <span>Consumer Protection</span>
+      <p>Ensuring all products are Legit and Authentic</p>
+    </div>
+
+    <!-- Services Box-->
+    <div class="service-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="1em" width="1em">
+        <path d="M184 48l144 0c4.4 0 8 3.6 8 8l0 40L176 96l0-40c0-4.4 3.6-8 8-8zm-56 8l0 40L64 96C28.7 96 0 124.7 0 160l0 96 192 0 160 0 8.2 0c32.3-39.1 81.1-64 135.8-64c5.4 0 10.7 .2 16 .7l0-32.7c0-35.3-28.7-64-64-64l-64 0 0-40c0-30.9-25.1-56-56-56L184 0c-30.9 0-56 25.1-56 56zM320 352l-96 0c-17.7 0-32-14.3-32-32l0-32L0 288 0 416c0 35.3 28.7 64 64 64l296.2 0C335.1 449.6 320 410.5 320 368c0-5.4 .2-10.7 .7-16l-.7 0zm320 16a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zM496 288c8.8 0 16 7.2 16 16l0 48 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-48 0c-8.8 0-16-7.2-16-16l0-64c0-8.8 7.2-16 16-16z" />
+      </svg>
+      <span>Money Back Guarantee</span>
+      <p>You have 30 days to return Product</p>
+    </div>
+
+
+  </section>
+
+ 
+  <!-- Cart Pop-up -->
+  <section class="cart-container">
     <div class="cart-tab">
-      <h1>My Cart</h1>
+      <div class="cart-tab-header">
+          <h1>My Cart</h1>
+        </div>
+     
 
       
       <div class="cart-list">
-
-
-      <div class="cart-list">
           <!-- DATA WILL BE GENERATED BY JS NA AFTER NG FETCHING-->
-      </div>
-
-        
-
-
       </div>
 
       <!-- Cart Buttons -->
       <div class="cart-buttons">
         <button class="cart-close">Close</button>
         <br>
-        <button class="cart-checkout">Checkout</button>
+        <button onclick="goToCheckout()" class="cart-checkout">Checkout</button>
 
       </div>
     </div>
 
   </section>
-                
+
+
+
+
+
 
 
   <!-- Footer -->
@@ -717,7 +800,7 @@ $ManufacturerName = htmlspecialchars($productData['ManufacturerName']);
       <div class="footer-company-box">
         <!-- Logo -->
         <a href="#" class="footer-logo">
-          <img src="../resources/images/logo.png" alt="logo">
+          <img src="resources/images/logo.png" alt="logo">
         </a>
         <!-- Details -->
         <p>Product names and logos used in this website are for identification purposes only and are trademarks of their respective owners.</p>
@@ -804,13 +887,13 @@ $ManufacturerName = htmlspecialchars($productData['ManufacturerName']);
       <p>All Resources and Products in this website is solely for Educational Purposes Only</p>
     </div>
   </footer>
+
+  <script src="js/userLogon.js"></script>
+  <script src="js/cartVisibility.js"></script>
   <script>
     // pass php session to js
     const login_success = <?php echo json_encode($login_success); ?>;
   </script>
-  <script src="../js/products.js"></script>
-  <script src="../js/userLogon.js"></script>
-  <script src="../js/cartVisibility.js"></script>
 </body>
 
 </html>
