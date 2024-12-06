@@ -311,7 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <td><?php echo htmlspecialchars($product['Stock']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Category']); ?></td>
                                         <td id="table-buttons">
-                                            <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['Manufacturer']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">
+                                            <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['ManufacturerName']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button class="delete-button" onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">
