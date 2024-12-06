@@ -25,15 +25,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $customerID = $_SESSION['CustomerID'];
 
       // Check product stock
-      $stockQuery = "SELECT ProductID, Stock FROM product WHERE ProductID = :productID AND Stock > 0";
+      $stockQuery = "SELECT ProductID, Stock FROM product WHERE ProductID = :productID AND Stock> 0";
       $stockStmt = $pdo->prepare($stockQuery);
       $stockStmt->execute([":productID" => $productID]);
       $stock = $stockStmt->fetch();
+
+      // Check cart item number
+      $cartMaxNumQuery = "SELECT COUNT(b.CartItemID)
+                        FROM Cart as a
+                        JOIN CartItem as b ON a.CartID = b.CartID
+                        WHERE a.CustomerID = :customerID";
+      $cartMaxNumQueryStmt = $pdo->prepare($cartMaxNumQuery);
+      $cartMaxNumQueryStmt->execute([":customerID" => $customerID]);
+      $cartMaxNum = $cartMaxNumQueryStmt->fetchColumn();
 
       if (!$stock) {
           echo json_encode(['status' => 'error', 'message' => 'Product is out of stock']);
           exit();
       }
+
+      if ($cartMaxNum >= 10) {
+        echo json_encode(['status' => 'error', 'message' => 'Max number of item per Cart Reached!']);
+        exit();
+    }
+
+
 
       // Check if product already exists in the cart
       $cartDataQuery = "
