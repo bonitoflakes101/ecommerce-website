@@ -12,7 +12,7 @@ $productName = isset($_GET['productName']) ? htmlspecialchars($_GET['productName
 
 
 // SQL query for product details
-$productDataQuery = "SELECT p.ProductID, p.ProductName, p.Price, p.Category, p.ProductImages, p.Description, m.ManufacturerImages 
+$productDataQuery = "SELECT p.ProductID, p.ProductName, p.Price, p.Category, p.ProductImages, p.Description, m.ManufacturerImages, m.ManufacturerName
                      FROM `product` AS p
                      JOIN manufacturer AS m
                      ON p.ManufacturerName = m.ManufacturerName
@@ -31,6 +31,7 @@ $category = $productData['Category'];
 $description = htmlspecialchars($productData['Description']);
 $productImages = htmlspecialchars($productData['ProductImages']);
 $ManufacturerImage = htmlspecialchars($productData['ManufacturerImages']);
+$ManufacturerName = htmlspecialchars($productData['ManufacturerName']);
 
 
 ?>
@@ -528,7 +529,7 @@ $ManufacturerImage = htmlspecialchars($productData['ManufacturerImages']);
                   <?php echo '<img src="../resources/Brand-Logos/'.$ManufacturerImage.'.png" alt="">';?>
                   </div>
                   
-                  <p class="manufacturer-name">ASUS</p>
+                  <p class="manufacturer-name"><?php echo $ManufacturerName; ?></p>
                   <div class="manufacturer-buttons">
 
                     <!-- ADD TO CART BUTTON IN PRODUCT INFO -->
