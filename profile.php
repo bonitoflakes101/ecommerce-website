@@ -32,6 +32,10 @@ if ($user) {
 
 $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending';
 
+if (isset($_POST['btnCheckoutClicked'])) {
+    header('Location: ./pages/checkout.php');
+    exit;
+  }
 
 ?>
 
@@ -58,7 +62,7 @@ $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending'
     <script src="js/cartVisibility.js"></script>
     <script src="js/userLogon.js"></script>
     <script src="js/products.js"></script>
-
+    <script src="js/checkout.js"></script>
 
 
 </head>
@@ -331,7 +335,7 @@ $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : 'Pending'
       <div class="cart-buttons">
         <button class="cart-close">Close</button>
         <br>
-        <button class="cart-checkout">Checkout</button>
+        <button onclick="goToCheckout()" class="cart-checkout">Checkout</button>
 
       </div>
     </div>
