@@ -12,7 +12,11 @@ $productName = isset($_GET['productName']) ? htmlspecialchars($_GET['productName
 
 
 // SQL query for product details
-$productDataQuery = "SELECT ProductID, ProductName, Price, Category, ProductImages, Description FROM `product` WHERE ProductID = :productID";
+$productDataQuery = "SELECT p.ProductID, p.ProductName, p.Price, p.Category, p.ProductImages, p.Description, m.ManufacturerImages 
+                     FROM `product` AS p
+                     JOIN manufacturer AS m
+                     ON p.ManufacturerName = m.ManufacturerName
+                     WHERE p.ProductID = :productID";
 $productDataQuery = $pdo->prepare($productDataQuery);
 
 $productDataQuery->execute([":productID" => $productID]);
@@ -26,6 +30,7 @@ $price = htmlspecialchars($productData['Price']);
 $category = $productData['Category'];
 $description = htmlspecialchars($productData['Description']);
 $productImages = htmlspecialchars($productData['ProductImages']);
+$ManufacturerImage = htmlspecialchars($productData['ManufacturerImages']);
 
 
 ?>
@@ -520,7 +525,7 @@ $productImages = htmlspecialchars($productData['ProductImages']);
               <div class="manufacturer-info">
                 <div class="manufacturer-box">
                   <div class="manufacturer-image">
-                    <img src="../resources/images/asus_logo.png" alt="" class="manufacturer-logo">
+                  <?php echo '<img src="../resources/Brand-Logos/'.$ManufacturerImage.'.png" alt="">';?>
                   </div>
                   
                   <p class="manufacturer-name">ASUS</p>
