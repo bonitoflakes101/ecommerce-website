@@ -306,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <!-- product tables -->
                                         <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
                                         <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
-                                        <td><?php echo htmlspecialchars($product['Manufacturer']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['ManufacturerName']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Price']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Stock']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Category']); ?></td>
