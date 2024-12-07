@@ -530,8 +530,14 @@ if (isset($_POST['btnCheckoutClicked'])) {
     <div class="product-section">
       <div class="product-image">
 
+        <?php if (empty($productImages)) {
 
-        <?php echo '<img src="../resources/products/' . $productImages . '.png" alt="">'; ?>
+          echo '<img src="../resources/images/logo-icon.png" alt="">';
+        } else {
+          echo '<img src="../resources/products/' . $productImages . '.png" alt="">';
+        }
+
+        ?>
 
       </div>
 
@@ -547,7 +553,14 @@ if (isset($_POST['btnCheckoutClicked'])) {
       <div class="manufacturer-info">
         <div class="manufacturer-box">
           <div class="manufacturer-image">
-            <?php echo '<img src="../resources/Brand-Logos/' . $ManufacturerImage . '.png" alt="">'; ?>
+            <?php
+
+            if (empty($manufacturerImage)) {
+              echo '<img src="../resources/images/logo-icon.png" alt="">';
+            } else {
+              echo '<img src="../resources/Brand-Logos/' . $ManufacturerImage . '.png" alt="">';
+            }
+            ?>
           </div>
 
           <p class="manufacturer-name"><?php echo $ManufacturerName; ?></p>
@@ -589,7 +602,12 @@ if (isset($_POST['btnCheckoutClicked'])) {
           echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
 
           echo '<a class="product-box-img">';
-          echo '<img src="../resources/products/' . htmlspecialchars($row['ProductImages']) . '.png" alt="">';
+
+          if (empty($row['ProductImages'])) {
+            echo '<img src="../resources/images/logo-icon.png" alt="">';
+          } else {
+            echo '<img src="../resources/products/' . htmlspecialchars($row['ProductImages']) . '.png" alt="">';
+          }
           echo '</a>';
 
           echo '<div class="product-box-text">';

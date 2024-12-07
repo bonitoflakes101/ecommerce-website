@@ -614,11 +614,18 @@ if (isset($_POST['btnCheckoutClicked'])) {
         $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 5";
         $stmtProductQuery = $pdo->query($productQuery);
 
+
+
         while ($row = $stmtProductQuery->fetch()) {
 
           echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID=' . htmlspecialchars($row['ProductID']) . '>';
           echo '<a class="product-box-img">';
-          echo '<img src="resources/products/' . htmlspecialchars($row['ProductImages']) . '.png" alt="">';
+          if (empty($row['ProductImages'])) {
+            echo '<img src="resources/images/logo-icon.png" alt="">';
+          } else {
+            echo '<img src="resources/products/' . htmlspecialchars($row['ProductImages']) . '.png" alt="">';
+          }
+          //echo '<img src="resources/products/' . htmlspecialchars($row['ProductImages']) . '.png" alt="">';
           echo '</a>';
 
           echo '<div class="product-box-text">';
