@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->SMTPDebug = 0;
 
                 // Recipients
-                $mail->setFrom('xiangendonilax@gmail.com', 'Reset Password');
+                $mail->setFrom('xiangendonilax@gmail.com', 'Verify Account');
                 $mail->addAddress($email, 'User');
 
                 // Content
