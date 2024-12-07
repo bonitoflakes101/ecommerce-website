@@ -305,7 +305,7 @@ ul{
     padding-top: 5px;
     padding-bottom: 5px;
     display: grid;
-    grid-template-columns: 200px 200px 200px 100px 200px 100px;
+    grid-template-columns: 100px 200px 100px 100px 200px 100px 100px;
     align-items: center; 
     justify-content: center;   
 }

@@ -37,6 +37,12 @@ if (isset($_POST['btnCheckoutClicked'])) {
     exit;
   }
 
+if (isset($_POST['deleteID'])) {
+    $deleteMeID = $_POST['deleteID'];
+    $deleteSql = "DELETE FROM `orderitem` WHERE OrderItemID = {$deleteMeID}";
+    mysqli_query($db_conn, $deleteSql);
+}
+
 ?>
 
 
@@ -77,6 +83,23 @@ if (isset($_POST['btnCheckoutClicked'])) {
             form.appendChild(inputCheckout);
             document.body.appendChild(form);
             form.submit();
+        }
+
+        function DeleteMe(id){
+            if (confirm("Are you sure you want to delete this Pending Order?")) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "profile.php";
+
+                const inputDelete = document.createElement("input");
+                inputDelete.type = "hidden";
+                inputDelete.name = "deleteID";
+                inputDelete.value = id;
+
+                form.appendChild(inputDelete);
+                document.body.appendChild(form);
+                form.submit();
+            }
         }
     </script>
 </head>
@@ -281,7 +304,8 @@ if (isset($_POST['btnCheckoutClicked'])) {
                     p.ProductName,
                     p.ProductImages,
                     p.Category AS ProductCategory,
-                    p.ProductImages
+                    p.ProductImages,
+                    oi.OrderItemID
                 FROM `order` AS o
                 JOIN OrderItem AS oi ON o.OrderID = oi.OrderID
                 JOIN Product AS p ON oi.ProductID = p.ProductID
@@ -317,6 +341,15 @@ if (isset($_POST['btnCheckoutClicked'])) {
                             <div class="product-order-status">
                                 <strong><?php echo htmlspecialchars($order['Status']); ?></strong>
                             </div>
+                            <?php
+                                if (htmlspecialchars($order['Status'] == "Pending")) {
+                                    echo '<div>';
+                                        echo '<button onclick="DeleteMe(' .htmlspecialchars($order['OrderItemID']) .')">Cancel</button>';
+                                    echo '</div>';
+                                }
+                            
+                            
+                            ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
