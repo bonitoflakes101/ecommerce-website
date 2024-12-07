@@ -47,12 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // add/edit products
     if (isset($_POST['add_product'])) {
         // add a product
-        $sql_add = "INSERT INTO Product (ProductName, Manufacturer, Price, Stock, Category) 
-                    VALUES (:productName, :manufacturer, :price, :stock, :category)";
+        $sql_add = "INSERT INTO Product (ProductName, ManufacturerName, Price, Stock, Category) 
+                    VALUES (:productName, :ManufacturerName, :price, :stock, :category)";
         $stmt_add = $pdo->prepare($sql_add);
         $stmt_add->execute([
             'productName' => $_POST['productName'],
-            'manufacturer' => $_POST['manufacturer'],
+            'ManufacturerName' => $_POST['ManufacturerName'],
             'price' => $_POST['price'],
             'stock' => $_POST['stock'],
             'category' => $_POST['category']
@@ -61,13 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Product added successfully!";
     } elseif (isset($_POST['edit_product']) && isset($_POST['productID'])) {
         // edit a product
-        $sql_edit = "UPDATE Product SET ProductName = :productName, Manufacturer = :manufacturer, 
+        $sql_edit = "UPDATE Product SET ProductName = :productName, ManufacturerName = :manufacturerName, 
                      Price = :price, Stock = :stock, Category = :category 
                      WHERE ProductID = :productID";
         $stmt_edit = $pdo->prepare($sql_edit);
         $stmt_edit->execute([
             'productName' => $_POST['productName'],
-            'manufacturer' => $_POST['manufacturer'],
+            'ManufacturerName' => $_POST['ManufacturerName'],
             'price' => $_POST['price'],
             'stock' => $_POST['stock'],
             'category' => $_POST['category'],
@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <?php if ($order['Status'] !== 'Cancelled'): ?>
                                         <button class="decline-button" onclick="confirmAction('reject', <?php echo $order['OrderID']; ?>)">Decline</button>
                                     <?php else: ?>
-                                        <button class="decline-button" disabled style="background-color: grey; cursor: not-allowed;">Cancelled</button>
+                                        <button class="decline-button" disabled style="background-color: grey; cursor: not-allsowed;">Cancelled</button>
                                     <?php endif; ?>
                                 </td>
                             </tr>
