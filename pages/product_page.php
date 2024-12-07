@@ -59,19 +59,19 @@ if (isset($_POST['btnCheckoutClicked'])) {
 
   <script>
     function goToCheckout() {
-    console.log("I am clicked");
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "product_page.php";
+      console.log("I am clicked");
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "product_page.php";
 
-    const inputCheckout = document.createElement("input");
-    inputCheckout.type = "hidden";
-    inputCheckout.name = "btnCheckoutClicked";
-    inputCheckout.value = 1;
+      const inputCheckout = document.createElement("input");
+      inputCheckout.type = "hidden";
+      inputCheckout.name = "btnCheckoutClicked";
+      inputCheckout.value = 1;
 
-    form.appendChild(inputCheckout);
-    document.body.appendChild(form);
-    form.submit();
+      form.appendChild(inputCheckout);
+      document.body.appendChild(form);
+      form.submit();
     }
   </script>
 </head>
@@ -453,45 +453,45 @@ if (isset($_POST['btnCheckoutClicked'])) {
 
 
   <!-- MAIN SECTION -->
-   <!-- Main Grid for Products -->
-   <div class="product-grid">
+  <!-- Main Grid for Products -->
+  <div class="product-grid">
 
-  <?php
+    <?php
 
-   if (isset($_GET['category'])) {
-    $categorySelected = $_GET['category'];
-    $query = "";
+    if (isset($_GET['category'])) {
+      $categorySelected = $_GET['category'];
+      $query = "";
 
-    if ($categorySelected === "laptops") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Laptops'";
-    } elseif ($categorySelected === "desktops") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Desktops'";
-    } elseif ($categorySelected === "Processors") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Processors'";
-    } elseif ($categorySelected === "Motherboards") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Motherboards'";
-    } elseif ($categorySelected === "GraphicCards") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Graphics Card'";
-    } elseif ($categorySelected === "MemoryStorage") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Memory & Storage'";
-    } elseif ($categorySelected === "Hardware") {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Hardware'";
-    } else {
-      $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product"; // default query
-    }
-
-
-    $stmt = $pdo->query($query);
+      if ($categorySelected === "laptops") {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Laptops'";
+      } elseif ($categorySelected === "desktops") {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Desktops'";
+      } elseif ($categorySelected === "Processors") {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Processors'";
+      } elseif ($categorySelected === "Motherboards") {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Motherboards'";
+      } elseif ($categorySelected === "GraphicCards") {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Graphics Card'";
+      } elseif ($categorySelected === "MemoryStorage") {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Memory & Storage'";
+      } elseif ($categorySelected === "Hardware") {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = 'Hardware'";
+      } else {
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product"; // default query
+      }
 
 
+      $stmt = $pdo->query($query);
 
-    while ($row = $stmt->fetch()) { ?>
 
-      
+
+      while ($row = $stmt->fetch()) { ?>
+
+
 
         <?php
         //  action="/product-page.php" method="POST" - data-*
-        echo '<div class="product-box" data-productName="'.htmlspecialchars($row['ProductName']).'" data-boxProductID='.htmlspecialchars($row['ProductID']).'>';
+        echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID=' . htmlspecialchars($row['ProductID']) . '>';
 
         //hidden input para mapasa yung product id
         // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
@@ -516,201 +516,193 @@ if (isset($_POST['btnCheckoutClicked'])) {
         echo '</div>';
         ?>
 
-      <?php
-        }
-      }   
-      ?>
-    
+    <?php
+      }
+    }
+    ?>
+
   </div>
 
 
   <section class="main-section">
 
 
-            <div class="product-section">
-              <div class="product-image">
-                
-                
-             <?php echo '<img src="../resources/products/'.$productImages.'.png" alt="">';?>
-               
-              </div>
+    <div class="product-section">
+      <div class="product-image">
 
-              <!-- Product Infos -->
-              <div class="product-info">
-                <h2 class="product-title"><?php echo $productName; ?></h2>
-                <p class="product-price"><span class="price-label">Price: </span><?php echo $price; ?></p>
-                <p class="product-category"><span class="category-label">Category: </span><?php echo $category ?></p>
-                <p class="product-description">Description: <br><?php echo $description ?></p>
-              </div>
 
-              <!-- Manufacturer Info -->
-              <div class="manufacturer-info">
-                <div class="manufacturer-box">
-                  <div class="manufacturer-image">
-                  <?php echo '<img src="../resources/Brand-Logos/'.$ManufacturerImage.'.png" alt="">';?>
-                  </div>
-                  
-                  <p class="manufacturer-name"><?php echo $ManufacturerName; ?></p>
-                  <div class="manufacturer-buttons">
+        <?php echo '<img src="../resources/products/' . $productImages . '.png" alt="">'; ?>
 
-                    <!-- ADD TO CART BUTTON IN PRODUCT INFO -->
-                    <?php
-                    echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($globalProductID) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($productName))) . '">
+      </div>
+
+      <!-- Product Infos -->
+      <div class="product-info">
+        <h2 class="product-title"><?php echo $productName; ?></h2>
+        <p class="product-price"><span class="price-label">Price: </span><?php echo $price; ?></p>
+        <p class="product-category"><span class="category-label">Category: </span><?php echo $category ?></p>
+        <p class="product-description">Description: <br><?php echo $description ?></p>
+      </div>
+
+      <!-- Manufacturer Info -->
+      <div class="manufacturer-info">
+        <div class="manufacturer-box">
+          <div class="manufacturer-image">
+            <?php echo '<img src="../resources/Brand-Logos/' . $ManufacturerImage . '.png" alt="">'; ?>
+          </div>
+
+          <p class="manufacturer-name"><?php echo $ManufacturerName; ?></p>
+          <div class="manufacturer-buttons">
+
+            <!-- ADD TO CART BUTTON IN PRODUCT INFO -->
+            <?php
+            echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($globalProductID) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($productName))) . '">
                           Add to Cart
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
                             <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
                           </svg>
-                        </button>
-
-                        <!-- BUY NOW BUTTON IN PRODUCT INFO -->
-                        <button name="product-atc-btn"  value ="' . htmlspecialchars($globalProductID) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($productName))) . '">
-                          Buy Now
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
-                            <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                          </svg>
                         </button>'
-                        ?> 
+            ?>
 
 
-                  </div>
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <!-- RECOS -->
-            <div class="recommendations-section">
-              <h2>Recommendations</h2>
+    <!-- RECOS -->
+    <div class="recommendations-section">
+      <h2>Recommendations</h2>
 
-              <div class="recommendations-grid-container">
-                    <?php
-              
+      <div class="recommendations-grid-container">
+        <?php
 
-              $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 4";
-              $stmtProductQuery = $pdo->query($productQuery);
 
-              while ($row = $stmtProductQuery->fetch()) {
-              ?>
-                <!-- Product Box 1-->
-              
+        $productQuery = "SELECT ProductID, ProductName, Price, ProductImages FROM product ORDER BY DateAdded DESC LIMIT 4";
+        $stmtProductQuery = $pdo->query($productQuery);
 
-                  <?php
-                   echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
+        while ($row = $stmtProductQuery->fetch()) {
+        ?>
+          <!-- Product Box 1-->
 
-                  echo '<a class="product-box-img">';
-                  echo '<img src="../resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
-                  echo '</a>';
 
-                  echo '<div class="product-box-text">';
-                  echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
-                  echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+          <?php
+          echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
 
-                  echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
+          echo '<a class="product-box-img">';
+          echo '<img src="../resources/products/' . htmlspecialchars($row['ProductImages']) . '.png" alt="">';
+          echo '</a>';
+
+          echo '<div class="product-box-text">';
+          echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+          echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+          echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
                         Add to Cart
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
                           <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
                         </svg>
                       </button>';
 
-                  echo '</div>';
-                  echo '</div>'
-                  ?>
-
-              
-
-              <?php } ?>                 
-              </div>
-
-              </div>
-
-            </div>
-            
-            <div class="same-category-section">
-
-            <h2>From the Same Category</h2>
-            <div class="same-category">
-
-              <?php
-
-                $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = :category LIMIT 8";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute([":category" => $category]);
-
-                // Fetch  Use FETCH_ASSOC to get an associative array
-                while ($row = $stmt->fetch()) { ?>
-
-                    <?php
-                    //  action="/product-page.php" method="POST" - data-*
-                    echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
+          echo '</div>';
+          echo '</div>'
+          ?>
 
 
-                    //hidden input para mapasa yung product id
-                    // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
 
-                    echo '<a class="product-box-img">';
-                    echo '<img src="../resources/products/'.htmlspecialchars($row['ProductImages']).'.png" alt="">';
-                    echo '</a>';
+        <?php } ?>
+      </div>
 
-                    echo '<div class="product-box-text">';
-                    echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
-                    echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+    </div>
 
-                    echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
+    </div>
+
+    <div class="same-category-section">
+
+      <h2>From the Same Category</h2>
+      <div class="same-category">
+
+        <?php
+
+        $query = "SELECT ProductID, ProductName, Price, ProductImages FROM product WHERE category = :category LIMIT 8";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([":category" => $category]);
+
+        // Fetch  Use FETCH_ASSOC to get an associative array
+        while ($row = $stmt->fetch()) { ?>
+
+          <?php
+          //  action="/product-page.php" method="POST" - data-*
+          echo '<div class="product-box" data-productName="' . htmlspecialchars($row['ProductName']) . '" data-boxProductID="' . htmlspecialchars($row['ProductID']) . '">';
+
+
+          //hidden input para mapasa yung product id
+          // echo '  <input type="hidden" name="productID" value="'. htmlspecialchars($row['ProductID']) .'">';
+
+          echo '<a class="product-box-img">';
+          echo '<img src="../resources/products/' . htmlspecialchars($row['ProductImages']) . '.png" alt="">';
+          echo '</a>';
+
+          echo '<div class="product-box-text">';
+          echo '<a href="#" class="product-text-title">' . htmlspecialchars($row['ProductName']) . '</a>';
+          echo '<span class="product-box-text-title">' . htmlspecialchars($row['Price']) . '</span>';
+
+          echo '<button name="product-atc-btn"  value ="' . htmlspecialchars($row['ProductID']) . '" class="product-cart-button atc-' . htmlspecialchars(str_replace(' ', '-', strtolower($row['ProductName']))) . '">
                       Add to Cart
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
                         <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
                       </svg>
                     </button>';
 
-                    echo '</div>';
+          echo '</div>';
 
-                    echo '</div>';
-                    ?>
+          echo '</div>';
+          ?>
 
-                <?php
-                    }   
-                ?>
+        <?php
+        }
+        ?>
 
-            </div>
+      </div>
 
-            </div>
+    </div>
 
   </section>
 
 
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
 
-<!-- Modal content -->
-<div class="main-modal">
-  <div class="modal-content-header">
-    <span class="close-modal">&times;</span>
-  </div>
-  <div class="main-modal-content">
-    <p class="modal-text"></p>
-  </div>
-  
-  
-</div>
+    <!-- Modal content -->
+    <div class="main-modal">
+      <div class="modal-content-header">
+        <span class="close-modal">&times;</span>
+      </div>
+      <div class="main-modal-content">
+        <p class="modal-text"></p>
+      </div>
 
-</div>
+
+    </div>
+
+  </div>
 
 
 
   <!-- CART POP UP -->
-    <!-- Cart Pop-up -->
-    <section class="cart-container">
+  <!-- Cart Pop-up -->
+  <section class="cart-container">
     <div class="cart-tab">
       <h1>My Cart</h1>
 
-      
+
       <div class="cart-list">
 
 
-      <div class="cart-list">
+        <div class="cart-list">
           <!-- DATA WILL BE GENERATED BY JS NA AFTER NG FETCHING-->
-      </div>
+        </div>
 
-        
+
 
 
       </div>
@@ -725,7 +717,7 @@ if (isset($_POST['btnCheckoutClicked'])) {
     </div>
 
   </section>
-                
+
 
 
   <!-- Footer -->
