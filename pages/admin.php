@@ -46,22 +46,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     // add/edit products
     if (isset($_POST['add_product'])) {
-        // add a product
-        $sql_add = "INSERT INTO Product (ProductName, ManufacturerName, Price, Stock, Category) 
-                    VALUES (:productName, :ManufacturerName, :price, :stock, :category)";
-        $stmt_add = $pdo->prepare($sql_add);
-        $stmt_add->execute([
+
+        $sql_insert_manufacturer = "INSERT INTO Manufacturer (ManufacturerName) 
+                                    VALUES (:ManufacturerName)
+                                    ON DUPLICATE KEY UPDATE ManufacturerName = ManufacturerName";
+        $stmt_insert_manufacturer = $pdo->prepare($sql_insert_manufacturer);
+        $stmt_insert_manufacturer->execute([
+            'ManufacturerName' => $_POST['ManufacturerName']
+        ]);
+
+        $sql_add_product = "INSERT INTO Product (ProductName, ManufacturerName, Description, Price, Stock, Category) 
+                            VALUES (:productName, :ManufacturerName, :Description, :price, :stock, :category)";
+        $stmt_add_product = $pdo->prepare($sql_add_product);
+        $stmt_add_product->execute([
             'productName' => $_POST['productName'],
             'ManufacturerName' => $_POST['ManufacturerName'],
+            'Description' => $_POST['Description'],
             'price' => $_POST['price'],
             'stock' => $_POST['stock'],
             'category' => $_POST['category']
         ]);
 
+
+
+
         $message = "Product added successfully!";
     } elseif (isset($_POST['edit_product']) && isset($_POST['productID'])) {
         // edit a product
-        $sql_edit = "UPDATE Product SET ProductName = :productName, ManufacturerName = :manufacturerName, 
+        $sql_edit = "UPDATE Product SET ProductName = :productName, ManufacturerName = :ManufacturerName, 
                      Price = :price, Stock = :stock, Category = :category 
                      WHERE ProductID = :productID";
         $stmt_edit = $pdo->prepare($sql_edit);
@@ -257,8 +269,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="productName">Product Name:</label>
                         <input type="text" id="productName" name="productName" required>
 
-                        <label for="manufacturer">Manufacturer:</label>
-                        <input type="text" id="manufacturer" name="manufacturer" required>
+                        <label for="ManufacturerName">Manufacturer:</label>
+                        <input type="text" id="ManufacturerName" name="ManufacturerName" required>
+
+                        <label for="Description">Description:</label>
+                        <input type="text" id="Description" name="Description" required>
 
                         <label for="price">Price:</label>
                         <input type="number" id="price" name="price" step="0.01" required>
@@ -293,7 +308,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <tr>
                                     <th class="product-id">Product ID</th>
                                     <th class="product-name">Product Name</th>
-                                    <th class="manufacturer">Manufacturer</th>
+                                    <th class="ManufacturerName">Manufacturer</th>
+                                    <th class="Description">Description</th>
                                     <th class="price">Price</th>
                                     <th class="stock">Stock</th>
                                     <th class="category">Category</th>
@@ -307,11 +323,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <td><?php echo htmlspecialchars($product['ProductID']); ?></td>
                                         <td><?php echo htmlspecialchars($product['ProductName']); ?></td>
                                         <td><?php echo htmlspecialchars($product['ManufacturerName']); ?></td>
+                                        <td><?php echo htmlspecialchars($product['Description']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Price']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Stock']); ?></td>
                                         <td><?php echo htmlspecialchars($product['Category']); ?></td>
                                         <td id="table-buttons">
-                                            <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['ManufacturerName']); ?>', <?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">
+                                            <button class="edit-button" onclick="editProduct(<?php echo $product['ProductID']; ?>, '<?php echo htmlspecialchars($product['ProductName']); ?>', '<?php echo htmlspecialchars($product['ManufacturerName']); ?>', '<?php echo htmlspecialchars($product['Description']); ?>',<?php echo $product['Price']; ?>, <?php echo $product['Stock']; ?>, '<?php echo htmlspecialchars($product['Category']); ?>')">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button class="delete-button" onclick="confirmDelete(<?php echo $product['ProductID']; ?>)">

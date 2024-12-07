@@ -188,6 +188,7 @@
 .product-table {
     width: 100%;
     border-collapse: collapse;
+    
     margin: 20px 0;
     background-color: #ececec;
     border-radius: 20px;
@@ -227,7 +228,7 @@
 
 .product-body {
     display: block;
-    max-height: 400px; 
+    max-height: 500px; 
     overflow-y: auto;  
     width: 100%;
 }
