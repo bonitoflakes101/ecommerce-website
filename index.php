@@ -194,7 +194,6 @@ if (isset($_POST['btnCheckoutClicked'])) {
           Experience lightning-fast speeds and seamless performance with our
           cutting-edge PC.
         </p>
-        <a href="https://localhost/ecommerce-website/pages/product_page.php?productName=THE%20BEAST%20Ultimate%20PC">Check out now</a>
       </div>
 
       <!-- Welcome Image -->
